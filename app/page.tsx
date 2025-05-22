@@ -8,7 +8,6 @@ export default function Home() {
     <S.HomeContainer>
       <S.AccentText>Primanry Accent</S.AccentText>
       <S.SubText>Secondary Accent</S.SubText>
-      <p>Normal Text</p>
 
       <S.HeroSection>
         <HeroRenderer />
