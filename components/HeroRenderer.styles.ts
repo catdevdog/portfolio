@@ -1,20 +1,59 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const HeroContainer = styled.div`
+  height: calc(100% - 180px);
+  text-align: left;
+  canvas {
     width: 100%;
     height: 100%;
-    text-align: left;
-    canvas {
-        width: 100%;
-        height: 100%;
-    }
-`
+  }
+`;
 export const CommandBox = styled.div`
-    font-family: 'DungGeunMo';
-    background: rgba(0, 0, 0, 0);
-    color: white;
-    font-size: 24px;
-    width: 330px;
-    height: 250px;
-    word-break: break-word;
+  font-family: "DungGeunMo";
+  background: rgba(0, 0, 0, 0);
+  color: white;
+  font-size: 28px;
+  width: 330px;
+  height: 250px;
+  word-break: break-word;
+  overflow: auto;
+`;
+
+export const currentCommand = styled.div`
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  display: inline-block;
+
+  .blink {
+    font-family: "DungGeunMo";
+    animation: blink 1s infinite;
+    -webkit-animation: blink 1s infinite;
+    -moz-animation: blink 1s infinite;
+    -o-animation: blink 1s infinite;
+    -ms-animation: blink 1s infinite;
+  }
+`;
+
+export const commandHistory = styled.div`
+  font-family: "DungGeunMo";
+  color: #ffffff;
+  font-size: 28px;
+  margin-bottom: 4px;
+`;
+
+export const commandHistoryItem = styled.div`
+  font-family: "DungGeunMo";
+  color: #ffffff;
+  font-size: 28px;
+  margin-bottom: 4px;
 `;

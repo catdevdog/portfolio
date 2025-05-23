@@ -1,25 +1,25 @@
 // styles/theme.ts
-import { DefaultTheme } from 'styled-components';
+import { DefaultTheme } from "styled-components";
 
-export const theme:DefaultTheme = {
+export const theme: DefaultTheme = {
   colors: {
-    primary: '#D84040',       // 주요 액센트 컬러
-    secondary: '#8E1616',     // 보조 액센트 컬러
-    background: '#000000',    // 페이지 배경 컬러
-	text: '#EEEEEE',          // 기본 텍스트 컬러
+    primary: "#D84040", // 주요 액센트 컬러
+    secondary: "#8E1616", // 보조 액센트 컬러
+    background: "#010101", // 페이지 배경 컬러
+    text: "#EEEEEE", // 기본 텍스트 컬러
   },
   spacing: {
-    xs: '4px',
-    sm: '8px',
-    md: '16px',
-    lg: '24px',
-    xl: '32px',
+    xs: "4px",
+    sm: "8px",
+    md: "16px",
+    lg: "24px",
+    xl: "32px",
   },
   fontSizes: {
-    sm: '0.875rem',  // 14px
-    md: '1rem',      // 16px
-    lg: '1.25rem',   // 20px
-    xl: '1.5rem',    // 24px
+    sm: "0.875rem", // 14px
+    md: "1rem", // 16px
+    lg: "1.25rem", // 20px
+    xl: "1.5rem", // 24px
   },
-  borderRadius: '8px',        // 기본 모서리 반경
+  borderRadius: "8px", // 기본 모서리 반경
 };
