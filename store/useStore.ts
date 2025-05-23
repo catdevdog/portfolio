@@ -69,7 +69,11 @@ export const useStore = create<StoreState>((set, get) => ({
     start: () => {
       const currentCommand = get().currentCommand;
       get().addCommandHistory(currentCommand);
-      get().addSystemCommandHistory("시작...");
+      if (get().startState) {
+        get().addSystemCommandHistory("already started...");
+        return;
+      }
+      get().addSystemCommandHistory("start project...");
       get().setDisplayOpen(true);
       get().setFocusDisplay(true);
       get().setStartState(true);
@@ -104,6 +108,13 @@ export const useStore = create<StoreState>((set, get) => ({
     // 명령어 유지/기록에 저장
     const currentCommand = get().currentCommand;
     get().addCommandHistory(currentCommand);
+
+    // 명령어 검증
+    if (get().definedFunctions[command] == undefined) {
+      get().addSystemCommandHistory("존재하지 않는 명령어입니다.");
+      get().clearCurrentCommand();
+      return;
+    }
 
     // 명령어 확인/실행
     const definedFunctions = get().definedFunctions;

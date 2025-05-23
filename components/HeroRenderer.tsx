@@ -1,10 +1,10 @@
-import { Html, OrbitControls, useGLTF } from "@react-three/drei";
+import { useStore } from "@/store/useStore";
+import { Html, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { PerspectiveCamera } from "three";
 import * as S from "./HeroRenderer.styles";
-import { useStore } from "@/store/useStore";
 
 type TypeHeroRendererProps = {
   command: string;
@@ -15,6 +15,7 @@ function Model({ command }: { command: string }) {
   const pivot = useRef<THREE.Object3D>(new THREE.Object3D());
   const { scene } = useGLTF("/models/base_basic_pbr.glb");
   const commandHistory = useStore((state) => state.commandHistory);
+  const commandBoxRef = useRef<HTMLDivElement>(null);
   //base_basic_pbr or 2_pbr
 
   const focusToInput = () => {
@@ -34,6 +35,14 @@ function Model({ command }: { command: string }) {
     pivot.current.position.set(0, -1.35, 0);
   }, [scene]);
 
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      if (commandBoxRef.current) {
+        commandBoxRef.current.scrollTop = commandBoxRef.current.scrollHeight;
+      }
+    });
+  }, [commandHistory.length]);
+
   return (
     <group ref={group}>
       <primitive object={pivot} />
@@ -47,7 +56,7 @@ function Model({ command }: { command: string }) {
         occlude
         distanceFactor={1}
       >
-        <S.CommandBox onClick={focusToInput}>
+        <S.CommandBox onClick={focusToInput} ref={commandBoxRef}>
           {/* history */}
           {commandHistory.length > 0 && (
             <S.commandHistory>

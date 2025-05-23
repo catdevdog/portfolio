@@ -1,10 +1,9 @@
 "use client";
 
-import * as S from "./page.styles";
 import HeroRenderer from "@/components/HeroRenderer";
-import { useState, useEffect, useRef } from "react";
 import { useStore } from "@/store/useStore";
-import { start } from "repl";
+import { useEffect, useRef } from "react";
+import * as S from "./page.styles";
 
 export default function Home() {
   const commandInputRef = useRef<HTMLInputElement>(null);
