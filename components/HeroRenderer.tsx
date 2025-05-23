@@ -82,7 +82,7 @@ function SmoothCamera({
   toggled: boolean;
 }) {
   const { camera } = useThree<{ camera: PerspectiveCamera }>();
-  const targetFov = toggled ? 40 : 100;
+  const targetFov = toggled ? 39 : 100;
 
   useFrame((_, delta) => {
     const goal = toggled ? frontPos : cornerPos;

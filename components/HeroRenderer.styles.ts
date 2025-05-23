@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const HeroContainer = styled.div`
-  height: calc(100% - 180px);
+  height: calc(100% - 250px);
   text-align: left;
   canvas {
     width: 100%;
@@ -49,6 +49,7 @@ export const commandHistory = styled.div`
   color: #ffffff;
   font-size: 28px;
   margin-bottom: 4px;
+  white-space: pre-wrap;
 `;
 
 export const commandHistoryItem = styled.div`

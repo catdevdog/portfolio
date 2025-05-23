@@ -35,6 +35,7 @@ export const ControlBox = styled.div`
   width: 340px;
   margin: 0 auto;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
   gap: 8px;
@@ -44,7 +45,7 @@ export const HeroCommandInput = styled.input`
   font-family: "DungGeunMo";
   padding: 12px 0;
 
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.colors.background};
   color: white;
   border: none;
   font-size: ${({ theme }) => theme.fontSizes.lg};
@@ -63,7 +64,7 @@ export const HeroCommandButton = styled.button`
   height: 48px;
   font-size: 24px;
   text-align: center;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.colors.background};
   color: white;
   border: none;
   border-bottom: 2px solid ${({ theme }) => theme.colors.text};
@@ -81,4 +82,30 @@ export const MainDisplay = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
   height: 100%;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
+`;
+
+export const RecommendedCommand = styled.div`
+  width: 100%;
+  font-family: "DungGeunMo";
+  color: #ffffff;
+  white-space: pre-wrap;
+  margin-top: 4px;
+  font-size: 20px;
+`;
+
+export const RecommendedCommandItem = styled.button`
+  font-family: "DungGeunMo";
+  background: rgba(0, 0, 0, 0);
+  border-bottom: 2px solid #ffffff;
+  background-color: ${({ theme }) => theme.colors.background};
+  color: #ffffff;
+  font-size: 20px;
+  margin: 0 4px 4px 0;
+  padding: 4px 8px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;

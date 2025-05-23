@@ -6,6 +6,9 @@ interface CommandHistoryItem {
 }
 
 interface StoreState {
+  startState: boolean;
+  setStartState: (start: boolean) => void;
+
   // 명령어 이력
   commandHistory: CommandHistoryItem[];
   addCommandHistory: (command: string) => void;
@@ -33,9 +36,13 @@ interface StoreState {
   definedFunctions: {
     [key: string]: () => void;
   };
+  validateCommand: (command: string) => void;
 }
 
 export const useStore = create<StoreState>((set, get) => ({
+  startState: false,
+  setStartState: (start) => set({ startState: start }),
+
   commandHistory: [],
   addCommandHistory: (command) =>
     set((state) => ({
@@ -62,18 +69,45 @@ export const useStore = create<StoreState>((set, get) => ({
     start: () => {
       const currentCommand = get().currentCommand;
       get().addCommandHistory(currentCommand);
-      get().addSystemCommandHistory("start portfolio...");
-
+      get().addSystemCommandHistory("시작...");
       get().setDisplayOpen(true);
       get().setFocusDisplay(true);
+      get().setStartState(true);
     },
     guide: () => {
-      const currentCommand = get().currentCommand;
-      get().addCommandHistory(currentCommand);
       get().addSystemCommandHistory("guide portfolio...");
     },
     cls: () => {
       get().clearCommandHistory();
     },
+
+    menu: () => {
+      get().addSystemCommandHistory("menu");
+    },
+    intro: () => {
+      get().addSystemCommandHistory("intro");
+    },
+    project: () => {
+      get().addSystemCommandHistory("project");
+    },
+    etc: () => {
+      get().addSystemCommandHistory("etc");
+    },
+  },
+  // 명령어 검증 후 실행
+  validateCommand: (command) => {
+    if (!get().startState) {
+      console.log("wrong command", command);
+      return;
+    }
+
+    // 명령어 유지/기록에 저장
+    const currentCommand = get().currentCommand;
+    get().addCommandHistory(currentCommand);
+
+    // 명령어 확인/실행
+    const definedFunctions = get().definedFunctions;
+    definedFunctions[command] && definedFunctions[command]();
+    get().clearCurrentCommand();
   },
 }));

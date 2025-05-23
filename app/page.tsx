@@ -4,11 +4,20 @@ import * as S from "./page.styles";
 import HeroRenderer from "@/components/HeroRenderer";
 import { useState, useEffect, useRef } from "react";
 import { useStore } from "@/store/useStore";
+import { start } from "repl";
 
 export default function Home() {
   const commandInputRef = useRef<HTMLInputElement>(null);
+  const commandListRef = useRef<string[]>([
+    "menu",
+    "intro",
+    "project",
+    "cls",
+    "etc",
+  ]);
 
   const {
+    startState,
     commandHistory,
     currentCommand,
     addCommandHistory,
@@ -17,19 +26,21 @@ export default function Home() {
     displayOpen,
     setDisplayOpen,
     definedFunctions,
+    validateCommand,
   } = useStore((state) => state);
 
+  // 명령어 입력시
   const handelKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      if (definedFunctions[currentCommand]) {
-        definedFunctions[currentCommand]();
+      if (currentCommand === "start") {
+        setDisplayOpen(true);
+        definedFunctions.start();
         clearCurrentCommand();
-      } else {
-        console.log("wrong command", currentCommand);
-      }
+      } else validateCommand(currentCommand);
     }
   };
 
+  // 마우스로 클릭시
   const handleClick = () => {
     if (commandInputRef.current) {
       commandInputRef.current.value = "start";
@@ -37,6 +48,11 @@ export default function Home() {
       definedFunctions.start();
       clearCurrentCommand();
     }
+  };
+
+  const handleCommandClick = (command: string) => {
+    setCurrentCommand(command);
+    validateCommand(command);
   };
 
   useEffect(() => {
@@ -55,7 +71,11 @@ export default function Home() {
           <S.HeroCommandInput
             value={currentCommand}
             onChange={(e) => setCurrentCommand(e.target.value)}
-            placeholder="Type 'start' or click '>'"
+            placeholder={
+              !startState
+                ? `Type 'start' or click '>'`
+                : "Use the command below"
+            }
             onKeyDown={(e) => handelKeyDown(e)}
             ref={commandInputRef}
             id="commandInput"
@@ -64,6 +84,19 @@ export default function Home() {
           <S.HeroCommandButton onClick={() => handleClick()}>
             {">"}
           </S.HeroCommandButton>
+          {startState && (
+            <S.RecommendedCommand>
+              {/* <span>추천 : </span> */}
+              {commandListRef.current.map((item, index) => (
+                <S.RecommendedCommandItem
+                  key={index}
+                  onClick={() => handleCommandClick(item)}
+                >
+                  {item}
+                </S.RecommendedCommandItem>
+              ))}
+            </S.RecommendedCommand>
+          )}
         </S.ControlBox>
       </S.HeroSection>
       <S.MainDisplay>dd</S.MainDisplay>
