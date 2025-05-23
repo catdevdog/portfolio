@@ -1,0 +1,30 @@
+{
+  // 저장 시 포맷터 실행
+  "editor.formatOnSave": true,
+
+  // 기본 포맷터를 Prettier로 지정
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // 들여쓰기 넓이를 스페이스 4칸으로 고정
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+
+  // 파일마다 다른 인덴트 방식을 자동 감지하지 않도록 비활성화
+  "editor.detectIndentation": false,
+}
