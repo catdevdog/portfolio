@@ -5,6 +5,7 @@ import { useStore } from "@/store/useStore";
 import { useEffect, useRef } from "react";
 import * as S from "./page.styles";
 import { useCommandProcessor } from "@/store/useCommands";
+import { MainDisplay } from "@/components/MainDisplay";
 
 export default function Home() {
   const commandInputRef = useRef<HTMLInputElement>(null);
@@ -61,7 +62,7 @@ export default function Home() {
   return (
     <S.HomeContainer>
       <S.HeroSection id="HeroSection" $open={displayOpen}>
-        <HeroRenderer command={currentCommand} />
+        <HeroRenderer />
         <S.ControlBox>
           <S.HeroCommandInput
             value={currentCommand}
@@ -81,7 +82,6 @@ export default function Home() {
           </S.HeroCommandButton>
           {startState && (
             <S.RecommendedCommand>
-              {/* <span>추천 : </span> */}
               {commandListRef.current.map((item, index) => (
                 <S.RecommendedCommandItem
                   key={index}
@@ -94,7 +94,11 @@ export default function Home() {
           )}
         </S.ControlBox>
       </S.HeroSection>
-      <S.MainDisplay>dd</S.MainDisplay>
+      {/* {startState && ( */}
+      <S.MainDisplayContainer>
+        <MainDisplay />
+      </S.MainDisplayContainer>
+      {/* )} */}
     </S.HomeContainer>
   );
 }

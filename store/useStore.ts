@@ -6,8 +6,17 @@ interface CommandHistoryItem {
 }
 
 interface StoreState {
+  // 시작 상태 TODO: startState와 displayOpen는 같은 역할을 하는지, 개념적으로 분리가 필요한지.
   startState: boolean;
   setStartState: (start: boolean) => void;
+
+  // 메인 디스플레이 토글
+  displayOpen: boolean;
+  setDisplayOpen: (open: boolean) => void;
+
+  // 디스플레이 상태 / 현재 디스플레이에 표기 할 것
+  displayState: string;
+  setDisplayState: (state: string) => void;
 
   // 명령어 이력
   commandHistory: CommandHistoryItem[];
@@ -15,37 +24,26 @@ interface StoreState {
   addSystemCommandHistory: (command: string) => void;
   clearCommandHistory: () => void;
 
-  // 마지막 명령어
+  // 실제로 쓰인 마지막 명령어
   lastCommand: CommandHistoryItem | undefined;
   setLastCommand: (command: CommandHistoryItem) => void;
 
-  // 현재 입력중인 명령어 (in input)
+  // 현재 입력중인 명령어 (only input)
   currentCommand: string;
   setCurrentCommand: (command: string) => void;
   clearCurrentCommand: () => void;
 
-  // 메인 디스플레이 토글
-  displayOpen: boolean;
-  setDisplayOpen: (open: boolean) => void;
-
   // 모델 디스플레이 포커스
   focusDisplay: boolean;
   setFocusDisplay: (open: boolean) => void;
-
-  // 정의된 명령어
-  // definedCommands: string[];
-
-  // command 실행
-
-  // definedFunctions: {
-  //   [key: string]: () => void;
-  // };
-  // validateCommand: (command: string) => void;
 }
 
 export const useStore = create<StoreState>((set, get) => ({
   startState: false,
   setStartState: (start) => set({ startState: start }),
+
+  displayState: "",
+  setDisplayState: (state) => set({ displayState: state }),
 
   commandHistory: [],
   addCommandHistory: (command) =>
@@ -74,62 +72,4 @@ export const useStore = create<StoreState>((set, get) => ({
 
   focusDisplay: false,
   setFocusDisplay: (open) => set({ focusDisplay: open }),
-
-  // definedFunctions: {
-  //   start: () => {
-  //     const currentCommand = get().currentCommand;
-  //     get().addCommandHistory(currentCommand);
-  //     if (get().startState) {
-  //       get().addSystemCommandHistory("already started...");
-  //       return;
-  //     }
-  //     get().addSystemCommandHistory("start project...");
-  //     get().setDisplayOpen(true);
-  //     get().setFocusDisplay(true);
-  //     get().setStartState(true);
-  //   },
-  //   guide: () => {
-  //     get().addSystemCommandHistory("guide portfolio...");
-  //   },
-  //   cls: () => {
-  //     get().clearCommandHistory();
-  //   },
-
-  //   menu: () => {
-  //     get().addSystemCommandHistory("menu");
-  //   },
-  //   intro: () => {
-  //     get().addSystemCommandHistory("intro");
-  //   },
-  //   project: () => {
-  //     get().addSystemCommandHistory("project");
-  //   },
-  //   etc: () => {
-  //     get().addSystemCommandHistory("etc");
-  //   },
-  // },
-
-  // 명령어 검증 후 실행
-  // validateCommand: (command) => {
-  //   if (!get().startState) {
-  //     console.log("wrong command", command);
-  //     return;
-  //   }
-
-  //   // 명령어 유지/기록에 저장
-  //   const currentCommand = get().currentCommand;
-  //   get().addCommandHistory(currentCommand);
-
-  //   // 명령어 검증
-  //   if (get().definedFunctions[command] == undefined) {
-  //     get().addSystemCommandHistory("존재하지 않는 명령어입니다.");
-  //     get().clearCurrentCommand();
-  //     return;
-  //   }
-
-  //   // 명령어 확인/실행
-  //   const definedFunctions = get().definedFunctions;
-  //   definedFunctions[command] && definedFunctions[command]();
-  //   get().clearCurrentCommand();
-  // },
 }));

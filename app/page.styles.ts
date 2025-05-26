@@ -21,8 +21,9 @@ interface HeroSectionProps {
 }
 
 export const HeroSection = styled.div<HeroSectionProps>`
-  flex: 0 1 ${({ $open }) => ($open ? "25%" : "100%")};
+  flex: 0 0 auto;
   min-width: 380px;
+  max-width: 380px;
   overflow: hidden;
   text-align: left;
 
@@ -33,6 +34,7 @@ export const HeroSection = styled.div<HeroSectionProps>`
 
 export const ControlBox = styled.div`
   width: 340px;
+  min-width: 340px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -76,14 +78,6 @@ export const HeroCommandButton = styled.button`
   }
 `;
 
-// Main Content
-export const MainDisplay = styled.div`
-  flex: 0 0 75%;
-  background-color: ${({ theme }) => theme.colors.background};
-  height: 100%;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-`;
-
 export const RecommendedCommand = styled.div`
   width: 100%;
   font-family: "DungGeunMo";
@@ -108,4 +102,12 @@ export const RecommendedCommandItem = styled.button`
   &:focus-visible {
     background-color: rgba(255, 255, 255, 0.1);
   }
+`;
+
+// Main Content
+export const MainDisplayContainer = styled.div`
+  flex: 0 1 calc(75% - 40px);
+  height: calc(100% - 40px);
+  // border-left: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
 `;

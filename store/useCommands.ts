@@ -1,4 +1,3 @@
-import { clear } from "node:console";
 import { useStore } from "./useStore";
 import { useEffect } from "react";
 
@@ -13,6 +12,7 @@ export const useCommandProcessor = () => {
     commandHistory,
     addCommandHistory,
     clearCommandHistory,
+    setDisplayState,
     setDisplayOpen,
     setFocusDisplay,
     addSystemCommandHistory,
@@ -31,7 +31,7 @@ export const useCommandProcessor = () => {
       setStartState(true);
     },
     guide: () => {
-      addSystemCommandHistory("guide portfolio...");
+      addSystemCommandHistory("명령어를 입력하거나 클릭하세요.");
     },
     cls: () => {
       clearCommandHistory();
@@ -45,6 +45,7 @@ export const useCommandProcessor = () => {
     },
     project: () => {
       addSystemCommandHistory("project");
+      setDisplayState("project");
     },
     etc: () => {
       addSystemCommandHistory("etc");

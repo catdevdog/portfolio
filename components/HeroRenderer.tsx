@@ -1,7 +1,7 @@
 import { useStore } from "@/store/useStore";
 import { Html, useGLTF, OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { PerspectiveCamera } from "three";
 import * as S from "./HeroRenderer.styles";
@@ -10,12 +10,13 @@ type TypeHeroRendererProps = {
   command: string;
 };
 
-function Model({ command }: { command: string }) {
+function Model() {
   const group = useRef<THREE.Group>(null);
   const pivot = useRef<THREE.Object3D>(new THREE.Object3D());
   const { scene } = useGLTF("/models/base_basic_pbr.glb");
   const commandHistory = useStore((state) => state.commandHistory);
   const commandBoxRef = useRef<HTMLDivElement>(null);
+  const command = useStore((state) => state.currentCommand);
   //base_basic_pbr or 2_pbr
 
   const focusToInput = () => {
@@ -106,7 +107,7 @@ function SmoothCamera({
   return null;
 }
 
-export default function HeroRenderer({ command = "" }: TypeHeroRendererProps) {
+export default function HeroRenderer() {
   const { focusDisplay } = useStore((state) => state);
   const displayOpen = useStore((state) => state.displayOpen);
 
@@ -141,13 +142,15 @@ export default function HeroRenderer({ command = "" }: TypeHeroRendererProps) {
               </Html>
             }
           >
-            <Model command={command} />
+            <Model />
           </Suspense>
 
           {/* 카메라 마우스 컨트롤 */}
-          {!displayOpen && (
-            <OrbitControls enablePan={false} enableZoom={false} />
-          )}
+          <OrbitControls
+            enablePan={false}
+            enableZoom={false}
+            enabled={!displayOpen} // ← displayOpen 에 따라 on/off만
+          />
 
           {/* 카메라 이동 */}
           <SmoothCamera
