@@ -13,12 +13,16 @@ interface StoreState {
   commandHistory: CommandHistoryItem[];
   addCommandHistory: (command: string) => void;
   addSystemCommandHistory: (command: string) => void;
+  clearCommandHistory: () => void;
+
+  // 마지막 명령어
+  lastCommand: CommandHistoryItem | undefined;
+  setLastCommand: (command: CommandHistoryItem) => void;
 
   // 현재 입력중인 명령어 (in input)
   currentCommand: string;
   setCurrentCommand: (command: string) => void;
   clearCurrentCommand: () => void;
-  clearCommandHistory: () => void;
 
   // 메인 디스플레이 토글
   displayOpen: boolean;
@@ -33,10 +37,10 @@ interface StoreState {
 
   // command 실행
 
-  definedFunctions: {
-    [key: string]: () => void;
-  };
-  validateCommand: (command: string) => void;
+  // definedFunctions: {
+  //   [key: string]: () => void;
+  // };
+  // validateCommand: (command: string) => void;
 }
 
 export const useStore = create<StoreState>((set, get) => ({
@@ -53,6 +57,12 @@ export const useStore = create<StoreState>((set, get) => ({
       commandHistory: [...state.commandHistory, { type: "sys", command }],
     })),
 
+  lastCommand: undefined,
+  setLastCommand: (command) =>
+    set((state) => ({
+      commandHistory: [...state.commandHistory, command],
+    })),
+
   currentCommand: "",
   setCurrentCommand: (command) => set({ currentCommand: command }),
 
@@ -65,60 +75,61 @@ export const useStore = create<StoreState>((set, get) => ({
   focusDisplay: false,
   setFocusDisplay: (open) => set({ focusDisplay: open }),
 
-  definedFunctions: {
-    start: () => {
-      const currentCommand = get().currentCommand;
-      get().addCommandHistory(currentCommand);
-      if (get().startState) {
-        get().addSystemCommandHistory("already started...");
-        return;
-      }
-      get().addSystemCommandHistory("start project...");
-      get().setDisplayOpen(true);
-      get().setFocusDisplay(true);
-      get().setStartState(true);
-    },
-    guide: () => {
-      get().addSystemCommandHistory("guide portfolio...");
-    },
-    cls: () => {
-      get().clearCommandHistory();
-    },
+  // definedFunctions: {
+  //   start: () => {
+  //     const currentCommand = get().currentCommand;
+  //     get().addCommandHistory(currentCommand);
+  //     if (get().startState) {
+  //       get().addSystemCommandHistory("already started...");
+  //       return;
+  //     }
+  //     get().addSystemCommandHistory("start project...");
+  //     get().setDisplayOpen(true);
+  //     get().setFocusDisplay(true);
+  //     get().setStartState(true);
+  //   },
+  //   guide: () => {
+  //     get().addSystemCommandHistory("guide portfolio...");
+  //   },
+  //   cls: () => {
+  //     get().clearCommandHistory();
+  //   },
 
-    menu: () => {
-      get().addSystemCommandHistory("menu");
-    },
-    intro: () => {
-      get().addSystemCommandHistory("intro");
-    },
-    project: () => {
-      get().addSystemCommandHistory("project");
-    },
-    etc: () => {
-      get().addSystemCommandHistory("etc");
-    },
-  },
+  //   menu: () => {
+  //     get().addSystemCommandHistory("menu");
+  //   },
+  //   intro: () => {
+  //     get().addSystemCommandHistory("intro");
+  //   },
+  //   project: () => {
+  //     get().addSystemCommandHistory("project");
+  //   },
+  //   etc: () => {
+  //     get().addSystemCommandHistory("etc");
+  //   },
+  // },
+
   // 명령어 검증 후 실행
-  validateCommand: (command) => {
-    if (!get().startState) {
-      console.log("wrong command", command);
-      return;
-    }
+  // validateCommand: (command) => {
+  //   if (!get().startState) {
+  //     console.log("wrong command", command);
+  //     return;
+  //   }
 
-    // 명령어 유지/기록에 저장
-    const currentCommand = get().currentCommand;
-    get().addCommandHistory(currentCommand);
+  //   // 명령어 유지/기록에 저장
+  //   const currentCommand = get().currentCommand;
+  //   get().addCommandHistory(currentCommand);
 
-    // 명령어 검증
-    if (get().definedFunctions[command] == undefined) {
-      get().addSystemCommandHistory("존재하지 않는 명령어입니다.");
-      get().clearCurrentCommand();
-      return;
-    }
+  //   // 명령어 검증
+  //   if (get().definedFunctions[command] == undefined) {
+  //     get().addSystemCommandHistory("존재하지 않는 명령어입니다.");
+  //     get().clearCurrentCommand();
+  //     return;
+  //   }
 
-    // 명령어 확인/실행
-    const definedFunctions = get().definedFunctions;
-    definedFunctions[command] && definedFunctions[command]();
-    get().clearCurrentCommand();
-  },
+  //   // 명령어 확인/실행
+  //   const definedFunctions = get().definedFunctions;
+  //   definedFunctions[command] && definedFunctions[command]();
+  //   get().clearCurrentCommand();
+  // },
 }));

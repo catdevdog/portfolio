@@ -1,5 +1,5 @@
 import { useStore } from "@/store/useStore";
-import { Html, useGLTF } from "@react-three/drei";
+import { Html, useGLTF, OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useEffect, useRef } from "react";
 import * as THREE from "three";
@@ -35,6 +35,7 @@ function Model({ command }: { command: string }) {
     pivot.current.position.set(0, -1.35, 0);
   }, [scene]);
 
+  // 스크롤을 맨 아래로 이동
   useEffect(() => {
     requestAnimationFrame(() => {
       if (commandBoxRef.current) {
@@ -107,6 +108,7 @@ function SmoothCamera({
 
 export default function HeroRenderer({ command = "" }: TypeHeroRendererProps) {
   const { focusDisplay } = useStore((state) => state);
+  const displayOpen = useStore((state) => state.displayOpen);
 
   // 코너 뷰
   const distance = 5;
@@ -143,7 +145,9 @@ export default function HeroRenderer({ command = "" }: TypeHeroRendererProps) {
           </Suspense>
 
           {/* 카메라 마우스 컨트롤 */}
-          {/* <OrbitControls enablePan={false} enableZoom={false} /> */}
+          {!displayOpen && (
+            <OrbitControls enablePan={false} enableZoom={false} />
+          )}
 
           {/* 카메라 이동 */}
           <SmoothCamera

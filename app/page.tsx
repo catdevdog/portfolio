@@ -4,6 +4,7 @@ import HeroRenderer from "@/components/HeroRenderer";
 import { useStore } from "@/store/useStore";
 import { useEffect, useRef } from "react";
 import * as S from "./page.styles";
+import { useCommandProcessor } from "@/store/useCommands";
 
 export default function Home() {
   const commandInputRef = useRef<HTMLInputElement>(null);
@@ -24,34 +25,27 @@ export default function Home() {
     clearCurrentCommand,
     displayOpen,
     setDisplayOpen,
-    definedFunctions,
-    validateCommand,
   } = useStore((state) => state);
 
   // 명령어 입력시
   const handelKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      if (currentCommand === "start") {
-        setDisplayOpen(true);
-        definedFunctions.start();
-        clearCurrentCommand();
-      } else validateCommand(currentCommand);
+      addCommandHistory(currentCommand);
     }
   };
 
-  // 마우스로 클릭시
+  // 클릭으로 시작
   const handleClick = () => {
     if (commandInputRef.current) {
       commandInputRef.current.value = "start";
       setCurrentCommand("start");
-      definedFunctions.start();
-      clearCurrentCommand();
+      addCommandHistory("start");
     }
   };
 
   const handleCommandClick = (command: string) => {
+    addCommandHistory(command);
     setCurrentCommand(command);
-    validateCommand(command);
   };
 
   useEffect(() => {
@@ -61,6 +55,8 @@ export default function Home() {
   useEffect(() => {
     console.log("log---", commandHistory);
   }, [commandHistory]);
+
+  useCommandProcessor();
 
   return (
     <S.HomeContainer>
