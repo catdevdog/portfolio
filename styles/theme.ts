@@ -3,9 +3,9 @@ import { DefaultTheme } from "styled-components";
 
 export const theme: DefaultTheme = {
   colors: {
-    primary: "#D84040", // 주요 액센트 컬러
-    secondary: "#8E1616", // 보조 액센트 컬러
-    background: "#010101", // 페이지 배경 컬러
+    primary: "#6A1E55", // 주요 액센트 컬러
+    secondary: "#A64D79", // 보조 액센트 컬러
+    background: "#1A1A1D", // 페이지 배경 컬러
     text: "#EEEEEE", // 기본 텍스트 컬러
   },
   spacing: {

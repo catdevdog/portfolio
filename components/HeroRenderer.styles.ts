@@ -17,6 +17,11 @@ export const CommandBox = styled.div`
   height: 250px;
   word-break: break-word;
   overflow: auto;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 `;
 
 export const currentCommand = styled.div`

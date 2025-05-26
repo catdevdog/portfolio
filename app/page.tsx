@@ -10,7 +10,7 @@ import { MainDisplay } from "@/components/MainDisplay";
 export default function Home() {
   const commandInputRef = useRef<HTMLInputElement>(null);
   const commandListRef = useRef<string[]>([
-    "menu",
+    "guide",
     "intro",
     "project",
     "cls",
@@ -37,10 +37,12 @@ export default function Home() {
 
   // 클릭으로 시작
   const handleClick = () => {
-    if (commandInputRef.current) {
+    if (!startState && commandInputRef.current) {
       commandInputRef.current.value = "start";
       setCurrentCommand("start");
       addCommandHistory("start");
+    } else if (startState) {
+      addCommandHistory(currentCommand);
     }
   };
 
@@ -94,11 +96,11 @@ export default function Home() {
           )}
         </S.ControlBox>
       </S.HeroSection>
-      {/* {startState && ( */}
-      <S.MainDisplayContainer>
-        <MainDisplay />
-      </S.MainDisplayContainer>
-      {/* )} */}
+      {startState && (
+        <S.MainDisplayContainer>
+          <MainDisplay />
+        </S.MainDisplayContainer>
+      )}
     </S.HomeContainer>
   );
 }

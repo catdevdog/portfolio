@@ -93,7 +93,7 @@ function SmoothCamera({
   toggled: boolean;
 }) {
   const { camera } = useThree<{ camera: PerspectiveCamera }>();
-  const targetFov = toggled ? 39 : 100;
+  const targetFov = toggled ? 38 : 100;
 
   useFrame((_, delta) => {
     const goal = toggled ? frontPos : cornerPos;
@@ -148,8 +148,10 @@ export default function HeroRenderer() {
           {/* 카메라 마우스 컨트롤 */}
           <OrbitControls
             enablePan={false}
-            enableZoom={false}
+            enableZoom={!displayOpen}
             enabled={!displayOpen} // ← displayOpen 에 따라 on/off만
+            minDistance={3}
+            maxDistance={10}
           />
 
           {/* 카메라 이동 */}

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
+
   height: 100vh;
   color: ${({ theme }) => theme.colors.text};
   display: flex;
@@ -21,15 +22,15 @@ interface HeroSectionProps {
 }
 
 export const HeroSection = styled.div<HeroSectionProps>`
-  flex: 0 0 auto;
-  min-width: 380px;
-  max-width: 380px;
+  flex: 0 0 380px;
   overflow: hidden;
   text-align: left;
 
   // 초기 진입시 css트릭
-  transform: translateX(${({ $open }) => ($open ? "0%" : "150%")});
-  transition: transform ${({ $open }) => ($open ? "1.2s" : "0s")} ease-in-out;
+  transform: translateX(
+    ${({ $open }) => ($open ? "0%" : "calc(50vw - 190px)")}
+  );
+  transition: transform ${({ $open }) => ($open ? "1.5s" : "0s")} ease-in-out;
 `;
 
 export const ControlBox = styled.div`
@@ -67,7 +68,7 @@ export const HeroCommandButton = styled.button`
   font-size: 24px;
   text-align: center;
   background-color: ${({ theme }) => theme.colors.background};
-  color: white;
+  color: ${({ theme }) => theme.colors.text};
   border: none;
   border-bottom: 2px solid ${({ theme }) => theme.colors.text};
   cursor: pointer;
@@ -80,6 +81,8 @@ export const HeroCommandButton = styled.button`
 
 export const RecommendedCommand = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   font-family: "DungGeunMo";
   color: #ffffff;
   white-space: pre-wrap;
@@ -90,11 +93,11 @@ export const RecommendedCommand = styled.div`
 export const RecommendedCommandItem = styled.button`
   font-family: "DungGeunMo";
   background: rgba(0, 0, 0, 0);
-  border-bottom: 2px solid #ffffff;
+  border: none;
+  border-bottom: 2px solid #eee;
   background-color: ${({ theme }) => theme.colors.background};
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 20px;
-  margin: 0 4px 4px 0;
   padding: 4px 8px;
   cursor: pointer;
 
@@ -106,7 +109,7 @@ export const RecommendedCommandItem = styled.button`
 
 // Main Content
 export const MainDisplayContainer = styled.div`
-  flex: 0 1 calc(75% - 40px);
+  flex: 0 1 75%;
   height: calc(100% - 40px);
   // border-left: 1px solid rgba(255, 255, 255, 0.1);
   padding: 20px;

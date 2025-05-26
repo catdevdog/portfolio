@@ -31,15 +31,19 @@ export const useCommandProcessor = () => {
       setStartState(true);
     },
     guide: () => {
-      addSystemCommandHistory("명령어를 입력하거나 클릭하세요.");
+      addSystemCommandHistory(`
+명령어 목록
+┣━ guide: 명령어 안내
+┣━ intro: 소개 페이지
+┣━ project: 프로젝트
+┣━ cls: 이력 초기화
+┗━ etc: 기타 명령어
+        `);
     },
     cls: () => {
       clearCommandHistory();
     },
 
-    menu: () => {
-      addSystemCommandHistory("menu");
-    },
     intro: () => {
       addSystemCommandHistory("intro");
     },
@@ -57,7 +61,7 @@ export const useCommandProcessor = () => {
     if (handlers[command]) {
       handlers[command]();
     } else {
-      addSystemCommandHistory(`Unknown command: ${command}`);
+      addSystemCommandHistory(`'${command}'는 유효하지 않은 명령어입니다.`);
     }
 
     clearCurrentCommand();

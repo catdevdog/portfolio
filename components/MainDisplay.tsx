@@ -7,7 +7,7 @@ export const MainDisplay = () => {
   const { displayState } = useStore((state) => state);
   const displayName =
     displayState.charAt(0).toUpperCase() + displayState.slice(1);
-  const dynamicImportPath = `@/components/display/${displayName}`;
+  const dynamicImportPath = `@/components/content/${displayName}`;
 
   const DynamicDisplay = useMemo(() => {
     return dynamic(() =>
