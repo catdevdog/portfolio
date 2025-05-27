@@ -1,7 +1,7 @@
-import 'styled-components';
+import "styled-components";
 
 // styled-components의 DefaultTheme 인터페이스에 theme 타입을 병합
-declare module 'styled-components' {
+declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
       primary: string;
@@ -21,7 +21,9 @@ declare module 'styled-components' {
       md: string;
       lg: string;
       xl: string;
+      cmd: string; // 추가된 커맨드 폰트 사이즈
     };
+    systemFontFamily: string;
     borderRadius: string;
   }
 }

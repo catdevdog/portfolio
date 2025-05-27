@@ -1,3 +1,5 @@
+"use client";
+
 import { useStore } from "@/store/useStore";
 import { Html, useGLTF, OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
@@ -5,15 +7,22 @@ import { Suspense, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { PerspectiveCamera } from "three";
 import * as S from "./HeroRenderer.styles";
+import { theme } from "@/styles/theme";
+import { ThemeProvider } from "styled-components";
 
 type TypeHeroRendererProps = {
   command: string;
 };
 
+const systemCommonStyle = {
+  fontFamily: theme.systemFontFamily,
+  fontSize: theme.fontSizes.cmd,
+};
+
 function Model() {
   const group = useRef<THREE.Group>(null);
   const pivot = useRef<THREE.Object3D>(new THREE.Object3D());
-  const { scene } = useGLTF("/models/base_basic_pbr.glb");
+  const { scene } = useGLTF("/models/terminal.glb");
   const commandHistory = useStore((state) => state.commandHistory);
   const commandBoxRef = useRef<HTMLDivElement>(null);
   const command = useStore((state) => state.currentCommand);
@@ -40,7 +49,11 @@ function Model() {
   useEffect(() => {
     requestAnimationFrame(() => {
       if (commandBoxRef.current) {
-        commandBoxRef.current.scrollTop = commandBoxRef.current.scrollHeight;
+        // commandBoxRef.current.scrollTop = commandBoxRef.current.scrollHeight;
+        commandBoxRef.current.scrollTo({
+          top: commandBoxRef.current.scrollHeight,
+          behavior: "smooth",
+        });
       }
     });
   }, [commandHistory.length]);
@@ -52,13 +65,17 @@ function Model() {
       <Html
         // screenMesh 기준 local 좌표(중심)로 이동
         //1.70, -0.78, 0.4
-        position={[0, 0, 0.422]}
+        position={[0, -0.82, 0.05]}
         transform
         center={false}
         occlude
-        distanceFactor={1}
+        distanceFactor={1.5}
       >
-        <S.CommandBox onClick={focusToInput} ref={commandBoxRef}>
+        <S.CommandBox
+          onClick={focusToInput}
+          ref={commandBoxRef}
+          style={systemCommonStyle}
+        >
           {/* history */}
           {commandHistory.length > 0 && (
             <S.commandHistory>
@@ -93,7 +110,7 @@ function SmoothCamera({
   toggled: boolean;
 }) {
   const { camera } = useThree<{ camera: PerspectiveCamera }>();
-  const targetFov = toggled ? 38 : 100;
+  const targetFov = toggled ? 60 : 100;
 
   useFrame((_, delta) => {
     const goal = toggled ? frontPos : cornerPos;
@@ -114,10 +131,10 @@ export default function HeroRenderer() {
   // 코너 뷰
   const distance = 5;
   const d = distance / Math.sqrt(3);
-  const cornerPos = new THREE.Vector3(d, d * 1.3, d);
+  const cornerPos = new THREE.Vector3(d, 0, d);
 
   // 정면 뷰
-  const frontPos = new THREE.Vector3(0, 0.5, 4.5);
+  const frontPos = new THREE.Vector3(0, 0, 4);
 
   return (
     <>
@@ -126,40 +143,43 @@ export default function HeroRenderer() {
           shadows
           camera={{
             position: cornerPos.toArray(),
-            fov: 100,
             near: 0.01,
             far: 100,
           }}
         >
-          {/* 조명 */}
-          <ambientLight intensity={1} />
-          <directionalLight castShadow position={[0, 0, 1]} intensity={1} />
+          <ThemeProvider theme={theme}>
+            {/* 조명 */}
+            <ambientLight intensity={1} />
+            <directionalLight castShadow position={[0, 1, 0]} intensity={1} />
 
-          <Suspense
-            fallback={
-              <Html center style={{ fontFamily: "DungGeunMo" }}>
-                Loading...
-              </Html>
-            }
-          >
-            <Model />
-          </Suspense>
+            <Suspense
+              fallback={
+                <Html center style={{ fontFamily: "DungGeunMo" }}>
+                  Loading...
+                </Html>
+              }
+            >
+              <Model />
+            </Suspense>
 
-          {/* 카메라 마우스 컨트롤 */}
-          <OrbitControls
-            enablePan={false}
-            enableZoom={!displayOpen}
-            enabled={!displayOpen} // ← displayOpen 에 따라 on/off만
-            minDistance={3}
-            maxDistance={10}
-          />
+            {/* 카메라 마우스 컨트롤 */}
+            <OrbitControls
+              enablePan={false}
+              enableZoom={!displayOpen}
+              // enabled={!displayOpen} // ← displayOpen 에 따라 on/off만
+              minDistance={displayOpen ? 4 : 4}
+              maxDistance={displayOpen ? 5 : 8}
+              minAzimuthAngle={!displayOpen ? -Math.PI / 4 : -Math.PI / 4}
+              maxAzimuthAngle={!displayOpen ? Math.PI / 4 : Math.PI / 4}
+            />
 
-          {/* 카메라 이동 */}
-          <SmoothCamera
-            cornerPos={cornerPos}
-            frontPos={frontPos}
-            toggled={focusDisplay}
-          />
+            {/* 카메라 이동 */}
+            <SmoothCamera
+              cornerPos={cornerPos}
+              frontPos={frontPos}
+              toggled={focusDisplay}
+            />
+          </ThemeProvider>
         </Canvas>
       </S.HeroContainer>
     </>

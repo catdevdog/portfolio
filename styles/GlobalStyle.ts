@@ -13,6 +13,13 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-display: swap;
   }
+  @font-face {
+    font-family: 'IBMPlexMono';
+    src: url('/fonts/IBMPlexMono-Medium.ttf');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
 
   html, body {
     color: #ffffff;

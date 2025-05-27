@@ -11,7 +11,7 @@ export default function Home() {
   const commandInputRef = useRef<HTMLInputElement>(null);
   const commandListRef = useRef<string[]>([
     "guide",
-    "intro",
+    "profile",
     "project",
     "cls",
     "etc",

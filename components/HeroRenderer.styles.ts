@@ -9,12 +9,10 @@ export const HeroContainer = styled.div`
   }
 `;
 export const CommandBox = styled.div`
-  font-family: "DungGeunMo";
   background: rgba(0, 0, 0, 0);
   color: white;
-  font-size: 28px;
-  width: 330px;
-  height: 250px;
+  width: 480px;
+  height: 260px;
   word-break: break-word;
   overflow: auto;
   -ms-user-select: none;
@@ -22,6 +20,8 @@ export const CommandBox = styled.div`
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  border-radius: 0 0 16px;
+  line-height: 1.2;
 `;
 
 export const currentCommand = styled.div`
@@ -40,7 +40,6 @@ export const currentCommand = styled.div`
   display: inline-block;
 
   .blink {
-    font-family: "DungGeunMo";
     animation: blink 1s infinite;
     -webkit-animation: blink 1s infinite;
     -moz-animation: blink 1s infinite;
@@ -50,16 +49,12 @@ export const currentCommand = styled.div`
 `;
 
 export const commandHistory = styled.div`
-  font-family: "DungGeunMo";
   color: #ffffff;
-  font-size: 28px;
   margin-bottom: 4px;
   white-space: pre-wrap;
 `;
 
 export const commandHistoryItem = styled.div`
-  font-family: "DungGeunMo";
   color: #ffffff;
-  font-size: 28px;
   margin-bottom: 4px;
 `;

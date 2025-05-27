@@ -34,7 +34,7 @@ export const useCommandProcessor = () => {
       addSystemCommandHistory(`
 명령어 목록
 ┣━ guide: 명령어 안내
-┣━ intro: 소개 페이지
+┣━ profile: 소개 페이지
 ┣━ project: 프로젝트
 ┣━ cls: 이력 초기화
 ┗━ etc: 기타 명령어
@@ -44,8 +44,8 @@ export const useCommandProcessor = () => {
       clearCommandHistory();
     },
 
-    intro: () => {
-      addSystemCommandHistory("intro");
+    profile: () => {
+      addSystemCommandHistory("profile");
     },
     project: () => {
       addSystemCommandHistory("project");
@@ -58,11 +58,11 @@ export const useCommandProcessor = () => {
 
   // 명령어 유효성 검사 및 실행
   const validateCommand = (command: string) => {
-    if (handlers[command]) {
-      handlers[command]();
-    } else {
-      addSystemCommandHistory(`'${command}'는 유효하지 않은 명령어입니다.`);
-    }
+    const fn = handlers[command];
+
+    fn
+      ? fn()
+      : addSystemCommandHistory(`'${command}'는 유효하지 않은 명령어입니다.`);
 
     clearCurrentCommand();
   };

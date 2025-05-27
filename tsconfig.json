@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "typeRoots": ["./src/styles", "./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types", "./styled.d.ts"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
