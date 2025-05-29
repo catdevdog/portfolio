@@ -23,9 +23,8 @@ export default function Home() {
     currentCommand,
     addCommandHistory,
     setCurrentCommand,
-    clearCurrentCommand,
     displayOpen,
-    setDisplayOpen,
+    displayArr,
   } = useStore((state) => state);
 
   // 명령어 입력시
@@ -95,10 +94,13 @@ export default function Home() {
             </S.RecommendedCommand>
           )}
         </S.ControlBox>
+        {displayArr}
       </S.HeroSection>
       {startState && (
         <S.MainDisplayContainer>
-          <MainDisplay />
+          {displayArr.map((display, index) => (
+            <MainDisplay displayName={display} key={`${display}_${index}`} />
+          ))}
         </S.MainDisplayContainer>
       )}
     </S.HomeContainer>

@@ -12,7 +12,7 @@ export const useCommandProcessor = () => {
     commandHistory,
     addCommandHistory,
     clearCommandHistory,
-    setDisplayState,
+    addDisplay,
     setDisplayOpen,
     setFocusDisplay,
     addSystemCommandHistory,
@@ -46,10 +46,11 @@ export const useCommandProcessor = () => {
 
     profile: () => {
       addSystemCommandHistory("profile");
+      addDisplay("Profile");
     },
     project: () => {
       addSystemCommandHistory("project");
-      setDisplayState("project");
+      addDisplay("Project");
     },
     etc: () => {
       addSystemCommandHistory("etc");

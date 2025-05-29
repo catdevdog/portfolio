@@ -15,8 +15,9 @@ interface StoreState {
   setDisplayOpen: (open: boolean) => void;
 
   // 디스플레이 상태 / 현재 디스플레이에 표기 할 것
-  displayState: string;
-  setDisplayState: (state: string) => void;
+  displayArr: string[];
+  addDisplay: (display: string) => void;
+  removeDisplay: (display: string) => void;
 
   // 명령어 이력
   commandHistory: CommandHistoryItem[];
@@ -42,8 +43,25 @@ export const useStore = create<StoreState>((set, get) => ({
   startState: false,
   setStartState: (start) => set({ startState: start }),
 
-  displayState: "",
-  setDisplayState: (state) => set({ displayState: state }),
+  displayArr: [],
+  addDisplay: (display) =>
+    set((state) => {
+      // 있는 디스플레이는 제일 뒤로
+      if (state.displayArr.includes(display)) {
+        return {
+          displayArr: state.displayArr
+            .filter((d) => d !== display)
+            .concat(display),
+        };
+      }
+      return {
+        displayArr: [...state.displayArr, display],
+      };
+    }),
+  removeDisplay: (display) =>
+    set((state) => ({
+      displayArr: state.displayArr.filter((d) => d !== display),
+    })),
 
   commandHistory: [],
   addCommandHistory: (command) =>

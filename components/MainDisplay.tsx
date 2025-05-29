@@ -3,25 +3,21 @@ import { useStore } from "@/store/useStore";
 import dynamic from "next/dynamic";
 import { Suspense, useMemo } from "react";
 
-export const MainDisplay = () => {
-  const { displayState } = useStore((state) => state);
-  const displayName =
-    displayState.charAt(0).toUpperCase() + displayState.slice(1);
-  const dynamicImportPath = `@/components/content/${displayName}`;
+export const MainDisplay = ({ displayName }: { displayName: string }) => {
+  const displayContent =
+    displayName.charAt(0).toUpperCase() + displayName.slice(1);
+  const dynamicImportPath = `@/components/content/${displayContent}`;
 
   const DynamicDisplay = useMemo(() => {
     return dynamic(() =>
-      import(dynamicImportPath).then((mod) => mod[displayName])
+      import(dynamicImportPath).then((mod) => mod[displayContent])
     );
-  }, [displayName]);
+  }, [displayContent]);
 
   return (
     <S.MainDisplay>
-      <h1>
-        {displayName}-{displayState} Display
-      </h1>
       <Suspense fallback={<div>Loading...</div>}>
-        {DynamicDisplay && displayState.length > 0 && <DynamicDisplay />}
+        {DynamicDisplay && <DynamicDisplay />}
       </Suspense>
     </S.MainDisplay>
   );

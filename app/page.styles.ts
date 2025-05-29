@@ -53,7 +53,7 @@ export const HeroCommandInput = styled.input`
 
   font-family: ${({ theme }) => theme.systemFontFamily};
   background-color: ${({ theme }) => theme.colors.background};
-  color: white;
+  color: ${({ theme }) => theme.colors.text};
   border: none;
   font-size: ${({ theme }) => theme.fontSizes.md};
   border-bottom: 2px solid ${({ theme }) => theme.colors.text};
