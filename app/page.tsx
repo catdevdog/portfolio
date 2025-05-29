@@ -5,9 +5,11 @@ import { useStore } from "@/store/useStore";
 import { useEffect, useRef } from "react";
 import * as S from "./page.styles";
 import { useCommandProcessor } from "@/store/useCommands";
-import { MainDisplay } from "@/components/MainDisplay";
+import { Window } from "@/components/Window";
+import { motion } from "motion/react";
 
 export default function Home() {
+  const windowConstraintRef = useRef<HTMLDivElement>(null);
   const commandInputRef = useRef<HTMLInputElement>(null);
   const commandListRef = useRef<string[]>([
     "guide",
@@ -97,11 +99,15 @@ export default function Home() {
         {displayArr}
       </S.HeroSection>
       {startState && (
-        <S.MainDisplayContainer>
+        <S.WindowContainer ref={windowConstraintRef}>
           {displayArr.map((display, index) => (
-            <MainDisplay displayName={display} key={`${display}_${index}`} />
+            <Window
+              displayName={display}
+              key={`${display}_${index}`}
+              dragConstraintsRef={windowConstraintRef}
+            />
           ))}
-        </S.MainDisplayContainer>
+        </S.WindowContainer>
       )}
     </S.HomeContainer>
   );

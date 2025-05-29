@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "motion/react";
 
 export const HomeContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -108,10 +109,10 @@ export const RecommendedCommandItem = styled.button`
   }
 `;
 
-// Main Content
-export const MainDisplayContainer = styled.div`
+// Window
+export const WindowContainer = styled(motion.div)`
   flex: 0 1 75%;
+  position: relative;
   height: calc(100% - 40px);
-  // border-left: 1px solid rgba(255, 255, 255, 0.1);
   padding: 20px;
 `;

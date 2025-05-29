@@ -22,7 +22,7 @@ interface TerminalModelProps {
 
 function TerminalModel({
   bodyColor = "#000",
-  headerColor = "#4d4d4d",
+  headerColor = "#333", // theme.windowHeader.background,
 }: TerminalModelProps) {
   // traffic light 버튼 데이터
   const buttons = [
@@ -31,9 +31,6 @@ function TerminalModel({
     { color: "#27C93F", x: -0.62 },
   ];
 
-  const group = useRef<THREE.Group>(null);
-  const pivot = useRef<THREE.Object3D>(new THREE.Object3D());
-  const { scene } = useGLTF("/models/terminal.glb");
   const commandHistory = useStore((state) => state.commandHistory);
   const commandBoxRef = useRef<HTMLDivElement>(null);
   const command = useStore((state) => state.currentCommand);
@@ -50,7 +47,6 @@ function TerminalModel({
   useEffect(() => {
     requestAnimationFrame(() => {
       if (commandBoxRef.current) {
-        // commandBoxRef.current.scrollTop = commandBoxRef.current.scrollHeight;
         commandBoxRef.current.scrollTo({
           top: commandBoxRef.current.scrollHeight,
           behavior: "smooth",
@@ -179,7 +175,7 @@ export default function HeroRenderer() {
           <ThemeProvider theme={theme}>
             {/* 조명 */}
             <ambientLight intensity={1} />
-            <directionalLight castShadow position={[0, 1, 1]} intensity={1} />
+            <directionalLight castShadow position={[0, 0, 1]} intensity={1} />
 
             <Suspense
               fallback={

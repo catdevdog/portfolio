@@ -25,4 +25,7 @@ export const theme: DefaultTheme = {
   },
   systemFontFamily: "IBMPlexMono",
   borderRadius: "8px", // 기본 모서리 반경
+  windowHeader: {
+    background: "#222", // 윈도우 헤더 배경색
+  },
 };

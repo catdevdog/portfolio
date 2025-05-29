@@ -25,5 +25,8 @@ declare module "styled-components" {
     };
     systemFontFamily: string;
     borderRadius: string;
+    windowHeader: {
+      background: string; // 윈도우 헤더 배경색
+    };
   }
 }
