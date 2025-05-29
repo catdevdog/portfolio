@@ -24,6 +24,8 @@ export const WindowHeader = styled.div`
   background-color: ${({ theme }) => theme.windowHeader.background};
   border-radius: 6px 6px 0 0;
   position: relative;
+  cursor: grab;
+  user-select: none;
 `;
 
 export const WindowTrafficLights = styled.div`

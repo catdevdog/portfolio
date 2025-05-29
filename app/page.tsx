@@ -2,11 +2,10 @@
 
 import HeroRenderer from "@/components/HeroRenderer";
 import { useStore } from "@/store/useStore";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as S from "./page.styles";
 import { useCommandProcessor } from "@/store/useCommands";
 import { Window } from "@/components/Window";
-import { motion } from "motion/react";
 
 export default function Home() {
   const windowConstraintRef = useRef<HTMLDivElement>(null);
@@ -26,7 +25,8 @@ export default function Home() {
     addCommandHistory,
     setCurrentCommand,
     displayOpen,
-    displayArr,
+    windowArr,
+    windowPositions,
   } = useStore((state) => state);
 
   // 명령어 입력시
@@ -59,6 +59,36 @@ export default function Home() {
   useEffect(() => {
     console.log("log---", commandHistory);
   }, [commandHistory]);
+
+  useEffect(() => {
+    console.log("windowPositions", windowPositions);
+    console.log("windowArr", windowArr);
+
+    windowArr.forEach((windowName) => {
+      const position = windowPositions[windowName];
+      if (position && windowConstraintRef.current) {
+        const windowElement = document.getElementById(`window ${windowName}`);
+        if (windowElement) {
+          windowElement.style.transform = `translate(${position.x}px, ${position.y}px)`;
+        }
+      }
+    });
+  }, [windowArr.length]);
+
+  const WindowsRenderer = useMemo(
+    () => (
+      <S.WindowContainer ref={windowConstraintRef}>
+        {windowArr.map((window, index) => (
+          <Window
+            windowName={window}
+            key={`${window}_${index}`}
+            dragConstraintsRef={windowConstraintRef}
+          />
+        ))}
+      </S.WindowContainer>
+    ),
+    [windowArr.length]
+  );
 
   useCommandProcessor();
 
@@ -96,19 +126,9 @@ export default function Home() {
             </S.RecommendedCommand>
           )}
         </S.ControlBox>
-        {displayArr}
+        {windowArr}
       </S.HeroSection>
-      {startState && (
-        <S.WindowContainer ref={windowConstraintRef}>
-          {displayArr.map((display, index) => (
-            <Window
-              displayName={display}
-              key={`${display}_${index}`}
-              dragConstraintsRef={windowConstraintRef}
-            />
-          ))}
-        </S.WindowContainer>
-      )}
+      {startState && WindowsRenderer}
     </S.HomeContainer>
   );
 }

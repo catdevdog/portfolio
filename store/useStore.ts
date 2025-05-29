@@ -5,6 +5,11 @@ interface CommandHistoryItem {
   command: string;
 }
 
+interface windowPosition {
+  x: number;
+  y: number;
+}
+
 interface StoreState {
   // 시작 상태 TODO: startState와 displayOpen는 같은 역할을 하는지, 개념적으로 분리가 필요한지.
   startState: boolean;
@@ -15,9 +20,12 @@ interface StoreState {
   setDisplayOpen: (open: boolean) => void;
 
   // 디스플레이 상태 / 현재 디스플레이에 표기 할 것
-  displayArr: string[];
-  addDisplay: (display: string) => void;
-  removeDisplay: (display: string) => void;
+  windowArr: string[];
+  addWindow: (Window: string) => void;
+  removeWindow: (Window: string) => void;
+
+  windowPositions: Record<string, windowPosition>;
+  setWindowPosition: (windowName: string, position: windowPosition) => void;
 
   // 명령어 이력
   commandHistory: CommandHistoryItem[];
@@ -43,24 +51,30 @@ export const useStore = create<StoreState>((set, get) => ({
   startState: false,
   setStartState: (start) => set({ startState: start }),
 
-  displayArr: [],
-  addDisplay: (display) =>
+  windowArr: [],
+  addWindow: (Window) =>
     set((state) => {
-      // 있는 디스플레이는 제일 뒤로
-      if (state.displayArr.includes(display)) {
-        return {
-          displayArr: state.displayArr
-            .filter((d) => d !== display)
-            .concat(display),
-        };
+      const existingIndex = state.windowArr.indexOf(Window);
+      if (existingIndex !== -1) {
+        // 동일한 디스플레이가 이미 있다면 제거
+        state.windowArr.splice(existingIndex, 1);
       }
       return {
-        displayArr: [...state.displayArr, display],
+        windowArr: [...state.windowArr, Window],
       };
     }),
-  removeDisplay: (display) =>
+  removeWindow: (Window) =>
     set((state) => ({
-      displayArr: state.displayArr.filter((d) => d !== display),
+      windowArr: state.windowArr.filter((d) => d !== Window),
+    })),
+
+  windowPositions: {},
+  setWindowPosition: (windowName: string, position: windowPosition) =>
+    set((state) => ({
+      windowPositions: {
+        ...state.windowPositions,
+        [windowName]: position,
+      },
     })),
 
   commandHistory: [],
