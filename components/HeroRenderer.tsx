@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/useStore";
-import { Html, useGLTF, OrbitControls } from "@react-three/drei";
+import { Html, useGLTF, OrbitControls, RoundedBox } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
@@ -10,16 +10,27 @@ import * as S from "./HeroRenderer.styles";
 import { theme } from "@/styles/theme";
 import { ThemeProvider } from "styled-components";
 
-type TypeHeroRendererProps = {
-  command: string;
-};
-
 const systemCommonStyle = {
   fontFamily: theme.systemFontFamily,
   fontSize: theme.fontSizes.cmd,
 };
 
-function Model() {
+interface TerminalModelProps {
+  bodyColor?: string;
+  headerColor?: string;
+}
+
+function TerminalModel({
+  bodyColor = "#000",
+  headerColor = "#4d4d4d",
+}: TerminalModelProps) {
+  // traffic light 버튼 데이터
+  const buttons = [
+    { color: "#FF5F57", x: -0.88 },
+    { color: "#FFBD2E", x: -0.75 },
+    { color: "#27C93F", x: -0.62 },
+  ];
+
   const group = useRef<THREE.Group>(null);
   const pivot = useRef<THREE.Object3D>(new THREE.Object3D());
   const { scene } = useGLTF("/models/terminal.glb");
@@ -35,16 +46,6 @@ function Model() {
     }
   };
 
-  useEffect(() => {
-    if (!group.current) return;
-    group.current.remove(scene);
-    pivot.current.add(scene);
-    group.current.add(pivot.current);
-
-    // 피벗 오프셋 (디스플레이 기준으로 Z축 이동)
-    pivot.current.position.set(0, -1.35, 0);
-  }, [scene]);
-
   // 스크롤을 맨 아래로 이동
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -59,13 +60,41 @@ function Model() {
   }, [commandHistory.length]);
 
   return (
-    <group ref={group}>
-      <primitive object={pivot} />
+    <group>
+      {/* 터미널 본체 */}
+      <RoundedBox
+        args={[2.0, 1.2, 0.08]} // width, height, depth
+        radius={0.04} // 모서리 둥글기
+        smoothness={1} // 곡면 스무스 레벨
+      >
+        <meshStandardMaterial color={bodyColor} />
+      </RoundedBox>
+
+      {/* 헤더 바 */}
+      <RoundedBox
+        args={[2, 0.25, 0.081]} // width, height, depth 조금 더 두껍게
+        radius={0.04} // 각 모서리 동일하게 둥글게
+        smoothness={1}
+        position={[0, 0.48, 0]} // 본체 위쪽에 올리기
+      >
+        <meshStandardMaterial color={headerColor} />
+      </RoundedBox>
+
+      {/* 트래픽 라이트 버튼 */}
+      {buttons.map((btn, idx) => (
+        <mesh
+          key={idx}
+          position={[btn.x, 0.49, 0.05]} // 헤더 위쪽에 살짝 띄우기
+        >
+          <circleGeometry args={[0.04, 32]} />
+          <meshStandardMaterial color={btn.color} />
+        </mesh>
+      ))}
 
       <Html
         // screenMesh 기준 local 좌표(중심)로 이동
         //1.70, -0.78, 0.4
-        position={[0, -0.82, 0.05]}
+        position={[0, -0.1, 0.05]}
         transform
         center={false}
         occlude
@@ -150,7 +179,7 @@ export default function HeroRenderer() {
           <ThemeProvider theme={theme}>
             {/* 조명 */}
             <ambientLight intensity={1} />
-            <directionalLight castShadow position={[0, 1, 0]} intensity={1} />
+            <directionalLight castShadow position={[0, 1, 1]} intensity={1} />
 
             <Suspense
               fallback={
@@ -159,7 +188,7 @@ export default function HeroRenderer() {
                 </Html>
               }
             >
-              <Model />
+              <TerminalModel />
             </Suspense>
 
             {/* 카메라 마우스 컨트롤 */}

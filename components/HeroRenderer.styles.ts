@@ -11,8 +11,9 @@ export const HeroContainer = styled.div`
 export const CommandBox = styled.div`
   background: rgba(0, 0, 0, 0);
   color: white;
-  width: 480px;
-  height: 260px;
+  width: 500px;
+  height: 240px;
+  padding: 10px;
   word-break: break-word;
   overflow: auto;
   -ms-user-select: none;
