@@ -12,6 +12,9 @@ export const Window = ({
   dragConstraintsRef: React.RefObject<HTMLDivElement | null>;
 }) => {
   const windowRef = useRef<HTMLDivElement>(null);
+
+  const [windowState, setWindowState] = useState<boolean>(false);
+  const [windowAnimating, setWindowAnimating] = useState<boolean>(false);
   const [maximumState, setMaximumState] = useState<boolean>(false);
   const { windowPositions, setWindowPosition, removeWindow } = useStore(
     (state) => state
@@ -54,7 +57,6 @@ export const Window = ({
 
   // 최대화
   const handleMaximizeWindow = () => {
-    console.log("Maximize window:", windowName);
     if (!maximumState) {
       saveWindowPosition();
     }
@@ -62,24 +64,32 @@ export const Window = ({
   };
 
   useEffect(() => {
-    animateControls.start({
-      x: maximumState ? 0 : windowPositions[windowName]?.x || 0,
-      y: maximumState ? 0 : windowPositions[windowName]?.y || 0,
-      width: maximumState ? "100%" : "auto",
-      height: maximumState ? "100%" : "auto",
-      transition: {
-        type: "spring",
-        stiffness: 250, // 스프링 강도
-        damping: 50, // 감쇠 비율
-        duration: 1.2,
-      },
-    });
+    setWindowAnimating(true);
+    animateControls
+      .start({
+        x: maximumState ? 0 : windowPositions[windowName]?.x || 0,
+        y: maximumState ? 0 : windowPositions[windowName]?.y || 0,
+        width: maximumState ? "100%" : "auto",
+        height: maximumState ? "100%" : "auto",
+        transition: {
+          type: "spring",
+          stiffness: 350, // 스프링 강도
+          damping: 40, // 감쇠 비율
+        },
+      })
+      .then(() => {
+        if (!maximumState) {
+          setWindowState((v) => !v);
+        }
+        setWindowAnimating(false);
+      });
   }, [maximumState]);
 
   return (
     <S.Window
       ref={windowRef}
-      drag
+      key={`${windowName}-${windowState ? "1" : "0"}`} // 키 변경을 통해 저장된 좌표로 초기화
+      drag={!windowAnimating}
       dragControls={dragControls}
       dragConstraints={dragConstraintsRef}
       dragElastic={0.2}
@@ -108,6 +118,7 @@ export const Window = ({
         </S.WindowTrafficLights>
         <S.WindowTitle>{windowName}</S.WindowTitle>
       </S.WindowHeader>
+      {windowState ? `1` : `0`}
       <Suspense fallback={<div>Loading...</div>}>
         {DynamicDisplay && <DynamicDisplay />}
       </Suspense>
