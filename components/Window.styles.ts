@@ -2,10 +2,8 @@ import styled from "styled-components";
 import { motion } from "motion/react";
 
 export const Window = styled(motion.div)`
-  position: fixed;
-  // width: 75%;
-  // height: 100%;
-  max-height: calc(100vh - 40px);
+  position: absolute;
+
   border-radius: 2px;
   border: 1px solid ${({ theme }) => theme.windowHeader.background};
   border-radius: 7px;

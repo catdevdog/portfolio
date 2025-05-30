@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef } from "react";
 import * as S from "./page.styles";
 import { useCommandProcessor } from "@/store/useCommands";
 import { Window } from "@/components/Window";
+import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const windowConstraintRef = useRef<HTMLDivElement>(null);
@@ -57,22 +58,19 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log("log---", commandHistory);
+    // console.log("log---", commandHistory);
   }, [commandHistory]);
 
   useEffect(() => {
-    console.log("windowPositions", windowPositions);
-    console.log("windowArr", windowArr);
-
-    windowArr.forEach((windowName) => {
-      const position = windowPositions[windowName];
-      if (position && windowConstraintRef.current) {
-        const windowElement = document.getElementById(`window ${windowName}`);
-        if (windowElement) {
-          windowElement.style.transform = `translate(${position.x}px, ${position.y}px)`;
-        }
-      }
-    });
+    // windowArr.forEach((windowName) => {
+    //   const position = windowPositions[windowName];
+    //   if (position && windowConstraintRef.current) {
+    //     const windowElement = document.getElementById(`window ${windowName}`);
+    //     if (windowElement) {
+    //       windowElement.style.transform = `translate(${position.x}px, ${position.y}px)`;
+    //     }
+    //   }
+    // });
   }, [windowArr.length]);
 
   const WindowsRenderer = useMemo(
@@ -128,7 +126,18 @@ export default function Home() {
         </S.ControlBox>
         {windowArr}
       </S.HeroSection>
-      {startState && WindowsRenderer}
+      {/* {startState && WindowsRenderer} */}
+      {startState && (
+        <S.WindowContainer ref={windowConstraintRef}>
+          {windowArr.map((window, index) => (
+            <Window
+              windowName={window}
+              key={`${window}_${index}`}
+              dragConstraintsRef={windowConstraintRef}
+            />
+          ))}
+        </S.WindowContainer>
+      )}
     </S.HomeContainer>
   );
 }

@@ -1,8 +1,8 @@
 import * as S from "@/components/Window.styles";
-import dynamic from "next/dynamic";
-import { Suspense, useMemo, useRef } from "react";
-import { useDragControls } from "framer-motion";
 import { useStore } from "@/store/useStore";
+import { animate, useAnimation, useDragControls } from "framer-motion";
+import dynamic from "next/dynamic";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
 export const Window = ({
   windowName,
@@ -12,55 +12,99 @@ export const Window = ({
   dragConstraintsRef: React.RefObject<HTMLDivElement | null>;
 }) => {
   const windowRef = useRef<HTMLDivElement>(null);
+  const [maximumState, setMaximumState] = useState<boolean>(false);
+  const { windowPositions, setWindowPosition, removeWindow } = useStore(
+    (state) => state
+  );
   const displayContent =
     windowName.charAt(0).toUpperCase() + windowName.slice(1);
   const dynamicImportPath = `@/components/content/${displayContent}`;
 
   const dragControls = useDragControls();
+  const animateControls = useAnimation();
+
   const DynamicDisplay = useMemo(() => {
     return dynamic(() =>
       import(dynamicImportPath).then((mod) => mod[displayContent])
     );
   }, [displayContent]);
 
-  const { windowPositions, setWindowPosition, removeWindow } = useStore(
-    (state) => state
-  );
-  const handleCloseWindow = () => {
+  const saveWindowPosition = async () => {
     const style = window.getComputedStyle(windowRef.current!);
     const matrix = new DOMMatrixReadOnly(style.transform);
     const x = matrix.m41; // translateX
     const y = matrix.m42; // translateY
+    console.log(`Saving position for ${windowName}: x=${x}, y=${y}`);
     setWindowPosition(windowName, {
       x,
       y,
     });
+  };
+
+  // 드래그 완료 시 x,y를 저장
+  const onDragEnd = () => {
+    saveWindowPosition();
+  };
+
+  // 창 닫기
+  const handleCloseWindow = () => {
+    saveWindowPosition();
     removeWindow(windowName);
   };
+
+  // 최대화
+  const handleMaximizeWindow = () => {
+    console.log("Maximize window:", windowName);
+    if (!maximumState) {
+      saveWindowPosition();
+    }
+    setMaximumState(!maximumState);
+  };
+
+  useEffect(() => {
+    animateControls.start({
+      x: maximumState ? 0 : windowPositions[windowName]?.x || 0,
+      y: maximumState ? 0 : windowPositions[windowName]?.y || 0,
+      width: maximumState ? "100%" : "auto",
+      height: maximumState ? "100%" : "auto",
+      transition: {
+        type: "spring",
+        stiffness: 250, // 스프링 강도
+        damping: 50, // 감쇠 비율
+        duration: 1.2,
+      },
+    });
+  }, [maximumState]);
 
   return (
     <S.Window
       ref={windowRef}
       drag
-      dragListener={false}
       dragControls={dragControls}
       dragConstraints={dragConstraintsRef}
+      dragElastic={0.2}
+      dragListener={false}
+      dragMomentum={false}
       id={`window ${windowName}`}
       initial={{
         x: windowPositions[windowName]?.x || 0,
         y: windowPositions[windowName]?.y || 0,
       }}
+      animate={animateControls}
+      onDragEnd={onDragEnd}
     >
       <S.WindowHeader
-        onPointerDown={(event) => {
-          // 헤더에서만 드래그 시작
-          dragControls.start(event as React.PointerEvent<HTMLDivElement>);
+        onPointerDown={(e) => {
+          dragControls.start(e);
         }}
       >
         <S.WindowTrafficLights>
           <S.WindowTrafficLight color="#FF5F57" onClick={handleCloseWindow} />
           <S.WindowTrafficLight color="#FFBD2E" />
-          <S.WindowTrafficLight color="#27C93F" />
+          <S.WindowTrafficLight
+            color="#27C93F"
+            onClick={handleMaximizeWindow}
+          />
         </S.WindowTrafficLights>
         <S.WindowTitle>{windowName}</S.WindowTitle>
       </S.WindowHeader>

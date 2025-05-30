@@ -8,6 +8,7 @@ export const HomeContainer = styled.div`
   color: ${({ theme }) => theme.colors.text};
   display: flex;
   justify-content: space-between;
+  overflow: hidden;
 `;
 
 export const AccentText = styled.h1`
@@ -111,8 +112,8 @@ export const RecommendedCommandItem = styled.button`
 
 // Window
 export const WindowContainer = styled(motion.div)`
-  flex: 0 1 75%;
+  flex: 1 1 75%;
   position: relative;
-  height: calc(100% - 40px);
-  padding: 20px;
+  height: 100%;
+  // margin: 10px;
 `;
