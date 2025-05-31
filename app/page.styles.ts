@@ -40,6 +40,7 @@ export const HeroSection = styled.div<HeroSectionProps>`
 export const ControlBox = styled.div`
   width: 320px;
   min-width: 320px;
+  max-width: 340px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -91,6 +92,7 @@ export const RecommendedCommand = styled.div`
   color: #ffffff;
   white-space: pre-wrap;
   margin-top: 4px;
+  gap: 4px;
 `;
 
 export const RecommendedCommandItem = styled.button`
@@ -101,7 +103,7 @@ export const RecommendedCommandItem = styled.button`
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.fontSizes.md};
-  padding: 4px 8px;
+  padding: 4px 4px;
   cursor: pointer;
 
   &:hover,

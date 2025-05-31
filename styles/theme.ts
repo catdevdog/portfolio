@@ -6,8 +6,8 @@ export const theme: DefaultTheme = {
     primary: "#6A1E55", // 주요 액센트 컬러
     secondary: "#A64D79", // 보조 액센트 컬러
     // background: "#1A1A1D", // 페이지 배경 컬러
-    background: "#eee", // 페이지 배경 컬러
-    text: "#121212", // 기본 텍스트 컬러
+    background: "#111", // 페이지 배경 컬러
+    text: "#eee", // 기본 텍스트 컬러
   },
   spacing: {
     xs: "4px",

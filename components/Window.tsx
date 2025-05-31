@@ -2,7 +2,7 @@ import * as S from "@/components/Window.styles";
 import { useStore } from "@/store/useStore";
 import { animate, useAnimation, useDragControls } from "framer-motion";
 import dynamic from "next/dynamic";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, use, useEffect, useMemo, useRef, useState } from "react";
 
 export const Window = ({
   windowName,
@@ -13,9 +13,9 @@ export const Window = ({
 }) => {
   const windowRef = useRef<HTMLDivElement>(null);
 
-  const [windowState, setWindowState] = useState<boolean>(false);
   const [windowAnimating, setWindowAnimating] = useState<boolean>(false);
   const [maximumState, setMaximumState] = useState<boolean>(false);
+  const [isInitialMount, setIsInitialMount] = useState<boolean>(true);
   const { windowPositions, setWindowPosition, removeWindow } = useStore(
     (state) => state
   );
@@ -44,7 +44,7 @@ export const Window = ({
     });
   };
 
-  // 드래그 완료 시 x,y를 저장
+  // 드래그 완료 시 좌표 저장
   const onDragEnd = () => {
     saveWindowPosition();
   };
@@ -52,18 +52,44 @@ export const Window = ({
   // 창 닫기
   const handleCloseWindow = () => {
     saveWindowPosition();
-    removeWindow(windowName);
+    animateControls
+      .start({
+        scale: 0,
+        opacity: 0,
+        transition: { type: "spring", stiffness: 350, damping: 40 },
+      })
+      .then(() => {
+        removeWindow(windowName);
+      });
   };
 
   // 최대화
   const handleMaximizeWindow = () => {
-    if (!maximumState) {
-      saveWindowPosition();
-    }
+    if (!maximumState) saveWindowPosition();
     setMaximumState(!maximumState);
   };
 
+  // 초기 마운트 애니메이션
   useEffect(() => {
+    if (!isInitialMount) return;
+
+    animateControls
+      .start({
+        x: windowPositions[windowName]?.x || 0,
+        y: windowPositions[windowName]?.y || 0,
+        scale: 1,
+        opacity: 1,
+        transition: { type: "spring", stiffness: 350, damping: 40, delay: 0.2 },
+      })
+      .then(() => {
+        setIsInitialMount(false);
+      });
+  }, []);
+
+  // 최대화 상태 변경 애니메이션
+  useEffect(() => {
+    if (isInitialMount) return;
+
     setWindowAnimating(true);
     animateControls
       .start({
@@ -71,16 +97,15 @@ export const Window = ({
         y: maximumState ? 0 : windowPositions[windowName]?.y || 0,
         width: maximumState ? "100%" : "auto",
         height: maximumState ? "100%" : "auto",
+        scale: 1, // 항상 1로 유지
+        opacity: 1,
         transition: {
           type: "spring",
-          stiffness: 350, // 스프링 강도
-          damping: 40, // 감쇠 비율
+          stiffness: 350,
+          damping: 40,
         },
       })
       .then(() => {
-        if (!maximumState) {
-          setWindowState((v) => !v);
-        }
         setWindowAnimating(false);
       });
   }, [maximumState]);
@@ -88,8 +113,8 @@ export const Window = ({
   return (
     <S.Window
       ref={windowRef}
-      key={`${windowName}-${windowState ? "1" : "0"}`} // 키 변경을 통해 저장된 좌표로 초기화
-      drag={!windowAnimating}
+      key={`${windowName}`} // 키 변경을 통해 저장된 좌표로 초기화
+      drag={!windowAnimating && !maximumState}
       dragControls={dragControls}
       dragConstraints={dragConstraintsRef}
       dragElastic={0.2}
@@ -99,13 +124,17 @@ export const Window = ({
       initial={{
         x: windowPositions[windowName]?.x || 0,
         y: windowPositions[windowName]?.y || 0,
+        scale: 0,
+        opacity: 0,
       }}
       animate={animateControls}
       onDragEnd={onDragEnd}
     >
       <S.WindowHeader
         onPointerDown={(e) => {
-          dragControls.start(e);
+          if (!windowAnimating && !maximumState) {
+            dragControls.start(e);
+          }
         }}
       >
         <S.WindowTrafficLights>
@@ -118,10 +147,11 @@ export const Window = ({
         </S.WindowTrafficLights>
         <S.WindowTitle>{windowName}</S.WindowTitle>
       </S.WindowHeader>
-      {windowState ? `1` : `0`}
-      <Suspense fallback={<div>Loading...</div>}>
-        {DynamicDisplay && <DynamicDisplay />}
-      </Suspense>
+      <S.WindowContent>
+        <Suspense fallback={<div>Loading...</div>}>
+          {DynamicDisplay && <DynamicDisplay />}
+        </Suspense>
+      </S.WindowContent>
     </S.Window>
   );
 };

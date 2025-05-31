@@ -8,9 +8,9 @@ export const Window = styled(motion.div)`
   border: 1px solid ${({ theme }) => theme.windowHeader.background};
   border-radius: 7px;
   color: ${({ theme }) => theme.colors.text};
-  background-color: rgba(255, 255, 255, 0.6);
+  // background-color: rgba(255, 255, 255, 0.6);
   box-sizing: border-box;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
@@ -46,4 +46,10 @@ export const WindowTitle = styled.div`
 
   left: 50%;
   transform: translateX(-50%);
+`;
+
+export const WindowContent = styled.div`
+  min-width: 300px;
+  width: auto;
+  transition: all 0.3s ease;
 `;
