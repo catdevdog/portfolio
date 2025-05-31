@@ -1,3 +1,4 @@
+import { add } from "three/tsl";
 import { useStore } from "./useStore";
 import { useEffect } from "react";
 
@@ -10,6 +11,7 @@ export const useCommandProcessor = () => {
     clearCurrentCommand,
     currentCommand,
     commandHistory,
+    windowArr,
     addCommandHistory,
     clearCommandHistory,
     addWindow,
@@ -32,12 +34,12 @@ export const useCommandProcessor = () => {
     },
     guide: () => {
       addSystemCommandHistory(`
-명령어 목록
-┣━ guide: 명령어 안내
-┣━ profile: 소개 페이지
-┣━ project: 프로젝트
-┣━ cls: 이력 초기화
-┗━ etc: 기타 명령어
+  명령어 목록
+  ┣━ guide: 명령어 안내
+  ┣━ profile: 소개 페이지
+  ┣━ project: 참여 프로젝트 목록
+  ┣━ cls: 이력 초기화
+  ┗━ etc: 기타 명령어
         `);
     },
     cls: () => {
@@ -46,11 +48,11 @@ export const useCommandProcessor = () => {
 
     profile: () => {
       addSystemCommandHistory("프로필을 불러오는 중...");
-      addWindow("Profile");
+      validateWindowArr("Profile") && addWindow("Profile");
     },
     project: () => {
-      addSystemCommandHistory("참여한 프로젝트를 불러오는 중...");
-      addWindow("Project");
+      addSystemCommandHistory("프로젝트를 불러오는 중...");
+      validateWindowArr("Project") && addWindow("Project");
     },
     etc: () => {
       addSystemCommandHistory("etc");
@@ -66,6 +68,16 @@ export const useCommandProcessor = () => {
       : addSystemCommandHistory(`'${command}'는 유효하지 않은 명령어입니다.`);
 
     clearCurrentCommand();
+  };
+
+  // 창 상태 확인
+  const validateWindowArr = (windowName: string): boolean => {
+    if (windowArr.includes(windowName)) {
+      addSystemCommandHistory(`이미 실행 중입니다.`);
+      return false;
+    }
+    addSystemCommandHistory(`${windowName} 실행 중...`);
+    return true;
   };
 
   useEffect(() => {

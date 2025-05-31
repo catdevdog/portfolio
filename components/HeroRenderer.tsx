@@ -106,7 +106,7 @@ function TerminalModel({
             <S.commandHistory>
               {commandHistory.map((command, index) => (
                 <S.commandHistoryItem key={index}>
-                  {command.type === "sys" ? "" : "user>"}
+                  {command.type === "sys" ? " " : "user>"}
                   {command.command}
                 </S.commandHistoryItem>
               ))}
@@ -175,7 +175,7 @@ export default function HeroRenderer() {
           <ThemeProvider theme={theme}>
             {/* 조명 */}
             <ambientLight intensity={1} />
-            <directionalLight castShadow position={[0, 0, 1]} intensity={1} />
+            <directionalLight castShadow position={[0, 0, 1]} intensity={2} />
 
             <Suspense
               fallback={

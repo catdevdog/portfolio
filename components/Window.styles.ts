@@ -14,6 +14,16 @@ export const Window = styled(motion.div)`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
+export const WindowTrafficLight = styled.div<{ color: string }>`
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: ${({ color }) => color};
+  cursor: pointer;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+`;
+
 export const WindowHeader = styled.div`
   display: flex;
   align-items: center;
@@ -24,19 +34,17 @@ export const WindowHeader = styled.div`
   position: relative;
   cursor: grab;
   user-select: none;
+
+  &:hover {
+    ${WindowTrafficLight} {
+      transform: scale(1);
+    }
+  }
 `;
 
 export const WindowTrafficLightWrap = styled.div`
   display: flex;
   gap: 10px;
-`;
-
-export const WindowTrafficLight = styled.div<{ color: string }>`
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background-color: ${({ color }) => color};
-  cursor: pointer;
 `;
 
 export const WindowTitle = styled.div`

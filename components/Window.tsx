@@ -104,6 +104,7 @@ export const Window = ({
           stiffness: 350,
           damping: 40,
         },
+        zIndex: maximumState ? 1000 : 1, // 최대화 상태에서 z-index 증가
       })
       .then(() => {
         setWindowAnimating(false);

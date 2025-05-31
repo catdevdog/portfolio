@@ -54,11 +54,6 @@ export const useStore = create<StoreState>((set, get) => ({
   windowArr: [],
   addWindow: (Window) =>
     set((state) => {
-      const existingIndex = state.windowArr.indexOf(Window);
-      if (existingIndex !== -1) {
-        // 동일한 디스플레이가 이미 있다면 제거
-        state.windowArr.splice(existingIndex, 1);
-      }
       return {
         windowArr: [...state.windowArr, Window],
       };
