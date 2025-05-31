@@ -18,7 +18,7 @@ export const WindowHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px;
+  padding: 10px;
   background-color: ${({ theme }) => theme.windowHeader.background};
   border-radius: 6px 6px 0 0;
   position: relative;
@@ -26,14 +26,14 @@ export const WindowHeader = styled.div`
   user-select: none;
 `;
 
-export const WindowTrafficLights = styled.div`
+export const WindowTrafficLightWrap = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 10px;
 `;
 
 export const WindowTrafficLight = styled.div<{ color: string }>`
-  width: 12px;
-  height: 12px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background-color: ${({ color }) => color};
   cursor: pointer;

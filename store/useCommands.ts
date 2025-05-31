@@ -45,11 +45,11 @@ export const useCommandProcessor = () => {
     },
 
     profile: () => {
-      addSystemCommandHistory("profile");
+      addSystemCommandHistory("프로필을 불러오는 중...");
       addWindow("Profile");
     },
     project: () => {
-      addSystemCommandHistory("project");
+      addSystemCommandHistory("참여한 프로젝트를 불러오는 중...");
       addWindow("Project");
     },
     etc: () => {

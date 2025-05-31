@@ -132,19 +132,24 @@ export const Window = ({
     >
       <S.WindowHeader
         onPointerDown={(e) => {
-          if (!windowAnimating && !maximumState) {
+          if (!windowAnimating) {
             dragControls.start(e);
           }
         }}
       >
-        <S.WindowTrafficLights>
-          <S.WindowTrafficLight color="#FF5F57" onClick={handleCloseWindow} />
-          <S.WindowTrafficLight color="#FFBD2E" />
+        <S.WindowTrafficLightWrap>
           <S.WindowTrafficLight
+            color="#FF5F57"
+            onClick={handleCloseWindow}
+            className="close"
+          />
+          <S.WindowTrafficLight color="#FFBD2E" className="minimize" />
+          <S.WindowTrafficLight
+            className="maximize"
             color="#27C93F"
             onClick={handleMaximizeWindow}
           />
-        </S.WindowTrafficLights>
+        </S.WindowTrafficLightWrap>
         <S.WindowTitle>{windowName}</S.WindowTitle>
       </S.WindowHeader>
       <S.WindowContent>

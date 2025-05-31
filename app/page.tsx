@@ -6,7 +6,6 @@ import { useEffect, useMemo, useRef } from "react";
 import * as S from "./page.styles";
 import { useCommandProcessor } from "@/store/useCommands";
 import { Window } from "@/components/Window";
-import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const windowConstraintRef = useRef<HTMLDivElement>(null);
@@ -15,8 +14,8 @@ export default function Home() {
     "guide",
     "profile",
     "project",
-    "cls",
     "etc",
+    "cls",
   ]);
 
   const {
@@ -27,7 +26,6 @@ export default function Home() {
     setCurrentCommand,
     displayOpen,
     windowArr,
-    windowPositions,
   } = useStore((state) => state);
 
   // 명령어 입력시
