@@ -11,6 +11,33 @@ export const HomeContainer = styled.div`
   overflow: hidden;
 `;
 
+export const BackgroundText = styled.div`
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  bottom: -1rem;
+  right: -1rem;
+  overflow: hidden;
+  font-family: "IntelOneMono";
+  pointer-events: none;
+  span {
+    font-size: 12vw;
+    color: transparent;
+    opacity: 0.04;
+    line-height: 0.55;
+    letter-spacing: -0.09em;
+    word-break: break-all;
+    -webkit-text-stroke: 3px ${({ theme }) => theme.colors.text};
+  }
+  span:nth-child(odd) {
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  @media (max-width: 1440px) {
+    display: none;
+  }
+`;
+
 export const AccentText = styled.h1`
   color: ${({ theme }) => theme.colors.primary};
 `;
@@ -117,5 +144,4 @@ export const WindowContainer = styled(motion.div)`
   flex: 1 1 75%;
   position: relative;
   height: 100%;
-  // margin: 10px;
 `;

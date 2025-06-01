@@ -20,10 +20,19 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-display: swap;
   }
-
+  @font-face {
+    font-family: 'IntelOneMono';
+    src: url('/fonts/IntelOneMono-Bold.ttf');
+    font-weight: 700;
+    font-weight: normal;
+    font-style: normal;
+  }
   html, body {
     color: #ffffff;
     background-color: #000000;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
   }
   *:active, *:focus, *:focus-within, *:focus-visible {
     outline: none;

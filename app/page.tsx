@@ -7,6 +7,29 @@ import * as S from "./page.styles";
 import { useCommandProcessor } from "@/store/useCommands";
 import { Window } from "@/components/Window";
 
+const LANG = [
+  "HTML",
+  "CSS",
+  "JAVASCRIPT",
+  "JQUERY",
+  "VUE",
+  "REACT",
+  "NEXT",
+  "NUXT",
+  "VITE",
+  "TYPESCRIPT",
+  "SCSS",
+  "TAILWIND",
+  "STYLED-COMPONENTS",
+  "FIREBASE",
+  "VERCEL",
+  "GCP",
+  "NODE",
+  "EXPRESS",
+  "MYSQL",
+  "GIT",
+];
+
 export default function Home() {
   const windowConstraintRef = useRef<HTMLDivElement>(null);
   const commandInputRef = useRef<HTMLInputElement>(null);
@@ -59,6 +82,11 @@ export default function Home() {
 
   return (
     <S.HomeContainer>
+      <S.BackgroundText>
+        {LANG.map((lang) => (
+          <span key={lang}>{lang}</span>
+        ))}
+      </S.BackgroundText>
       <S.HeroSection id="HeroSection" $open={displayOpen}>
         <HeroRenderer />
         <S.ControlBox>
@@ -91,7 +119,6 @@ export default function Home() {
             </S.RecommendedCommand>
           )}
         </S.ControlBox>
-        {windowArr}
       </S.HeroSection>
       {startState && (
         <S.WindowContainer ref={windowConstraintRef}>
