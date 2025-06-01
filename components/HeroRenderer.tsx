@@ -45,7 +45,7 @@ function TerminalModel({
 
   // 스크롤을 맨 아래로 이동
   useEffect(() => {
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       if (commandBoxRef.current) {
         commandBoxRef.current.scrollTo({
           top: commandBoxRef.current.scrollHeight,
@@ -179,7 +179,14 @@ export default function HeroRenderer() {
 
             <Suspense
               fallback={
-                <Html center style={{ fontFamily: "DungGeunMo" }}>
+                <Html
+                  center
+                  style={{
+                    fontFamily: "DungGeunMo",
+                    fontSize: "24px",
+                    color: "#fff",
+                  }}
+                >
                   Loading...
                 </Html>
               }
