@@ -40,7 +40,7 @@ export const useCommandProcessor = () => {
   ┣━ project: 참여 프로젝트 목록
   ┣━ cls: 이력 초기화
   ┗━ etc: 기타 명령어
-        `);
+`);
     },
     cls: () => {
       clearCommandHistory();

@@ -8,16 +8,20 @@ import { useCommandProcessor } from "@/store/useCommands";
 import { Window } from "@/components/Window";
 
 const LANG = [
+  "MY-SKILL-SET@",
   "HTML",
   "CSS",
   "JAVASCRIPT",
+  "TYPESCRIPT",
   "JQUERY",
   "VUE",
   "REACT",
   "NEXT",
   "NUXT",
   "VITE",
-  "TYPESCRIPT",
+  "ROUTER",
+  "ZUSTAND",
+  "PINIA",
   "SCSS",
   "TAILWIND",
   "STYLED-COMPONENTS",

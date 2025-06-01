@@ -13,7 +13,7 @@ export const HomeContainer = styled.div`
 
 export const BackgroundText = styled.div`
   position: absolute;
-  top: -1rem;
+  top: 0;
   left: -1rem;
   bottom: -1rem;
   right: -1rem;
@@ -21,7 +21,7 @@ export const BackgroundText = styled.div`
   font-family: "IntelOneMono";
   pointer-events: none;
   span {
-    font-size: 12vw;
+    font-size: 10.1vw;
     color: transparent;
     opacity: 0.04;
     line-height: 0.55;
@@ -29,8 +29,9 @@ export const BackgroundText = styled.div`
     word-break: break-all;
     -webkit-text-stroke: 3px ${({ theme }) => theme.colors.text};
   }
-  span:nth-child(odd) {
+  span:nth-child(even) {
     color: ${({ theme }) => theme.colors.text};
+    -webkit-text-stroke: 0px;
   }
 
   @media (max-width: 1440px) {

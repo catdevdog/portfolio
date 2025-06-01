@@ -16,9 +16,12 @@ export const Window = ({
   const [windowAnimating, setWindowAnimating] = useState<boolean>(false);
   const [maximumState, setMaximumState] = useState<boolean>(false);
   const [isInitialMount, setIsInitialMount] = useState<boolean>(true);
-  const { windowPositions, setWindowPosition, removeWindow } = useStore(
-    (state) => state
-  );
+  const {
+    windowPositions,
+    setWindowPosition,
+    removeWindow,
+    addSystemCommandHistory,
+  } = useStore((state) => state);
   const displayContent =
     windowName.charAt(0).toUpperCase() + windowName.slice(1);
   const dynamicImportPath = `@/components/content/${displayContent}`;
@@ -61,6 +64,7 @@ export const Window = ({
       .then(() => {
         removeWindow(windowName);
       });
+    addSystemCommandHistory(`${windowName} 종료`);
   };
 
   // 최대화
@@ -136,6 +140,10 @@ export const Window = ({
           if (!windowAnimating) {
             dragControls.start(e);
           }
+        }}
+        onDoubleClick={(e) => {
+          e.stopPropagation();
+          handleMaximizeWindow();
         }}
       >
         <S.WindowTrafficLightWrap>
