@@ -1,6 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import StyledProviders from "./providers/StyledProviders";
+import StyledComponentsRegistry from "./lib/StyledComponentsRegistry";
 
 export const metadata: Metadata = {
   title: "포트폴리오",
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <StyledProviders>{children}</StyledProviders>
+        <StyledComponentsRegistry>
+          <StyledProviders>{children}</StyledProviders>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
