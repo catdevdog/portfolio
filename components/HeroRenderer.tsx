@@ -1,14 +1,14 @@
 "use client";
 
 import { useStore } from "@/store/useStore";
-import { Html, useGLTF, OrbitControls, RoundedBox } from "@react-three/drei";
+import { theme } from "@/styles/theme";
+import { Html, OrbitControls, RoundedBox } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Suspense, useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
+import { ThemeProvider } from "styled-components";
 import * as THREE from "three";
 import { PerspectiveCamera } from "three";
 import * as S from "./HeroRenderer.styles";
-import { theme } from "@/styles/theme";
-import { ThemeProvider } from "styled-components";
 
 const systemCommonStyle = {
   fontFamily: theme.systemFontFamily,

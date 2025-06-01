@@ -22,10 +22,12 @@ const GlobalStyle = createGlobalStyle`
   }
   @font-face {
     font-family: 'IntelOneMono';
-    src: url('/fonts/IntelOneMono-Bold.ttf');
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/intelone-mono-font-family-bold.woff2') format('woff2'),
+      url('/fonts/IntelOneMono-Bold.woff2') format('woff2');
     font-weight: 700;
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
   }
   html, body {
     color: #ffffff;

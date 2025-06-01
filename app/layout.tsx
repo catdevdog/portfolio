@@ -15,6 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head></head>
       <body>
         <StyledComponentsRegistry>
           <StyledProviders>{children}</StyledProviders>

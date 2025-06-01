@@ -1,8 +1,8 @@
 import * as S from "@/components/Window.styles";
 import { useStore } from "@/store/useStore";
-import { animate, useAnimation, useDragControls } from "framer-motion";
+import { useAnimation, useDragControls } from "framer-motion";
 import dynamic from "next/dynamic";
-import { Suspense, use, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
 export const Window = ({
   windowName,
