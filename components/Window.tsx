@@ -115,7 +115,7 @@ export const Window = ({
     <S.Window
       ref={windowRef}
       key={`${windowName}`} // 키 변경을 통해 저장된 좌표로 초기화
-      drag={!windowAnimating && !maximumState}
+      drag={!windowAnimating}
       dragControls={dragControls}
       dragConstraints={dragConstraintsRef}
       dragElastic={0.2}
