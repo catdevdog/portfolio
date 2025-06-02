@@ -2,12 +2,20 @@
 
 import HeroRenderer from "@/components/HeroRenderer";
 import { useStore } from "@/store/useStore";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import * as S from "./page.styles";
 import { useCommandProcessor } from "@/store/useCommands";
 import { Window } from "@/components/Window";
 
 const LANG = [
+  "HELLO!",
+  "MY",
+  "NAME",
+  "IS",
+  "KANG-MINGU",
+  "I'M",
+  "FRONT-END",
+  "DEVELOPER",
   "MY-SKILL-SET@",
   "HTML",
   "CSS",
@@ -43,11 +51,11 @@ export default function Home() {
     "project",
     "etc",
     "cls",
+    "skill",
   ]);
 
   const {
     startState,
-    commandHistory,
     currentCommand,
     addCommandHistory,
     setCurrentCommand,
@@ -74,8 +82,8 @@ export default function Home() {
   };
 
   const handleCommandClick = (command: string) => {
-    addCommandHistory(command);
     setCurrentCommand(command);
+    addCommandHistory(command);
   };
 
   useEffect(() => {
@@ -87,8 +95,8 @@ export default function Home() {
   return (
     <S.HomeContainer>
       <S.BackgroundText>
-        {LANG.map((lang) => (
-          <span key={lang}>{lang}</span>
+        {LANG.map((lang, idx) => (
+          <span key={`${lang}_${idx}`}>{lang}</span>
         ))}
       </S.BackgroundText>
       <S.HeroSection id="HeroSection" $open={displayOpen}>
@@ -134,9 +142,9 @@ export default function Home() {
                * windowArr.length에 영향이 없기 때문에 리렌더링 되지 않음 -> 팝업 시 깜빡임 이슈 해결
                * typeof 로 제어하는게 괜찮은 방법인지는 재고할 필요가 있음
                */
-              typeof window === "string" && (
+              window.state && (
                 <Window
-                  windowName={window}
+                  windowName={window.name}
                   key={`${window}_${index}`}
                   dragConstraintsRef={windowConstraintRef}
                 />

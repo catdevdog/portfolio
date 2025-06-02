@@ -30,6 +30,7 @@ export const BackgroundText = styled.div`
     -webkit-text-stroke: 3px ${({ theme }) => theme.colors.text};
   }
   span:nth-child(even) {
+    // odd
     color: ${({ theme }) => theme.colors.text};
     -webkit-text-stroke: 0px;
   }
@@ -52,9 +53,7 @@ interface HeroSectionProps {
 }
 
 export const HeroSection = styled.div<HeroSectionProps>`
-  flex: 0 0 18%;
-  min-width: 340px;
-  max-width: 460px;
+  flex: 0 0 400px;
   overflow: hidden;
   text-align: left;
 
@@ -115,6 +114,7 @@ export const HeroCommandButton = styled.button`
 export const RecommendedCommand = styled.div`
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   font-family: ${({ theme }) => theme.systemFontFamily};
   color: #ffffff;

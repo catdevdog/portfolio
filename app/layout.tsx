@@ -4,7 +4,7 @@ import StyledProviders from "./providers/StyledProviders";
 import StyledComponentsRegistry from "./lib/StyledComponentsRegistry";
 
 export const metadata: Metadata = {
-  title: "포트폴리오",
+  title: "강민구 포트폴리오",
   description: "강민구 포트폴리오",
 };
 
