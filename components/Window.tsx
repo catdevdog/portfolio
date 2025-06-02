@@ -1,6 +1,6 @@
 import * as S from "@/components/Window.styles";
 import { useStore } from "@/store/useStore";
-import { useAnimation, useDragControls } from "framer-motion";
+import { useAnimation, useDragControls, motion } from "framer-motion"; // motion 추가
 import dynamic from "next/dynamic";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
@@ -12,16 +12,20 @@ export const Window = ({
   dragConstraintsRef: React.RefObject<HTMLDivElement | null>;
 }) => {
   const windowRef = useRef<HTMLDivElement>(null);
+  const scrollTargetRef = useRef<HTMLDivElement>(null);
+  const [scrollPer, setScrollPer] = useState<number>(0);
 
   const [windowAnimating, setWindowAnimating] = useState<boolean>(false);
   const [maximumState, setMaximumState] = useState<boolean>(false);
   const [isInitialMount, setIsInitialMount] = useState<boolean>(true);
+
   const {
     windowPositions,
     setWindowPosition,
     removeWindow,
     addSystemCommandHistory,
   } = useStore((state) => state);
+
   const displayContent =
     windowName.charAt(0).toUpperCase() + windowName.slice(1);
   const dynamicImportPath = `@/components/content/${displayContent}`;
@@ -38,13 +42,9 @@ export const Window = ({
   const saveWindowPosition = async () => {
     const style = window.getComputedStyle(windowRef.current!);
     const matrix = new DOMMatrixReadOnly(style.transform);
-    const x = matrix.m41; // translateX
-    const y = matrix.m42; // translateY
-    console.log(`Saving position for ${windowName}: x=${x}, y=${y}`);
-    setWindowPosition(windowName, {
-      x,
-      y,
-    });
+    const x = matrix.m41;
+    const y = matrix.m42;
+    setWindowPosition(windowName, { x, y });
   };
 
   // 드래그 완료 시 좌표 저장
@@ -70,10 +70,10 @@ export const Window = ({
   // 최대화
   const handleMaximizeWindow = () => {
     if (!maximumState) saveWindowPosition();
-    setMaximumState(!maximumState);
+    setMaximumState((prev) => !prev);
   };
 
-  // 초기 마운트 애니메이션
+  // 초기 마운트 애니메이션 + 스크롤 핸들러 등록
   useEffect(() => {
     if (!isInitialMount) return;
 
@@ -88,6 +88,20 @@ export const Window = ({
       .then(() => {
         setIsInitialMount(false);
       });
+
+    const target = scrollTargetRef.current;
+    if (!target) return;
+
+    const handleScroll = () => {
+      const percent =
+        (target.scrollTop || 0) / (target.scrollHeight - target.clientHeight);
+      setScrollPer(Number(percent.toFixed(2)));
+    };
+
+    target.addEventListener("scroll", handleScroll);
+    return () => {
+      target.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   // 최대화 상태 변경 애니메이션
@@ -101,14 +115,14 @@ export const Window = ({
         y: maximumState ? 0 : windowPositions[windowName]?.y || 0,
         width: maximumState ? "100%" : "auto",
         height: maximumState ? "100%" : "auto",
-        scale: 1, // 항상 1로 유지
+        scale: 1,
         opacity: 1,
         transition: {
           type: "spring",
           stiffness: 350,
           damping: 40,
         },
-        zIndex: maximumState ? 1000 : 1, // 최대화 상태에서 z-index 증가
+        zIndex: maximumState ? 1000 : 1,
       })
       .then(() => {
         setWindowAnimating(false);
@@ -118,7 +132,7 @@ export const Window = ({
   return (
     <S.Window
       ref={windowRef}
-      key={`${windowName}`} // 키 변경을 통해 저장된 좌표로 초기화
+      key={`${windowName}`}
       drag={!windowAnimating}
       dragControls={dragControls}
       dragConstraints={dragConstraintsRef}
@@ -161,9 +175,42 @@ export const Window = ({
         </S.WindowTrafficLightWrap>
         <S.WindowTitle>{windowName}</S.WindowTitle>
       </S.WindowHeader>
-      <S.WindowContent>
+
+      <motion.div
+        style={{
+          position: "absolute",
+          top: 38,
+          left: 0,
+          height: "5px",
+          backgroundColor: "#27c93f",
+          transformOrigin: "0 0",
+          width: scrollPer * 100 + "%",
+          zIndex: 10,
+        }}
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: scrollPer }}
+        transition={{ ease: "easeOut", duration: 0.2 }}
+      />
+      {/* 텍스트로 퍼센트 확인용 */}
+      <div
+        style={{
+          position: "absolute",
+          top: "48px",
+          left: "8px",
+          color: "#fff",
+          fontSize: "12px",
+          background: "rgba(0,0,0,0.5)",
+          padding: "2px 4px",
+          borderRadius: "4px",
+          zIndex: 10,
+        }}
+      >
+        {Math.round(scrollPer * 100)}%
+      </div>
+
+      <S.WindowContent ref={scrollTargetRef}>
         <Suspense fallback={<div>Loading...</div>}>
-          {DynamicDisplay && <DynamicDisplay />}
+          <DynamicDisplay />
         </Suspense>
       </S.WindowContent>
     </S.Window>

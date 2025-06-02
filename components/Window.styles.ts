@@ -8,7 +8,7 @@ export const Window = styled(motion.div)`
   border: 1px solid ${({ theme }) => theme.windowHeader.background};
   border-radius: 7px;
   color: ${({ theme }) => theme.colors.text};
-  // background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.4);
   box-sizing: border-box;
   backdrop-filter: blur(6px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -60,4 +60,16 @@ export const WindowContent = styled.div`
   min-width: 300px;
   width: auto;
   transition: all 0.3s ease;
+  max-height: 80vh;
+  overflow-y: auto;
+`;
+
+export const ScrollPercentageBar = styled.div<{ $scrollPercentage: number }>`
+  position: absolute;
+  top: 38px;
+  left: 0;
+  width: ${({ $scrollPercentage }) => $scrollPercentage * 100}%;
+  height: 5px;
+  background-color: ${({ theme }) => theme.colors.primary};
+  transition: width 0.3s ease;
 `;
