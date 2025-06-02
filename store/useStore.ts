@@ -20,7 +20,10 @@ interface StoreState {
   setDisplayOpen: (open: boolean) => void;
 
   // 디스플레이 상태 / 현재 디스플레이에 표기 할 것
-  windowArr: (string | boolean)[];
+  windowArr: {
+    name: string;
+    state: boolean;
+  }[];
   addWindow: (Window: string) => void;
   removeWindow: (Window: string) => void;
 
@@ -47,22 +50,31 @@ interface StoreState {
   setFocusDisplay: (open: boolean) => void;
 }
 
-export const useStore = create<StoreState>((set, get) => ({
+export const useStore = create<StoreState>((set) => ({
   startState: false,
   setStartState: (start) => set({ startState: start }),
 
   windowArr: [],
   addWindow: (Window) =>
     set((state) => {
+      const existingWindow = state.windowArr.find(
+        (item) => item.name === Window
+      );
+      if (existingWindow) {
+        return {
+          windowArr: state.windowArr.map((item) =>
+            item.name === Window ? { ...item, state: true } : item
+          ),
+        };
+      }
       return {
-        windowArr: [...state.windowArr, Window],
+        windowArr: [...state.windowArr, { name: Window, state: true }],
       };
     }),
   removeWindow: (Window) =>
     set((state) => ({
-      // 해당 위치를 false로 변경
       windowArr: state.windowArr.map((item) =>
-        item === Window ? false : item
+        item.name === Window ? { ...item, state: false } : item
       ),
     })),
 

@@ -1,18 +1,14 @@
-import { add } from "three/tsl";
-import { useStore } from "./useStore";
 import { useEffect } from "react";
+import { useStore } from "./useStore";
 
 export const useCommandProcessor = () => {
   const {
     startState,
     setStartState,
-    lastCommand,
-    setLastCommand,
     clearCurrentCommand,
     currentCommand,
     commandHistory,
     windowArr,
-    addCommandHistory,
     clearCommandHistory,
     addWindow,
     setDisplayOpen,
@@ -48,11 +44,11 @@ export const useCommandProcessor = () => {
 
     profile: () => {
       addSystemCommandHistory("프로필을 불러오는 중...");
-      validateWindowArr("Profile") && addWindow("Profile");
+      validateWindowArr("Profile");
     },
     project: () => {
       addSystemCommandHistory("프로젝트를 불러오는 중...");
-      validateWindowArr("Project") && addWindow("Project");
+      validateWindowArr("Project");
     },
     etc: () => {
       addSystemCommandHistory("etc");
@@ -63,20 +59,24 @@ export const useCommandProcessor = () => {
   const validateCommand = (command: string) => {
     const fn = handlers[command];
 
-    fn
-      ? fn()
-      : addSystemCommandHistory(`'${command}'는 유효하지 않은 명령어입니다.`);
+    if (fn) fn();
+    else addSystemCommandHistory(`'${command}'는 유효하지 않은 명령어입니다.`);
 
     clearCurrentCommand();
   };
 
   // 창 상태 확인
   const validateWindowArr = (windowName: string): boolean => {
-    if (windowArr.includes(windowName)) {
-      addSystemCommandHistory(`이미 실행 중입니다.`);
+    if (startState === false) handlers.start();
+
+    if (windowArr.some((item) => item.name === windowName && item.state)) {
+      addSystemCommandHistory(`${windowName} 이미 실행 중입니다.`);
       return false;
     }
+    // 창이 열려 있지 않다면 새로 추가
     addSystemCommandHistory(`${windowName} 실행 중...`);
+    addWindow(windowName);
+
     return true;
   };
 
