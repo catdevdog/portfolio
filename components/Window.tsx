@@ -1,8 +1,39 @@
 import * as S from "@/components/Window.styles";
 import { useStore } from "@/store/useStore";
-import { useAnimation, useDragControls, motion } from "framer-motion"; // motion 추가
+import {
+  useAnimation,
+  useDragControls,
+  motion,
+  useScroll,
+} from "framer-motion";
 import dynamic from "next/dynamic";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { BackgroundRenderer } from "./BackgroundRenderer";
+
+// Background3D 개수
+const BACKGROUND_3D_COUNT = 3;
+
+// 랜덤 값 생성
+const getRandomRange = (min: number, max: number): number =>
+  Math.random() * (max - min) + min;
+
+// 랜덤 설정 생성
+const generateRandomTransforms = () => ({
+  yRange: [getRandomRange(10, 800), getRandomRange(200, 1500)] as [
+    number,
+    number
+  ],
+  rotateXRange: [getRandomRange(-100, 100), getRandomRange(-100, 100)] as [
+    number,
+    number
+  ],
+  rotateYRange: [getRandomRange(-100, 100), getRandomRange(-100, 100)] as [
+    number,
+    number
+  ],
+  initialX: getRandomRange(-200, 1000),
+  scale: getRandomRange(0.5, 5),
+});
 
 export const Window = ({
   windowName,
@@ -13,11 +44,21 @@ export const Window = ({
 }) => {
   const windowRef = useRef<HTMLDivElement>(null);
   const scrollTargetRef = useRef<HTMLDivElement>(null);
-  const [scrollPer, setScrollPer] = useState<number>(0);
 
+  const [scrollPer, setScrollPer] = useState<number>(0);
   const [windowAnimating, setWindowAnimating] = useState<boolean>(false);
   const [maximumState, setMaximumState] = useState<boolean>(false);
   const [isInitialMount, setIsInitialMount] = useState<boolean>(true);
+
+  // Background3D 설정 메모이제이션
+  const background3DConfigs = useMemo(
+    () =>
+      Array.from({ length: BACKGROUND_3D_COUNT }, (_, index) => ({
+        id: `bg3d-${index}`,
+        ...generateRandomTransforms(),
+      })),
+    []
+  );
 
   const {
     windowPositions,
@@ -73,6 +114,33 @@ export const Window = ({
     setMaximumState((prev) => !prev);
   };
 
+  const { scrollYProgress } = useScroll({ container: scrollTargetRef });
+
+  // 최대화 상태 변경 애니메이션
+  useEffect(() => {
+    if (isInitialMount) return;
+
+    setWindowAnimating(true);
+    animateControls
+      .start({
+        x: maximumState ? 0 : windowPositions[windowName]?.x || 0,
+        y: maximumState ? 0 : windowPositions[windowName]?.y || 0,
+        width: maximumState ? "100%" : "auto",
+        height: maximumState ? "100%" : "auto",
+        scale: 1,
+        opacity: 1,
+        transition: {
+          type: "spring",
+          stiffness: 350,
+          damping: 40,
+        },
+        zIndex: maximumState ? 1000 : 1,
+      })
+      .then(() => {
+        setWindowAnimating(false);
+      });
+  }, [maximumState]);
+
   // 초기 마운트 애니메이션 + 스크롤 핸들러 등록
   useEffect(() => {
     if (!isInitialMount) return;
@@ -103,31 +171,6 @@ export const Window = ({
       target.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  // 최대화 상태 변경 애니메이션
-  useEffect(() => {
-    if (isInitialMount) return;
-
-    setWindowAnimating(true);
-    animateControls
-      .start({
-        x: maximumState ? 0 : windowPositions[windowName]?.x || 0,
-        y: maximumState ? 0 : windowPositions[windowName]?.y || 0,
-        width: maximumState ? "100%" : "auto",
-        height: maximumState ? "100%" : "auto",
-        scale: 1,
-        opacity: 1,
-        transition: {
-          type: "spring",
-          stiffness: 350,
-          damping: 40,
-        },
-        zIndex: maximumState ? 1000 : 1,
-      })
-      .then(() => {
-        setWindowAnimating(false);
-      });
-  }, [maximumState]);
 
   return (
     <S.Window
@@ -181,8 +224,8 @@ export const Window = ({
           position: "absolute",
           top: 38,
           left: 0,
-          height: "5px",
-          backgroundColor: "#27c93f",
+          height: "4px",
+          backgroundColor: "#27C93F",
           transformOrigin: "0 0",
           width: scrollPer * 100 + "%",
           zIndex: 10,
@@ -191,24 +234,17 @@ export const Window = ({
         animate={{ scaleX: scrollPer }}
         transition={{ ease: "easeOut", duration: 0.2 }}
       />
-      {/* 텍스트로 퍼센트 확인용 */}
-      <div
-        style={{
-          position: "absolute",
-          top: "48px",
-          left: "8px",
-          color: "#fff",
-          fontSize: "12px",
-          background: "rgba(0,0,0,0.5)",
-          padding: "2px 4px",
-          borderRadius: "4px",
-          zIndex: 10,
-        }}
-      >
-        {Math.round(scrollPer * 100)}%
-      </div>
 
-      <S.WindowContent ref={scrollTargetRef}>
+      {/* 다중 Background3D 렌더링 */}
+      {background3DConfigs.map((config) => (
+        <BackgroundRenderer
+          key={config.id}
+          config={config}
+          scrollYProgress={scrollYProgress}
+        />
+      ))}
+
+      <S.WindowContent ref={scrollTargetRef} $maximized={maximumState}>
         <Suspense fallback={<div>Loading...</div>}>
           <DynamicDisplay />
         </Suspense>

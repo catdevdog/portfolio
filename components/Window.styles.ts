@@ -8,10 +8,12 @@ export const Window = styled(motion.div)`
   border: 1px solid ${({ theme }) => theme.windowHeader.background};
   border-radius: 7px;
   color: ${({ theme }) => theme.colors.text};
-  background-color: rgba(255, 255, 255, 0.4);
+  // background-color: rgba(255, 255, 255, 0.4);
   box-sizing: border-box;
   backdrop-filter: blur(6px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 100vh;
+  overflow: hidden;
 `;
 
 export const WindowTrafficLight = styled.div<{ color: string }>`
@@ -56,12 +58,16 @@ export const WindowTitle = styled.div`
   transform: translateX(-50%);
 `;
 
-export const WindowContent = styled.div`
+export const WindowContent = styled.div<{ $maximized: boolean }>`
+  position: relative;
+  top: 0px;
+  left: 0;
   min-width: 300px;
   width: auto;
   transition: all 0.3s ease;
-  max-height: 80vh;
   overflow-y: auto;
+  max-height: ${({ $maximized }) =>
+    $maximized ? "calc(100vh - 38px)" : "70vh"};
 `;
 
 export const ScrollPercentageBar = styled.div<{ $scrollPercentage: number }>`
@@ -72,4 +78,56 @@ export const ScrollPercentageBar = styled.div<{ $scrollPercentage: number }>`
   height: 5px;
   background-color: ${({ theme }) => theme.colors.primary};
   transition: width 0.3s ease;
+`;
+
+export const Background3D = styled(motion.div)`
+  // motion.div로 변경
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  transform-style: preserve-3d;
+  left: 10%;
+  top: 100px;
+  // 초기 transform 설정
+
+  // perspective: 500px; // 3D 효과를 위한 원근감 설정
+
+  .side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+  }
+
+  --color-grey-200: #e0e0e0;
+  --color-grey-300: #cfcfcf;
+  --color-grey-400: #bfbfbf;
+  --color-grey-500: #afafaf;
+  --color-grey-600: #9f9f9f;
+  --color-grey-700: #8f8f8f;
+
+  .front {
+    transform: rotateY(0deg) translateZ(50px);
+    background-color: var(--color-grey-200);
+  }
+  .right {
+    transform: rotateY(90deg) translateZ(50px);
+    background-color: var(--color-grey-300);
+  }
+  .back {
+    transform: rotateY(180deg) translateZ(50px);
+    background-color: var(--color-grey-400);
+  }
+  .left {
+    transform: rotateY(-90deg) translateZ(50px);
+    background-color: var(--color-grey-500);
+  }
+  .top {
+    transform: rotateX(90deg) translateZ(50px);
+    background-color: var(--color-grey-600);
+  }
+  .bottom {
+    transform: rotateX(-90deg) translateZ(50px);
+    background-color: var(--color-grey-700);
+  }
 `;
