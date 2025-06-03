@@ -3,8 +3,8 @@ import { useStore } from "@/store/useStore";
 import {
   useAnimation,
   useDragControls,
-  motion,
   useScroll,
+  useTransform,
 } from "framer-motion";
 import dynamic from "next/dynamic";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
@@ -31,7 +31,10 @@ const generateRandomTransforms = () => ({
     number,
     number
   ],
-  initialX: getRandomRange(-200, 1000),
+  xRange: [getRandomRange(-100, 800), getRandomRange(-100, 1200)] as [
+    number,
+    number
+  ],
   scale: getRandomRange(0.5, 5),
 });
 
@@ -45,10 +48,19 @@ export const Window = ({
   const windowRef = useRef<HTMLDivElement>(null);
   const scrollTargetRef = useRef<HTMLDivElement>(null);
 
-  const [scrollPer, setScrollPer] = useState<number>(0);
   const [windowAnimating, setWindowAnimating] = useState<boolean>(false);
   const [maximumState, setMaximumState] = useState<boolean>(false);
   const [isInitialMount, setIsInitialMount] = useState<boolean>(true);
+
+  const { scrollYProgress } = useScroll({ container: scrollTargetRef });
+  const scrollPer = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  const {
+    windowPositions,
+    setWindowPosition,
+    removeWindow,
+    addSystemCommandHistory,
+  } = useStore((state) => state);
 
   // Background3D 설정 메모이제이션
   const background3DConfigs = useMemo(
@@ -60,13 +72,7 @@ export const Window = ({
     []
   );
 
-  const {
-    windowPositions,
-    setWindowPosition,
-    removeWindow,
-    addSystemCommandHistory,
-  } = useStore((state) => state);
-
+  // window content import
   const displayContent =
     windowName.charAt(0).toUpperCase() + windowName.slice(1);
   const dynamicImportPath = `@/components/content/${displayContent}`;
@@ -80,6 +86,7 @@ export const Window = ({
     );
   }, [displayContent]);
 
+  // window control
   const saveWindowPosition = async () => {
     const style = window.getComputedStyle(windowRef.current!);
     const matrix = new DOMMatrixReadOnly(style.transform);
@@ -114,7 +121,7 @@ export const Window = ({
     setMaximumState((prev) => !prev);
   };
 
-  const { scrollYProgress } = useScroll({ container: scrollTargetRef });
+  /** useEffect */
 
   // 최대화 상태 변경 애니메이션
   useEffect(() => {
@@ -156,20 +163,6 @@ export const Window = ({
       .then(() => {
         setIsInitialMount(false);
       });
-
-    const target = scrollTargetRef.current;
-    if (!target) return;
-
-    const handleScroll = () => {
-      const percent =
-        (target.scrollTop || 0) / (target.scrollHeight - target.clientHeight);
-      setScrollPer(Number(percent.toFixed(2)));
-    };
-
-    target.addEventListener("scroll", handleScroll);
-    return () => {
-      target.removeEventListener("scroll", handleScroll);
-    };
   }, []);
 
   return (
@@ -219,19 +212,12 @@ export const Window = ({
         <S.WindowTitle>{windowName}</S.WindowTitle>
       </S.WindowHeader>
 
-      <motion.div
+      <S.ScrollPercentageBar
         style={{
-          position: "absolute",
-          top: 38,
-          left: 0,
-          height: "4px",
-          backgroundColor: "#27C93F",
+          scaleX: scrollPer,
           transformOrigin: "0 0",
-          width: scrollPer * 100 + "%",
-          zIndex: 10,
         }}
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: scrollPer }}
+        // initial={{ scaleX: 0 }}
         transition={{ ease: "easeOut", duration: 0.2 }}
       />
 

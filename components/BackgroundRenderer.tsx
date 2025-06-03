@@ -3,10 +3,10 @@ import { useTransform, MotionValue } from "motion/react";
 
 interface BackgroundConfig {
   id: string;
+  xRange: [number, number];
   yRange: [number, number];
   rotateXRange: [number, number];
   rotateYRange: [number, number];
-  initialX: number;
   scale: number;
 }
 
@@ -19,6 +19,7 @@ export const BackgroundRenderer = ({
   config,
   scrollYProgress,
 }: BackgroundRendererProps) => {
+  const x = useTransform(scrollYProgress, [0, 1], config.xRange);
   const y = useTransform(scrollYProgress, [0, 1], config.yRange);
   const rotateX = useTransform(scrollYProgress, [0, 1], config.rotateXRange);
   const rotateY = useTransform(scrollYProgress, [0, 1], config.rotateYRange);
@@ -26,10 +27,10 @@ export const BackgroundRenderer = ({
   return (
     <S.Background3D
       style={{
+        x,
         y,
         rotateX,
         rotateY,
-        x: config.initialX,
         scale: config.scale,
         zIndex: -Math.floor(Math.random() * 5) - 1, // 랜덤한 z-index로 깊이감 추가
       }}

@@ -70,14 +70,14 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
     $maximized ? "calc(100vh - 38px)" : "70vh"};
 `;
 
-export const ScrollPercentageBar = styled.div<{ $scrollPercentage: number }>`
+export const ScrollPercentageBar = styled(motion.div)`
   position: absolute;
   top: 38px;
   left: 0;
-  width: ${({ $scrollPercentage }) => $scrollPercentage * 100}%;
-  height: 5px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  transition: width 0.3s ease;
+  height: 4px;
+  background-color: #27c93f;
+  width: 100%;
+  z-index: 10;
 `;
 
 export const Background3D = styled(motion.div)`
