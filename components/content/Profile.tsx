@@ -1,24 +1,68 @@
+import { useRef, useState } from "react";
 import * as S from "./Content.styles";
 import * as P from "./profile.styles";
+import { animate, stagger } from "motion";
+import { splitText } from "motion-plus";
 
 import { useStore } from "@/store/useStore";
 
 export const Profile = () => {
   const { setCurrentCommand, addCommandHistory } = useStore((state) => state);
+  const introRef = useRef<HTMLDivElement>(null);
+  const [introPlusState, setIntroPlusState] = useState<boolean>(false);
 
   const handleProjectClick = () => {
     setCurrentCommand("project");
     addCommandHistory("project");
   };
 
+  const handleIntroToggle = () => {
+    setIntroPlusState((prev) => !prev);
+
+    document.fonts.ready.then(() => {
+      if (!introRef.current) return;
+      const wrapper = introRef.current;
+      wrapper.style.visibility = "visible";
+
+      const chunks = Array.from(wrapper.querySelectorAll(".more-intro-chunk"));
+
+      chunks.forEach((chunk) => {
+        const { words } = splitText(chunk as HTMLElement);
+
+        // 애니메이션 옵션
+        const option = {
+          opacity: introPlusState ? [1, 0] : [0, 1],
+          y: introPlusState ? [0, 10] : [10, 0],
+        };
+
+        animate(words, option, {
+          type: "spring",
+          duration: 1,
+          bounce: 0,
+          delay: stagger(0.02),
+        });
+      });
+      animate(
+        introRef.current,
+        {
+          height: introPlusState ? ["auto", "0px"] : ["0px", "auto"],
+          opacity: introPlusState ? [1, 0] : [0, 1],
+        },
+        {
+          type: "spring",
+          duration: 0.5,
+          bounce: 0,
+          delay: introPlusState ? chunks.length * 0.3 : 0,
+        }
+      );
+    });
+  };
+
   return (
     <S.ContentContainer>
       <P.Wrap>
         <P.Intro>
-          <h2>
-            안녕하세요,
-            <br /> 프론트엔드 개발자 강민구입니다.
-          </h2>
+          <h2>안녕하세요, 강민구입니다.</h2>
           <p>
             어떤 분야에서든지, 의문이 생기면 해결될 때까지 파고드는 것을
             좋아합니다.
@@ -33,6 +77,32 @@ export const Profile = () => {
             프로젝트에 접목시키려 노력하며, 이를 위해 다양한 프로젝트들을
             진행하고있습니다.
           </p>
+          <P.IntroPlus ref={introRef}>
+            <p className="more-intro-chunk">
+              vue, react 기반의 웹 서비스 리뉴얼 및 구축 프로젝트를 다수 경험한
+              3년의 퍼블리싱 경력을 바탕으로 일부 프로젝트에서 프론트 개발도
+              함께 맡았습니다.
+            </p>
+            <p className="more-intro-chunk">
+              다양한 분야의 프로젝트에 참여하며 퍼블리싱 및 프론트엔드 개발을
+              진행 했습니다. 참여한 프로젝트 대부분이 react, vue 기반으로
+              TypeScript, Nuxt, Next 등 프레임워크 기반 개발에 능숙하고, Vuex,
+              Pinia, Zustand 등 이에 맞는 상태 관리 경험도 보유하고 있습니다.
+            </p>
+            <p className="more-intro-chunk">
+              3년 이상의 SI 프로젝트 경험을 통해 협업 도구(Jira, Slack,
+              Confluence, Git) 환경에 익숙하며, 웹 접근성 인증을 위한 UI
+              컴포넌트 커스터마이징, 반응형 UI, 다국어 적용 등 실무 중심의
+              역량을 갖추고 있습니다.
+            </p>
+            <p className="more-intro-chunk">
+              GCP, Firebase, NAS, AI 등 활용 가능한 서비스와 자산들을 적극
+              사용하여 다양한 사이드 프로젝트를 진행하며 이를 서비스의 흐름을
+              익히고 간단한 백엔드까지 아우르는 등, 개발 역량을 지속적으로
+              넓혀가고 있습니다.
+            </p>
+          </P.IntroPlus>
+          <button onClick={handleIntroToggle}>조금 더 알아보기</button>
         </P.Intro>
         <P.Career>
           <h2>Career.</h2>

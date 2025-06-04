@@ -13,28 +13,30 @@ export const Wrap = styled.div`
   height: 100%;
   line-height: 1.5;
   padding-top: 10rem;
-  div {
-    width: 100%;
-    &:not(:last-child) {
-      padding-bottom: 8rem;
-      margin-bottom: 8rem;
-      border-bottom: 1px solid ${({ theme }) => theme.colors.text};
-    }
+`;
 
-    &:hover {
-      h2 {
-        padding-left: 0.5rem;
-      }
-    }
-  }
+export const content = styled.div`
+  width: 100%;
+
   h2 {
     font-family: "IntelOneMono";
     font-size: 4rem;
     transition: 0.3s ease;
   }
+  &:not(:last-child) {
+    padding-bottom: 8rem;
+    margin-bottom: 8rem;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.text};
+  }
+
+  &:hover {
+    h2 {
+      padding-left: 0.5rem;
+    }
+  }
 `;
 
-export const Intro = styled.div`
+export const Intro = styled(content)`
   width: 100%;
   h2 {
     font-family: unset;
@@ -46,12 +48,35 @@ export const Intro = styled.div`
     line-height: 1.8;
     margin-top: 1.2rem;
   }
+  button {
+    position: relative;
+    z-index: 1;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.text};
+    border: none;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.text};
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
 `;
 
-export const Career = styled.div``;
+export const IntroPlus = styled.div`
+  height: 0px;
+  visibility: hidden;
+`;
 
-export const Education = styled.div``;
+export const Career = styled(content)``;
 
-export const Skill = styled.div``;
+export const Education = styled(content)``;
 
-export const Contact = styled.div``;
+export const Skill = styled(content)``;
+
+export const Contact = styled(content)``;
