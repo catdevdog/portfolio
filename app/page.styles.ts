@@ -63,9 +63,10 @@ export const HeroSection = styled.div<{ $open: boolean }>`
 
   ${({ theme }) => theme.media.mobile} {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
     transform: none;
+    position: relative;
   }
 `;
 
@@ -82,12 +83,17 @@ export const ControlBox = styled.div`
 
   ${({ theme }) => theme.media.mobile} {
     // 모바일일때 부모(HeroSection) display: flex; direction: column;
-    flex: 1 1 auto;
+    // flex: 1 1 auto;
     width: auto;
     max-width: calc(100% - 32px);
     margin: 0;
     padding: 0 16px 100px 16px;
     gap: 8px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 `;
 

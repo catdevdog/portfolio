@@ -20,7 +20,7 @@ export const Window = styled(motion.div)`
     max-height: calc(100vh - 200px);
     background-color: ${({ theme }) => theme.colors.background};
     backdrop-filter: none;
-    border-radius: 0;
+    // border-radius: 0;
   }
 `;
 
@@ -59,7 +59,7 @@ export const WindowHeader = styled.div`
 
   ${({ theme }) => theme.media.mobile} {
     padding: 12px 16px;
-    border-radius: 0;
+    // border-radius: 0;
     ${WindowTrafficLight} {
       transform: scale(1);
     }
@@ -101,7 +101,7 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
 
 export const ScrollPercentageBar = styled(motion.div)`
   position: absolute;
-  top: 38px;
+  top: 46px;
   left: 0;
   height: 4px;
   background-color: #27c93f;

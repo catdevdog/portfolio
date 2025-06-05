@@ -7,13 +7,17 @@ export const HeroContainer = styled.div`
     width: 100%;
     height: 100%;
   }
+  z-index: 1;
 
   ${({ theme }) => theme.media.mobile} {
     // 모바일일때 부모(HeroSection) display: flex; direction: column;
-    flex: 1 1 auto;
-    height: auto;
+    // flex: 1 1 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(100% - 190px);
   }
-  z-index: 1;
 `;
 export const CommandBox = styled.div`
   background: rgba(0, 0, 0, 0);
