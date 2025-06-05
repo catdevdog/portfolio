@@ -258,7 +258,7 @@ export const Window = ({
 
       <S.WindowContent ref={scrollTargetRef} $maximized={maximumState}>
         <Suspense fallback={<div>Loading...</div>}>
-          <DynamicDisplay />
+          {DynamicDisplay && <DynamicDisplay />}
         </Suspense>
       </S.WindowContent>
     </S.Window>
