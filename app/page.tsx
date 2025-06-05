@@ -88,7 +88,7 @@ export default function Home() {
   };
 
   const updateVh = () => {
-    if (!document.documentElement) return;
+    if (!document?.documentElement) return;
 
     document.documentElement.style.setProperty(
       "--vh",
