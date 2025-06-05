@@ -75,19 +75,41 @@ export const Window = ({
   // window content import
   const displayContent =
     windowName.charAt(0).toUpperCase() + windowName.slice(1);
-  const dynamicImportPath = `@/components/content/${displayContent}`;
+  // const dynamicImportPath = `@/components/content/${displayContent}`;
 
   const dragControls = useDragControls();
   const animateControls = useAnimation();
 
+  // const DynamicDisplay = useMemo(() => {
+  //   return dynamic(
+  //     () => import(dynamicImportPath).then((mod) => mod[displayContent]),
+  //     {
+  //       loading: () => <div>Loading...</div>,
+  //       ssr: false,
+  //     }
+  //   );
+  // }, [displayContent]);
   const DynamicDisplay = useMemo(() => {
-    return dynamic(
-      () => import(dynamicImportPath).then((mod) => mod[displayContent]),
-      {
-        loading: () => <div>Loading...</div>,
-        ssr: false, // 클라이언트 사이드에서만 렌더링
-      }
-    );
+    if (displayContent === "Profile") {
+      return dynamic(
+        () =>
+          import("@/components/content/Profile").then(
+            (mod) => mod[displayContent]
+          ),
+        { ssr: false }
+      );
+    }
+    if (displayContent === "Project") {
+      return dynamic(
+        () =>
+          import("@/components/content/Project").then(
+            (mod) => mod[displayContent]
+          ),
+        { ssr: false }
+      );
+    }
+    // …
+    return null;
   }, [displayContent]);
 
   // window control
