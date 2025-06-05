@@ -62,7 +62,10 @@ export const Profile = () => {
     <S.ContentContainer>
       <P.Wrap>
         <P.Intro>
-          <h2>안녕하세요, 강민구입니다.</h2>
+          <h2>
+            안녕하세요.
+            <br /> 강민구입니다.
+          </h2>
           <p>
             어떤 분야에서든지, 의문이 생기면 해결될 때까지 파고드는 것을
             좋아합니다.

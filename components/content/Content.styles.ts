@@ -6,6 +6,7 @@ export const ContentContainer = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.lg};
 
   ${({ theme }) => theme.media.mobile} {
-    padding: ${({ theme }) => theme.spacing.md} 1rem;
+    padding: ${({ theme }) => theme.spacing.md};
+    word-break: break-all;
   }
 `;

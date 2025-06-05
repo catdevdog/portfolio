@@ -104,22 +104,6 @@ export default function Home() {
       <S.HeroSection id="HeroSection" $open={displayOpen}>
         <HeroRenderer />
         <S.ControlBox>
-          <S.HeroCommandInput
-            value={currentCommand}
-            onChange={(e) => setCurrentCommand(e.target.value)}
-            placeholder={
-              !startState
-                ? `Type 'start' or click '>'`
-                : "Use the command below"
-            }
-            onKeyDown={(e) => handelKeyDown(e)}
-            ref={commandInputRef}
-            id="commandInput"
-            maxLength={15}
-          />
-          <S.HeroCommandButton onClick={() => handleClick()}>
-            {">"}
-          </S.HeroCommandButton>
           {startState && (
             <S.RecommendedCommand>
               {commandListRef.current.map((item, index) => (
@@ -132,6 +116,20 @@ export default function Home() {
               ))}
             </S.RecommendedCommand>
           )}
+          <S.HeroCommandInput
+            value={currentCommand}
+            onChange={(e) => setCurrentCommand(e.target.value)}
+            placeholder={
+              !startState ? `Type 'start' or click '>'` : "Use a command above"
+            }
+            onKeyDown={(e) => handelKeyDown(e)}
+            ref={commandInputRef}
+            id="commandInput"
+            maxLength={15}
+          />
+          <S.HeroCommandButton onClick={() => handleClick()}>
+            {">"}
+          </S.HeroCommandButton>
         </S.ControlBox>
       </S.HeroSection>
       {startState && (

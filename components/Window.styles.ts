@@ -42,7 +42,8 @@ export const WindowHeader = styled.div`
   border-radius: 6px 6px 0 0;
   position: relative;
   cursor: grab;
-  user-select: none;
+  touch-action: none;
+  user-select: none; /* 선택 방지 */
 
   &:hover {
     ${WindowTrafficLight} {
@@ -69,7 +70,6 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
   position: relative;
   top: 0px;
   left: 0;
-  min-width: 300px;
   width: auto;
   transition: all 0.3s ease;
   overflow-y: auto;
