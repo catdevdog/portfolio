@@ -88,6 +88,8 @@ export default function Home() {
   };
 
   const updateVh = () => {
+    if (!document.documentElement) return;
+
     document.documentElement.style.setProperty(
       "--vh",
       `${window.innerHeight * 0.01}px`
