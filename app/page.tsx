@@ -87,12 +87,23 @@ export default function Home() {
     addCommandHistory(command);
   };
 
+  const updateVh = () => {
+    document.documentElement.style.setProperty(
+      "--vh",
+      `${window.innerHeight * 0.01}px`
+    );
+  };
+
   useEffect(() => {
     commandInputRef.current?.focus();
+    window.addEventListener("resize", updateVh);
   }, []);
 
   // 명령어 감지 프로세서
   useCommandProcessor();
+
+  // 뷰포트 높이 업데이트
+  updateVh();
 
   return (
     <S.HomeContainer>

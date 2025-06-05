@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 export const HomeContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
 
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   color: ${({ theme }) => theme.colors.text};
   display: flex;
   justify-content: space-between;
@@ -62,7 +62,7 @@ export const HeroSection = styled.div<{ $open: boolean }>`
   transition: transform ${({ $open }) => ($open ? "1.5s" : "0s")} ease-in-out;
 
   ${({ theme }) => theme.media.mobile} {
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     // display: flex;
     // flex-direction: column;
     transform: none;
@@ -87,7 +87,7 @@ export const ControlBox = styled.div`
     width: auto;
     max-width: calc(100% - 32px);
     margin: 0;
-    padding: 0 16px 100px 16px;
+    padding: 0 16px 16px 16px;
     gap: 8px;
 
     position: absolute;
@@ -178,6 +178,6 @@ export const WindowContainer = styled(motion.div)`
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 200px);
+    height: calc(100% - 110px);
   }
 `;

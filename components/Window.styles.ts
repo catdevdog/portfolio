@@ -17,7 +17,7 @@ export const Window = styled(motion.div)`
 
   ${({ theme }) => theme.media.mobile} {
     z-index: 10;
-    max-height: calc(100vh - 200px);
+    max-height: 100%;
     background-color: ${({ theme }) => theme.colors.background};
     backdrop-filter: none;
     // border-radius: 0;
