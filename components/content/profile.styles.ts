@@ -2,30 +2,34 @@ import styled from "styled-components";
 
 export const Wrap = styled.div`
   display: flex;
+  height: 100%;
+  margin: 0 auto;
+  padding-top: 10rem;
+
+  color: ${({ theme }) => theme.colors.text};
+  line-height: 1.5;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  // gap: 10rem;
-  margin: 0 auto;
-  color: ${({ theme }) => theme.colors.text};
 
   max-width: 700px;
-  height: 100%;
-  line-height: 1.5;
-  padding-top: 10rem;
 `;
 
 export const content = styled.div`
   width: 100%;
 
+  font-size: 1.2rem;
+
   h2 {
-    font-family: "IntelOneMono";
+    font-family: IntelOneMono;
+
     font-size: 4rem;
     transition: 0.3s ease;
   }
+
   &:not(:last-child) {
-    padding-bottom: 8rem;
     margin-bottom: 8rem;
+    padding-bottom: 8rem;
     border-bottom: 1px solid ${({ theme }) => theme.colors.text};
   }
 
@@ -34,43 +38,66 @@ export const content = styled.div`
       padding-left: 0.5rem;
     }
   }
+
+  ${({ theme }) => theme.media.mobile} {
+    font-size: 1rem;
+
+    h2 {
+      font-size: 2.5rem;
+
+      &:hover {
+        padding-left: 0;
+      }
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: none;
+    }
+  }
 `;
 
 export const Intro = styled(content)`
   width: 100%;
+
   h2 {
-    font-family: unset;
-    font-size: 2.5rem;
     margin-bottom: 2rem;
+
+    font-size: 2.5rem;
+    font-family: unset;
   }
+
   p {
-    font-size: 1.2rem;
-    line-height: 1.8;
     margin-top: 1.2rem;
+
+    line-height: 1.8;
   }
+
   button {
     position: relative;
     z-index: 1;
     margin-top: 1rem;
     padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: transparent;
-    color: ${({ theme }) => theme.colors.text};
-    // border: none;
     border: 1px solid ${({ theme }) => theme.colors.text};
+
+    background-color: transparent;
+
+    color: ${({ theme }) => theme.colors.text};
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
     &:hover,
     &:focus-visible {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgb(255 255 255 / 10%);
     }
   }
 `;
 
 export const IntroPlus = styled.div`
-  height: 0px;
   visibility: hidden;
+  height: 0;
 `;
 
 export const Career = styled(content)``;
