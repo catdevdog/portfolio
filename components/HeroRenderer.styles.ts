@@ -7,6 +7,11 @@ export const HeroContainer = styled.div`
     width: 100%;
     height: 100%;
   }
+
+  ${({ theme }) => theme.media.mobile} {
+    height: calc(100% - 200px);
+  }
+  z-index: 1;
 `;
 export const CommandBox = styled.div`
   background: rgba(0, 0, 0, 0);

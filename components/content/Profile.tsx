@@ -74,20 +74,18 @@ export const Profile = () => {
           </p>
           <p>
             지금 이순간에도 끊임 없이 생겨나는 프론트엔드 기술들을 바로바로
-            프로젝트에 접목시키려 노력하며, 이를 위해 다양한 프로젝트들을
+            프로젝트에 접목시키려 노력하며, 이를 위해 다양한 사이드 프로젝트들을
             진행하고있습니다.
           </p>
           <P.IntroPlus ref={introRef}>
             <p className="more-intro-chunk">
-              vue, react 기반의 웹 서비스 리뉴얼 및 구축 프로젝트를 다수 경험한
-              3년의 퍼블리싱 경력을 바탕으로 일부 프로젝트에서 프론트 개발도
-              함께 맡았습니다.
+              3년간 퍼블리셔로 일하며 웹 서비스 리뉴얼 및 구축 프로젝트를 경험,
+              그중 일부 프로젝트에서 프론트 개발도 함께 맡았습니다.
             </p>
             <p className="more-intro-chunk">
-              다양한 분야의 프로젝트에 참여하며 퍼블리싱 및 프론트엔드 개발을
-              진행 했습니다. 참여한 프로젝트 대부분이 react, vue 기반으로
-              TypeScript, Nuxt, Next 등 프레임워크 기반 개발에 능숙하고, Vuex,
-              Pinia, Zustand 등 이에 맞는 상태 관리 경험도 보유하고 있습니다.
+              참여한 프로젝트 대부분이 react, vue 기반으로 TypeScript, Nuxt,
+              Next 등 프레임워크 기반 개발에 능숙하고, Vuex, Pinia, Zustand 등
+              이에 맞는 상태 관리 경험도 보유하고 있습니다.
             </p>
             <p className="more-intro-chunk">
               3년 이상의 SI 프로젝트 경험을 통해 협업 도구(Jira, Slack,
@@ -102,7 +100,9 @@ export const Profile = () => {
               넓혀가고 있습니다.
             </p>
           </P.IntroPlus>
-          <button onClick={handleIntroToggle}>조금 더 알아보기</button>
+          <button onClick={handleIntroToggle}>
+            {introPlusState ? "접기" : "자세히 보기"}
+          </button>
         </P.Intro>
         <P.Career>
           <h2>Career.</h2>

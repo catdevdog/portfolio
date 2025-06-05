@@ -81,6 +81,7 @@ export default function Home() {
     }
   };
 
+  // 명령어 입력 후 클릭 (=enter)
   const handleCommandClick = (command: string) => {
     setCurrentCommand(command);
     addCommandHistory(command);
@@ -90,6 +91,7 @@ export default function Home() {
     commandInputRef.current?.focus();
   }, []);
 
+  // 명령어 감지 프로세서
   useCommandProcessor();
 
   return (

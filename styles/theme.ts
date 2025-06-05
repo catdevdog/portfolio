@@ -1,5 +1,6 @@
 // styles/theme.ts
 import { DefaultTheme } from "styled-components";
+import { media } from "./media";
 
 export const theme: DefaultTheme = {
   colors: {
@@ -28,4 +29,5 @@ export const theme: DefaultTheme = {
   windowHeader: {
     background: "#222", // 윈도우 헤더 배경색
   },
+  media,
 };

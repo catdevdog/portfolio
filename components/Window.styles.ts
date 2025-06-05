@@ -14,6 +14,13 @@ export const Window = styled(motion.div)`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-height: 100vh;
   overflow: hidden;
+
+  ${({ theme }) => theme.media.mobile} {
+    background-color: ${({ theme }) => theme.colors.background};
+    backdrop-filter: none;
+    z-index: 10;
+    max-height: calc(100vh - 200px);
+  }
 `;
 
 export const WindowTrafficLight = styled.div<{ color: string }>`

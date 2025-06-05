@@ -56,8 +56,8 @@ export const Intro = styled(content)`
     font-size: 1rem;
     background-color: transparent;
     color: ${({ theme }) => theme.colors.text};
-    border: none;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.text};
+    // border: none;
+    border: 1px solid ${({ theme }) => theme.colors.text};
     cursor: pointer;
     transition: background-color 0.3s ease;
 

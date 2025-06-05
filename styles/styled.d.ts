@@ -28,5 +28,8 @@ declare module "styled-components" {
     windowHeader: {
       background: string; // 윈도우 헤더 배경색
     };
+    media: {
+      mobile: string;
+    };
   }
 }

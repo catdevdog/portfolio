@@ -9,6 +9,10 @@ export const HomeContainer = styled.div`
   display: flex;
   justify-content: space-between;
   overflow: hidden;
+
+  ${({ theme }) => theme.media.mobile} {
+    display: block;
+  }
 `;
 
 export const BackgroundText = styled.div`
@@ -35,24 +39,17 @@ export const BackgroundText = styled.div`
     -webkit-text-stroke: 0px;
   }
 
-  @media (max-width: 1440px) {
-    display: none;
+  ${({ theme }) => theme.media.mobile} {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    span {
+      font-size: 20vw;
+    }
   }
 `;
-
-export const AccentText = styled.h1`
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-export const SubText = styled.p`
-  color: ${({ theme }) => theme.colors.secondary};
-`;
-
-interface HeroSectionProps {
-  $open: boolean;
-}
-
-export const HeroSection = styled.div<HeroSectionProps>`
+export const HeroSection = styled.div<{ $open: boolean }>`
   flex: 0 0 400px;
   overflow: hidden;
   text-align: left;
@@ -62,6 +59,13 @@ export const HeroSection = styled.div<HeroSectionProps>`
     ${({ $open }) => ($open ? "0%" : "calc(50vw - 170px)")}
   );
   transition: transform ${({ $open }) => ($open ? "1.5s" : "0s")} ease-in-out;
+
+  ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    z-index: 1;
+    transform: none;
+    height: 100vh;
+  }
 `;
 
 export const ControlBox = styled.div`
@@ -145,4 +149,13 @@ export const WindowContainer = styled(motion.div)`
   flex: 1 1 75%;
   position: relative;
   height: 100%;
+
+  ${({ theme }) => theme.media.mobile} {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 200px);
+  }
 `;
