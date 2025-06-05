@@ -16,10 +16,11 @@ export const Window = styled(motion.div)`
   overflow: hidden;
 
   ${({ theme }) => theme.media.mobile} {
-    background-color: ${({ theme }) => theme.colors.background};
-    backdrop-filter: none;
     z-index: 10;
     max-height: calc(100vh - 200px);
+    background-color: ${({ theme }) => theme.colors.background};
+    backdrop-filter: none;
+    border-radius: 0;
   }
 `;
 
@@ -31,6 +32,11 @@ export const WindowTrafficLight = styled.div<{ color: string }>`
   cursor: pointer;
   transform: scale(0.8);
   transition: transform 0.3s ease;
+
+  ${({ theme }) => theme.media.mobile} {
+    width: 22px;
+    height: 22px;
+  }
 `;
 
 export const WindowHeader = styled.div`
@@ -50,11 +56,23 @@ export const WindowHeader = styled.div`
       transform: scale(1);
     }
   }
+
+  ${({ theme }) => theme.media.mobile} {
+    padding: 12px 16px;
+    border-radius: 0;
+    ${WindowTrafficLight} {
+      transform: scale(1);
+    }
+  }
 `;
 
 export const WindowTrafficLightWrap = styled.div`
   display: flex;
   gap: 10px;
+
+  ${({ theme }) => theme.media.mobile} {
+    gap: 15px;
+  }
 `;
 
 export const WindowTitle = styled.div`
@@ -64,6 +82,10 @@ export const WindowTitle = styled.div`
 
   left: 50%;
   transform: translateX(-50%);
+
+  ${({ theme }) => theme.media.mobile} {
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+  }
 `;
 
 export const WindowContent = styled.div<{ $maximized: boolean }>`

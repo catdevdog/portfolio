@@ -9,7 +9,9 @@ export const HeroContainer = styled.div`
   }
 
   ${({ theme }) => theme.media.mobile} {
-    height: calc(100% - 200px);
+    // 모바일일때 부모(HeroSection) display: flex; direction: column;
+    flex: 1 1 auto;
+    height: auto;
   }
   z-index: 1;
 `;

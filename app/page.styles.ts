@@ -62,10 +62,10 @@ export const HeroSection = styled.div<{ $open: boolean }>`
   transition: transform ${({ $open }) => ($open ? "1.5s" : "0s")} ease-in-out;
 
   ${({ theme }) => theme.media.mobile} {
-    position: relative;
-    z-index: 1;
-    transform: none;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transform: none;
   }
 `;
 
@@ -79,6 +79,16 @@ export const ControlBox = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   gap: 8px;
+
+  ${({ theme }) => theme.media.mobile} {
+    // 모바일일때 부모(HeroSection) display: flex; direction: column;
+    flex: 1 1 auto;
+    width: auto;
+    max-width: calc(100% - 32px);
+    margin: 0;
+    padding: 0 16px 100px 16px;
+    gap: 8px;
+  }
 `;
 
 export const HeroCommandInput = styled.input`
@@ -126,14 +136,19 @@ export const RecommendedCommand = styled.div`
   white-space: pre-wrap;
   margin-top: 4px;
   gap: 4px;
+
+  ${({ theme }) => theme.media.mobile} {
+    justify-content: center;
+    gap: 8px;
+  }
 `;
 
 export const RecommendedCommandItem = styled.button`
   font-family: ${({ theme }) => theme.systemFontFamily};
   background: rgba(0, 0, 0, 0);
   border: none;
-  border-bottom: 2px solid #eee;
-  background-color: ${({ theme }) => theme.colors.background};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.text};
+  background-color: rgba(255, 255, 255, 0.03);
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.fontSizes.md};
   padding: 4px 4px;
