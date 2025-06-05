@@ -88,7 +88,6 @@ export default function Home() {
   };
 
   const updateVh = () => {
-    if (!document) return;
     document.documentElement.style.setProperty(
       "--vh",
       `${window.innerHeight * 0.01}px`
@@ -98,13 +97,12 @@ export default function Home() {
   useEffect(() => {
     commandInputRef.current?.focus();
     window.addEventListener("resize", updateVh);
+    // 뷰포트 높이 업데이트
+    updateVh();
   }, []);
 
   // 명령어 감지 프로세서
   useCommandProcessor();
-
-  // 뷰포트 높이 업데이트
-  updateVh();
 
   return (
     <S.HomeContainer>
