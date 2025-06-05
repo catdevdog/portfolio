@@ -97,7 +97,7 @@ export default function Home() {
   return (
     <S.HomeContainer>
       <S.BackgroundText>
-        {LANG.map((lang, idx) => (
+        {[...LANG, ...LANG].map((lang, idx) => (
           <span key={`${lang}_${idx}`}>{lang}</span>
         ))}
       </S.BackgroundText>

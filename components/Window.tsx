@@ -81,8 +81,12 @@ export const Window = ({
   const animateControls = useAnimation();
 
   const DynamicDisplay = useMemo(() => {
-    return dynamic(() =>
-      import(dynamicImportPath).then((mod) => mod[displayContent])
+    return dynamic(
+      () => import(dynamicImportPath).then((mod) => mod[displayContent]),
+      {
+        loading: () => <div>Loading...</div>,
+        ssr: false, // 클라이언트 사이드에서만 렌더링
+      }
     );
   }, [displayContent]);
 

@@ -46,6 +46,7 @@ export const BackgroundText = styled.div`
     bottom: 0;
     span {
       font-size: 20vw;
+      -webkit-text-stroke: 1px ${({ theme }) => theme.colors.text};
     }
   }
 `;
