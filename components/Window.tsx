@@ -72,23 +72,11 @@ export const Window = ({
     []
   );
 
-  // window content import
   const displayContent =
     windowName.charAt(0).toUpperCase() + windowName.slice(1);
-  // const dynamicImportPath = `@/components/content/${displayContent}`;
 
   const dragControls = useDragControls();
   const animateControls = useAnimation();
-
-  // const DynamicDisplay = useMemo(() => {
-  //   return dynamic(
-  //     () => import(dynamicImportPath).then((mod) => mod[displayContent]),
-  //     {
-  //       loading: () => <div>Loading...</div>,
-  //       ssr: false,
-  //     }
-  //   );
-  // }, [displayContent]);
   const DynamicDisplay = useMemo(() => {
     if (displayContent === "Profile") {
       return dynamic(
@@ -108,7 +96,6 @@ export const Window = ({
         { ssr: false }
       );
     }
-    // …
     return null;
   }, [displayContent]);
 

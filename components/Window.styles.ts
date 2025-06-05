@@ -100,13 +100,17 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
 
 export const ScrollPercentageBar = styled(motion.div)`
   position: absolute;
-  top: 46px;
+  top: 38px;
   left: 0;
   z-index: 10;
   width: 100%;
   height: 4px;
 
   background-color: #27c93f;
+
+  ${({ theme }) => theme.media.mobile} {
+    top: 46px;
+  }
 `;
 
 export const Background3D = styled(motion.div)`
