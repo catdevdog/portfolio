@@ -16,6 +16,8 @@ export const Wrap = styled.div`
 `;
 
 export const content = styled.div`
+  position: relative;
+  z-index: 1;
   width: 100%;
 
   font-size: 1.2rem;
@@ -31,12 +33,6 @@ export const content = styled.div`
     margin-bottom: 8rem;
     padding-bottom: 8rem;
     border-bottom: 1px solid ${({ theme }) => theme.colors.text};
-  }
-
-  &:hover {
-    h2 {
-      padding-left: 0.5rem;
-    }
   }
 
   ${({ theme }) => theme.media.mobile} {
@@ -73,26 +69,6 @@ export const Intro = styled(content)`
 
     line-height: 1.8;
   }
-
-  button {
-    position: relative;
-    z-index: 1;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    border: 1px solid ${({ theme }) => theme.colors.text};
-
-    background-color: transparent;
-
-    color: ${({ theme }) => theme.colors.text};
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover,
-    &:focus-visible {
-      background-color: rgb(255 255 255 / 10%);
-    }
-  }
 `;
 
 export const IntroPlus = styled.div`
@@ -100,10 +76,62 @@ export const IntroPlus = styled.div`
   height: 0;
 `;
 
-export const Career = styled(content)``;
+export const Career = styled(content)`
+  li {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem 1rem;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+
+  .year {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .name {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    word-break: keep-all;
+  }
+`;
 
 export const Education = styled(content)``;
 
 export const Skill = styled(content)``;
 
 export const Contact = styled(content)``;
+
+export const Button = styled.button`
+  position: relative;
+  z-index: 1;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.text};
+
+  background-color: transparent;
+
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 1rem;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgb(255 255 255 / 10%);
+  }
+
+  ${({ theme }) => theme.media.mobile} {
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+
+    font-size: 0.9rem;
+  }
+`;

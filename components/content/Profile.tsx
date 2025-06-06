@@ -98,23 +98,30 @@ export const Profile = () => {
             </p>
             <p className="more-intro-chunk">
               GCP, Firebase, NAS, AI 등 활용 가능한 서비스와 자산들을 적극
-              사용하여 다양한 사이드 프로젝트를 진행하며 이를 서비스의 흐름을
-              익히고 간단한 백엔드까지 아우르는 등, 개발 역량을 지속적으로
-              넓혀가고 있습니다.
+              사용하여 다양한 사이드 프로젝트를 진행하며 이를 통해 서비스의
+              흐름을 익히고 간단한 백엔드까지 아우르는 등, 개발 역량을
+              지속적으로 넓혀가고 있습니다.
             </p>
           </P.IntroPlus>
-          <button onClick={handleIntroToggle}>
+          <P.Button onClick={handleIntroToggle}>
             {introPlusState ? "접기" : "자세히 보기"}
-          </button>
+          </P.Button>
         </P.Intro>
         <P.Career>
           <h2>Career.</h2>
           {/* 🖥️  */}
           <ul>
             <li>
-              <span>2021 ~ 2025</span>
-              <p>(주) 프리아이브 부설연구소</p>
-              <button onClick={handleProjectClick}>프로젝트</button>
+              <span className="year">2021.12 ~ 2025.01</span>-
+              <p className="name">(주)프리아이브</p>
+              <p className="description">
+                웹 서비스 구축 및 리뉴얼 SI 프로젝트에 참여했습니다. 공통
+                컴포넌트 개발, 웹 접근성 인증, 반응형 UI, 다국어 적용 등을
+                경험했습니다. 퍼블리셔로 시작하여 일부 프로젝트에서 프론트엔드
+                영역까지 담당했으며, JSP, Gulp 부터 React, Vue 까지 폭넓은
+                환경에서 작업했습니다.
+              </p>
+              <P.Button onClick={handleProjectClick}>참여 프로젝트</P.Button>
             </li>
           </ul>
         </P.Career>
@@ -123,11 +130,11 @@ export const Profile = () => {
           {/* ✏️  */}
           <ul>
             <li>
-              <span>2016 ~ 2019</span>
+              <span className="year">2016 ~ 2019</span>
               <p>일산고등학교 멀티미디어디자인과</p>
             </li>
             <li>
-              <span>2025 ~ 재학중</span>
+              <span className="year">2025 ~ 재학중</span>
               <p>한국방송통신대학교 컴퓨터과학과</p>
             </li>
           </ul>
