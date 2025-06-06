@@ -23,9 +23,10 @@ export const content = styled.div`
   font-size: 1.2rem;
 
   h2 {
-    font-family: IntelOneMono;
+    margin-bottom: 1.5rem;
 
     font-size: 4rem;
+    font-family: IntelOneMono;
     transition: 0.3s ease;
   }
 
@@ -33,6 +34,32 @@ export const content = styled.div`
     margin-bottom: 8rem;
     padding-bottom: 8rem;
     border-bottom: 1px solid ${({ theme }) => theme.colors.text};
+  }
+
+  li {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem 1rem;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+
+  .year {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .name {
+    border-left: 1px solid ${({ theme }) => theme.colors.text};
+    padding-left: 1rem;
+
+    font-size: 1.1rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    word-break: keep-all;
   }
 
   ${({ theme }) => theme.media.mobile} {
@@ -76,31 +103,7 @@ export const IntroPlus = styled.div`
   height: 0;
 `;
 
-export const Career = styled(content)`
-  li {
-    display: flex;
-    justify-content: flex-start;
-    gap: 0.5rem 1rem;
-    flex-wrap: wrap;
-    align-items: baseline;
-    margin-bottom: 1rem;
-  }
-
-  .year {
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-
-  .name {
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-
-  .description {
-    font-size: 1rem;
-    word-break: keep-all;
-  }
-`;
+export const Career = styled(content)``;
 
 export const Education = styled(content)``;
 

@@ -198,7 +198,7 @@ export default function HeroRenderer() {
             <OrbitControls
               enablePan={false}
               enableZoom={!displayOpen}
-              enabled={!displayOpen} // ← displayOpen 에 따라 on/off만
+              // enabled={!displayOpen} // ← displayOpen 에 따라 on/off만
               minDistance={displayOpen ? 4 : 4}
               maxDistance={displayOpen ? 0 : 8}
               minAzimuthAngle={!displayOpen ? -Math.PI / 4 : -Math.PI / 4}

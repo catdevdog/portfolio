@@ -82,4 +82,10 @@ export const useCommandProcessor = () => {
       validateCommand(currentCommand);
     }
   }, [commandHistory]);
+
+  return {
+    validateCommand,
+    validateWindowArr,
+    handlers,
+  };
 };

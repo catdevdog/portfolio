@@ -4,16 +4,15 @@ import * as P from "./profile.styles";
 import { animate, stagger } from "motion";
 import { splitText } from "motion-plus";
 
-import { useStore } from "@/store/useStore";
+import { useCommandProcessor } from "@/store/useCommands";
 
 export const Profile = () => {
-  const { setCurrentCommand, addCommandHistory } = useStore((state) => state);
   const introRef = useRef<HTMLDivElement>(null);
   const [introPlusState, setIntroPlusState] = useState<boolean>(false);
+  const { handlers } = useCommandProcessor();
 
   const handleProjectClick = () => {
-    setCurrentCommand("project");
-    addCommandHistory("project");
+    handlers.project();
   };
 
   const handleIntroToggle = () => {
@@ -112,7 +111,7 @@ export const Profile = () => {
           {/* 🖥️  */}
           <ul>
             <li>
-              <span className="year">2021.12 ~ 2025.01</span>-
+              <span className="year">2021.12 ~ 2025.01</span>
               <p className="name">(주)프리아이브</p>
               <p className="description">
                 웹 서비스 구축 및 리뉴얼 SI 프로젝트에 참여했습니다. 공통
@@ -131,11 +130,20 @@ export const Profile = () => {
           <ul>
             <li>
               <span className="year">2016 ~ 2019</span>
-              <p>일산고등학교 멀티미디어디자인과</p>
+              <p className="name">일산고등학교 멀티미디어디자인과</p>
+              <p className="description">
+                동아리 활동을 통해, 기존에 없던 아두이노 프로젝트를 주도해 과 내
+                소규모 경진대회를 여는 등, 자기계발은 물론 학급에도 긍정적인
+                영향을 끼쳤습니다.
+              </p>
             </li>
             <li>
               <span className="year">2025 ~ 재학중</span>
-              <p>한국방송통신대학교 컴퓨터과학과</p>
+              <p className="name">한국방송통신대학교 컴퓨터과학과</p>
+              <p className="description">
+                첫 직장에서 퇴사 후, 기본적인 CS 이론의 기초를 다지고자
+                컴퓨터과학과 입학을 결정했습니다.
+              </p>
             </li>
           </ul>
         </P.Education>

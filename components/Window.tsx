@@ -160,7 +160,6 @@ export const Window = ({
           stiffness: 350,
           damping: 40,
         },
-        zIndex: maximumState ? 1000 : 1,
       })
       .then(() => {
         setWindowAnimating(false);
@@ -204,7 +203,7 @@ export const Window = ({
       animate={animateControls}
       onDragEnd={onDragEnd}
       style={{
-        zIndex: windowData.focus ? 1000 : 1,
+        zIndex: windowData.focus && maximumState ? 1000 : 1,
       }}
     >
       <S.WindowHeader

@@ -142,7 +142,7 @@ export default function Home() {
           </S.HeroCommandButton>
         </S.ControlBox>
       </S.HeroSection>
-      {startState && (
+      {startState && windowArr.length && (
         <S.WindowContainer ref={windowConstraintRef}>
           {windowArr.map(
             (window, index) =>
