@@ -66,18 +66,15 @@ export const useCommandProcessor = () => {
   };
 
   // 창 상태 확인
-  const validateWindowArr = (windowName: string): boolean => {
+  const validateWindowArr = (windowName: string) => {
     if (startState === false) handlers.start();
 
-    if (windowArr.some((item) => item.name === windowName && item.state)) {
+    if (windowArr.some((item) => item.name === windowName && item.state))
       addSystemCommandHistory(`${windowName} 이미 실행 중입니다.`);
-      return false;
-    }
-    // 창이 열려 있지 않다면 새로 추가
-    addSystemCommandHistory(`${windowName} 실행 중...`);
-    addWindow(windowName);
+    else addSystemCommandHistory(`${windowName} 실행 중...`);
 
-    return true;
+    // 없는 창이면 추가, 있는 창이면 state, focus 상태 변경
+    addWindow(windowName);
   };
 
   useEffect(() => {

@@ -23,6 +23,7 @@ interface StoreState {
   windowArr: {
     name: string;
     state: boolean;
+    focus: boolean; // 포커스 상태
   }[];
   addWindow: (Window: string) => void;
   removeWindow: (Window: string) => void;
@@ -63,18 +64,26 @@ export const useStore = create<StoreState>((set) => ({
       if (existingWindow) {
         return {
           windowArr: state.windowArr.map((item) =>
-            item.name === Window ? { ...item, state: true } : item
+            item.name === Window
+              ? { ...item, state: true, focus: true }
+              : {
+                  ...item,
+                  focus: false, // 다른 창을 열면 포커스 해제
+                }
           ),
         };
       }
       return {
-        windowArr: [...state.windowArr, { name: Window, state: true }],
+        windowArr: [
+          ...state.windowArr,
+          { name: Window, state: true, focus: true },
+        ],
       };
     }),
   removeWindow: (Window) =>
     set((state) => ({
       windowArr: state.windowArr.map((item) =>
-        item.name === Window ? { ...item, state: false } : item
+        item.name === Window ? { ...item, state: false, focus: false } : item
       ),
     })),
 

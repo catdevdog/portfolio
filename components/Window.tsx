@@ -38,11 +38,17 @@ const generateRandomTransforms = () => ({
   scale: getRandomRange(0.5, 5),
 });
 
+type TypeWindowData = {
+  name: string;
+  state: boolean;
+  focus: boolean; // 포커스 상태
+};
+
 export const Window = ({
-  windowName,
+  windowData,
   dragConstraintsRef,
 }: {
-  windowName: string;
+  windowData: TypeWindowData;
   dragConstraintsRef: React.RefObject<HTMLDivElement | null>;
 }) => {
   const windowRef = useRef<HTMLDivElement>(null);
@@ -73,7 +79,7 @@ export const Window = ({
   );
 
   const displayContent =
-    windowName.charAt(0).toUpperCase() + windowName.slice(1);
+    windowData.name.charAt(0).toUpperCase() + windowData.name.slice(1);
 
   const dragControls = useDragControls();
   const animateControls = useAnimation();
@@ -105,7 +111,7 @@ export const Window = ({
     const matrix = new DOMMatrixReadOnly(style.transform);
     const x = matrix.m41;
     const y = matrix.m42;
-    setWindowPosition(windowName, { x, y });
+    setWindowPosition(windowData.name, { x, y });
   };
 
   // 드래그 완료 시 좌표 저장
@@ -123,9 +129,9 @@ export const Window = ({
         transition: { type: "spring", stiffness: 350, damping: 40 },
       })
       .then(() => {
-        removeWindow(windowName);
+        removeWindow(windowData.name);
       });
-    addSystemCommandHistory(`${windowName} 종료`);
+    addSystemCommandHistory(`${windowData.name} 종료`);
   };
 
   // 최대화
@@ -143,8 +149,8 @@ export const Window = ({
     setWindowAnimating(true);
     animateControls
       .start({
-        x: maximumState ? 0 : windowPositions[windowName]?.x || 0,
-        y: maximumState ? 0 : windowPositions[windowName]?.y || 0,
+        x: maximumState ? 0 : windowPositions[windowData.name]?.x || 0,
+        y: maximumState ? 0 : windowPositions[windowData.name]?.y || 0,
         width: maximumState ? "100%" : "auto",
         height: maximumState ? "100%" : "auto",
         scale: 1,
@@ -167,8 +173,8 @@ export const Window = ({
 
     animateControls
       .start({
-        x: windowPositions[windowName]?.x || 0,
-        y: windowPositions[windowName]?.y || 0,
+        x: windowPositions[windowData.name]?.x || 0,
+        y: windowPositions[windowData.name]?.y || 0,
         scale: 1,
         opacity: 1,
         transition: { type: "spring", stiffness: 350, damping: 40, delay: 0.2 },
@@ -181,22 +187,25 @@ export const Window = ({
   return (
     <S.Window
       ref={windowRef}
-      key={`${windowName}`}
+      key={`${windowData.name}`}
       drag={!windowAnimating}
       dragControls={dragControls}
       dragConstraints={dragConstraintsRef}
       dragElastic={0.2}
       dragListener={false}
       dragMomentum={false}
-      id={`window ${windowName}`}
+      id={`window ${windowData.name}`}
       initial={{
-        x: windowPositions[windowName]?.x || 0,
-        y: windowPositions[windowName]?.y || 0,
+        x: windowPositions[windowData.name]?.x || 0,
+        y: windowPositions[windowData.name]?.y || 0,
         scale: 0,
         opacity: 0,
       }}
       animate={animateControls}
       onDragEnd={onDragEnd}
+      style={{
+        zIndex: windowData.focus ? 1000 : 1,
+      }}
     >
       <S.WindowHeader
         onPointerDown={(e) => {
@@ -222,7 +231,7 @@ export const Window = ({
             onClick={handleMaximizeWindow}
           />
         </S.WindowTrafficLightWrap>
-        <S.WindowTitle>{windowName}</S.WindowTitle>
+        <S.WindowTitle>{windowData.name}</S.WindowTitle>
       </S.WindowHeader>
 
       <S.ScrollPercentageBar

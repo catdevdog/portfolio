@@ -148,13 +148,12 @@ export default function Home() {
             (window, index) =>
               // <AnimatePresence initial={false}>
               /**
-               * 이름이 있는 경우(false가 아닌경우) 렌더링하도록 변경, 꺼진 경우 'windowName' -> false
-               * windowArr.length에 영향이 없기 때문에 리렌더링 되지 않음 -> 팝업 시 깜빡임 이슈 해결
-               * typeof 로 제어하는게 괜찮은 방법인지는 재고할 필요가 있음
+               * state로 제어하는 방식으로 변경
+               * 배열 자체는 수정하지 않고 객체 속성으로 제어
                */
               window.state && (
                 <Window
-                  windowName={window.name}
+                  windowData={window}
                   key={`${window}_${index}`}
                   dragConstraintsRef={windowConstraintRef}
                 />

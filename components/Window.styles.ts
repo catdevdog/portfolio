@@ -96,6 +96,11 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
   overflow-y: auto;
   max-height: ${({ $maximized }) =>
     $maximized ? "calc(100vh - 38px)" : "70vh"};
+
+  ${({ theme }) => theme.media.mobile} {
+    max-height: ${({ $maximized }) =>
+      $maximized ? "calc(100vh - 46px)" : "45vh"};
+  }
 `;
 
 export const ScrollPercentageBar = styled(motion.div)`
