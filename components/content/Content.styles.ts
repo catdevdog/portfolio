@@ -4,6 +4,8 @@ export const ContentContainer = styled.div`
   position: relative;
   padding: ${({ theme }) => theme.spacing.lg} 4rem;
 
+  font-family: Pretendard-Regular;
+
   font-size: ${({ theme }) => theme.fontSizes.lg};
 
   ${({ theme }) => theme.media.mobile} {

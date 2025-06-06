@@ -22,6 +22,13 @@ const GlobalStyle = createGlobalStyle`
     font-display: swap;
   }
 
+ @font-face {
+    font-style: normal;
+    font-weight: 400;
+    font-family: Pretendard-Regular;
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+}
+
   @font-face {
     font-style: normal;
     font-weight: 700;
