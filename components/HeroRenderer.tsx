@@ -182,7 +182,6 @@ export default function HeroRenderer() {
                 <Html
                   center
                   style={{
-                    fontFamily: "DungGeunMo",
                     fontSize: "24px",
                     color: "#fff",
                   }}

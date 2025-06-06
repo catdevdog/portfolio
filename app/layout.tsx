@@ -15,7 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <head></head>
+      <head>
+        <link
+          href="https://fonts.cdnfonts.com/css/ibm-plex-mono-3"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <StyledComponentsRegistry>
           <StyledProviders>{children}</StyledProviders>

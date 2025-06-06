@@ -24,7 +24,7 @@ export const theme: DefaultTheme = {
     xl: "1.5rem", // 24px
     cmd: "1.6rem",
   },
-  systemFontFamily: "IBMPlexMono",
+  systemFontFamily: "IBM Plex Mono",
   borderRadius: "8px", // 기본 모서리 반경
   windowHeader: {
     background: "#222", // 윈도우 헤더 배경색
