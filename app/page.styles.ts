@@ -102,9 +102,10 @@ export const HeroCommandInput = styled.input`
   font-size: ${({ theme }) => theme.fontSizes.md};
   flex: 1 0 auto;
   font-family: ${({ theme }) => theme.systemFontFamily};
-  border-bottom: 2px solid ${({ theme }) => theme.colors.text};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.text};
 
-  &:focus-visible {
+  &:focus-visible,
+  &:hover {
     background-color: rgb(255 255 255 / 10%);
   }
   ${({ theme }) => theme.media.mobile} {
@@ -122,7 +123,7 @@ export const HeroCommandButton = styled.button`
   text-align: center;
   font-family: ${({ theme }) => theme.systemFontFamily};
   flex: 0 0 48px;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.text};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.text};
   cursor: pointer;
 
   &:hover,
@@ -153,15 +154,15 @@ export const RecommendedCommand = styled.div`
 `;
 
 export const RecommendedCommandItem = styled.button`
-  padding: 4px;
+  padding: 4px 8px;
   border: none;
+  border: 1px solid ${({ theme }) => theme.colors.text};
 
   background-color: rgb(255 255 255 / 3%);
 
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.fontSizes.md};
-  font-family: ${({ theme }) => theme.systemFontFamily};
-  border-bottom: 2px solid ${({ theme }) => theme.colors.text};
+  font-family: Pretendard-Regular;
   cursor: pointer;
 
   &:hover,

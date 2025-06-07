@@ -45,13 +45,32 @@ const LANG = [
 export default function Home() {
   const windowConstraintRef = useRef<HTMLDivElement>(null);
   const commandInputRef = useRef<HTMLInputElement>(null);
-  const commandListRef = useRef<string[]>([
-    "guide",
-    "profile",
-    "project",
-    "etc",
-    "cls",
-    "skill",
+  const commandListRef = useRef<
+    {
+      label: string;
+      value: string;
+    }[]
+  >([
+    {
+      label: "명령어",
+      value: "guide",
+    },
+    {
+      label: "프로필",
+      value: "profile",
+    },
+    {
+      label: "프로젝트",
+      value: "project",
+    },
+    {
+      label: "초기화",
+      value: "cls",
+    },
+    {
+      label: "기타",
+      value: "etc",
+    },
   ]);
 
   const {
@@ -119,9 +138,9 @@ export default function Home() {
               {commandListRef.current.map((item, index) => (
                 <S.RecommendedCommandItem
                   key={index}
-                  onClick={() => handleCommandClick(item)}
+                  onClick={() => handleCommandClick(item.value)}
                 >
-                  {item}
+                  {item.label}
                 </S.RecommendedCommandItem>
               ))}
             </S.RecommendedCommand>
