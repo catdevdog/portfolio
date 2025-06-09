@@ -151,21 +151,20 @@ export const RecommendedCommand = styled.div`
   color: #fff;
   white-space: pre-wrap;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   font-family: ${({ theme }) => theme.systemFontFamily};
   gap: 8px;
 
   ${({ theme }) => theme.media.mobile} {
-    justify-content: center;
     gap: 8px;
   }
 `;
 
 export const RecommendedCommandItem = styled.button<{ $active?: boolean }>`
-  flex: 1 0 auto;
+  position: relative;
+  flex: 0 0 auto;
   padding: 4px 8px;
   border: none;
-  border: 1px solid ${({ theme }) => theme.colors.text};
 
   background-color: rgb(255 255 255 / 3%);
 
@@ -179,10 +178,6 @@ export const RecommendedCommandItem = styled.button<{ $active?: boolean }>`
     background-color: rgb(255 255 255 / 10%);
   }
 
-  ${({ theme }) => theme.media.mobile} {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.text};
-  }
-
   @keyframes blink {
     0% {
       opacity: 1;
@@ -193,23 +188,25 @@ export const RecommendedCommandItem = styled.button<{ $active?: boolean }>`
     }
   }
 
-  ${({ $active, theme }) =>
+  &::before {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    z-index: 1;
+
+    width: 6px;
+    height: 6px;
+
+    background-color: #ff5f57;
+    content: "";
+    border-radius: 50%;
+  }
+  ${({ $active }) =>
     $active &&
     `
-    position: relative;
-      &::before {
-        content: "";
-        position: absolute;
-        top: 1px;
-        left: 1px;
-
-        width: 6px;
-        height: 6px;
-        background-color: #27C93F;
-        z-index: 1;
-
-        // animation: blink 1s infinite;
-      }
+    &::before {
+      background-color: #27c93f;
+    }
     `}
 `;
 

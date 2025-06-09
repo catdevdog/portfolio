@@ -54,15 +54,15 @@ export default function Home() {
     }[]
   >([
     {
-      label: "명령어 안내",
+      label: "명령어 안내 보기",
       value: "guide",
     },
     {
-      label: "프로필 보기",
+      label: "프로필",
       value: "profile",
     },
     {
-      label: "프로젝트 보기",
+      label: "프로젝트",
       value: "project",
     },
   ]);
@@ -160,7 +160,6 @@ export default function Home() {
             maxLength={15}
           />
           <S.HeroCommandButton onClick={() => handleClick()}>
-            {/* {startState ? "Enter" : "Start"} */}
             <Image width={46} src={ARROW} alt="명령어 입력하기" />
           </S.HeroCommandButton>
         </S.ControlBox>
