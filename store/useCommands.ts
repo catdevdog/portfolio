@@ -57,7 +57,7 @@ export const useCommandProcessor = () => {
 
   // 명령어 유효성 검사 및 실행
   const validateCommand = (command: string) => {
-    const fn = handlers[command];
+    const fn = handlers[command.toLowerCase()];
 
     if (fn) fn();
     else addSystemCommandHistory(`'${command}'는 유효하지 않은 명령어입니다.`);

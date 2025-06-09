@@ -81,9 +81,9 @@ export const ControlBox = styled.div`
 
   ${({ theme }) => theme.media.mobile} {
     position: absolute;
-    right: 16px;
-    bottom: 16px;
-    left: 16px;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
     width: auto;
     margin: 0;
     max-width: none;
@@ -140,6 +140,14 @@ export const HeroCommandButton = styled.button`
   &:focus-visible {
     transform: rotate(0deg);
     outline: 1px solid ${({ theme }) => theme.colors.text};
+  }
+
+  ${({ theme }) => theme.media.mobile} {
+    transform: rotate(-90deg);
+
+    &:hover {
+      transform: rotate(-90deg);
+    }
   }
 `;
 
@@ -225,6 +233,6 @@ export const WindowContainer = styled(motion.div)`
     right: 0.5rem;
     left: 0.5rem;
     z-index: 10;
-    height: calc(100% - 110px - 0.5rem);
+    height: calc(100% - 100px - 0.5rem);
   }
 `;

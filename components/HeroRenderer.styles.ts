@@ -16,7 +16,7 @@ export const HeroContainer = styled.div`
     top: 0;
     right: 0;
     left: 0;
-    height: calc(100% - 110px);
+    height: calc(100% - 100px);
   }
 `;
 export const CommandBox = styled.div`
