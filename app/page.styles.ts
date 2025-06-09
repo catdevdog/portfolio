@@ -249,7 +249,7 @@ export const RecommendedCommandItem = styled.button<{
         background-color: #27c93f;
       }
     `}
-  ${({ $focus, theme }) =>
+  ${({ $focus }) =>
     $focus &&
     `
       color: #27c93f
