@@ -14,6 +14,7 @@ import Image from "next/image";
 import ICON_CLOSE from "@/public/icons/icon-close.png";
 import ICON_REFRESH from "@/public/icons/icon-refresh.png";
 import ICON_MAXIMIZE from "@/public/icons/icon-maximize.png";
+import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
 
 type TypeWindowData = {
   name: string;
@@ -188,6 +189,10 @@ export const Window = ({
   useEffect(() => {
     if (!isInitialMount) return;
 
+    // 첫 로드드 시 프로필 최대화 상태태로 오픈
+    const isFirstLoad =
+      windowArr.length === 1 && windowArr[0].name === "Profile";
+
     animateControls
       .start({
         x: windowPositions[windowData.name]?.x || 0,
@@ -201,6 +206,9 @@ export const Window = ({
       })
       .then(() => {
         setIsInitialMount(false);
+        if (isFirstLoad) {
+          setMaximumState(true);
+        }
       });
   }, []);
 
@@ -224,7 +232,7 @@ export const Window = ({
       animate={animateControls}
       onDragEnd={onDragEnd}
       style={{
-        zIndex: windowData.focus && maximumState ? 1000 : 1,
+        zIndex: windowData.focus ? 1000 : 1,
       }}
     >
       <S.WindowHeader

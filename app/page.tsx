@@ -59,6 +59,8 @@ export default function Home() {
     windowArr,
   } = useStore((state) => state);
 
+  // 명령어 감지 프로세서
+  const { handlers } = useCommandProcessor({ watch: true });
   const themeButtonRef = useRef<LottieRefCurrentProps>(null);
   const windowConstraintRef = useRef<HTMLDivElement>(null);
   const commandInputRef = useRef<HTMLInputElement>(null);
@@ -115,7 +117,6 @@ export default function Home() {
 
   // active check
   const isActive = (command: string) => {
-    console.log("isActive", command, windowArr);
     return windowArr.some(
       (window) => window.name.toLowerCase() === command && window.state
     );
@@ -139,11 +140,10 @@ export default function Home() {
     themeButtonRef.current?.pause();
     window.addEventListener("resize", updateVh);
     // 뷰포트 높이 업데이트
+    handlers.start();
+    handlers.profile();
     updateVh();
   }, []);
-
-  // 명령어 감지 프로세서
-  useCommandProcessor({ watch: true });
 
   return (
     <S.HomeContainer>

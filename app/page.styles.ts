@@ -78,7 +78,7 @@ export const HeroSection = styled.div<{ $open: boolean }>`
   transform: translateX(
     ${({ $open }) => ($open ? "0%" : "calc(50vw - 200px)")}
   );
-  transition: transform ${({ $open }) => ($open ? "1.5s" : "0s")} ease-in-out;
+  transition: transform ${({ $open }) => ($open ? "1s" : "0s")} ease-in-out;
 
   ${({ theme }) => theme.media.mobile} {
     position: relative;
