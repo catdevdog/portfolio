@@ -122,6 +122,14 @@ export default function Home() {
     );
   };
 
+  // focus check
+  const isFocus = (command: string) => {
+    return windowArr.some(
+      (window) =>
+        window.name.toLowerCase() === command && window.state && window.focus
+    );
+  };
+
   // 테마 토글
   const toggleTheme = () => {
     if (!themeButtonRef.current) return;
@@ -162,6 +170,7 @@ export default function Home() {
                   key={index}
                   onClick={() => handleCommandClick(item.value)}
                   $active={index > 0 ? isActive(item.value) : true}
+                  $focus={isFocus(item.value)}
                 >
                   {item.label}
                 </S.RecommendedCommandItem>

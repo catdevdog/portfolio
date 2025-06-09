@@ -82,7 +82,10 @@ export const useStore = create<StoreState>((set) => ({
       }
       return {
         windowArr: [
-          ...state.windowArr,
+          ...state.windowArr.map((item) => ({
+            ...item,
+            focus: false, // 다른 창을 열면 포커스 해제
+          })),
           { name: Window, state: true, focus: true },
         ],
       };

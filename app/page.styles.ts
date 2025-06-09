@@ -190,7 +190,10 @@ export const RecommendedCommand = styled.div`
   }
 `;
 
-export const RecommendedCommandItem = styled.button<{ $active?: boolean }>`
+export const RecommendedCommandItem = styled.button<{
+  $active?: boolean;
+  $focus?: boolean;
+}>`
   position: relative;
   flex: 0 0 auto;
   padding: 4px 8px;
@@ -208,6 +211,8 @@ export const RecommendedCommandItem = styled.button<{ $active?: boolean }>`
     background-color: rgb(255 255 255 / 10%);
   }
 
+  transition: all 0.3s ease;
+
   @keyframes blink {
     0% {
       opacity: 1;
@@ -222,24 +227,32 @@ export const RecommendedCommandItem = styled.button<{ $active?: boolean }>`
     position: absolute;
     top: 1px;
     left: 1px;
-    z-index: 1;
+    z-index: -1;
 
     width: 6px;
     height: 6px;
 
+    background-color: transparent;
     background-color: #ff5f57;
-    content: "";
-    border-radius: 50%;
 
-    animation: blink 2s infinite;
+    animation: blink 1s infinite;
+
+    content: "";
+    border-radius: 4px;
   }
+
   ${({ $active }) =>
     $active &&
     `
-    &::before {
-      animation: none;
-      background-color: #27c93f;
-    }
+      &::before {
+        animation: none;
+        background-color: #27c93f;
+      }
+    `}
+  ${({ $focus, theme }) =>
+    $focus &&
+    `
+      color: #27c93f
     `}
 `;
 
