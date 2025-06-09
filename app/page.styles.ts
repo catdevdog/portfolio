@@ -227,7 +227,7 @@ export const RecommendedCommandItem = styled.button<{
     position: absolute;
     top: 1px;
     left: 1px;
-    z-index: -1;
+    z-index: 1;
 
     width: 6px;
     height: 6px;
