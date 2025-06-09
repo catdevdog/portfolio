@@ -41,6 +41,7 @@ export const Window = ({
   const scrollPer = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   const {
+    windowArr,
     windowPositions,
     setWindowPosition,
     removeWindow,
@@ -190,7 +191,10 @@ export const Window = ({
     animateControls
       .start({
         x: windowPositions[windowData.name]?.x || 0,
-        y: windowPositions[windowData.name]?.y || 0,
+        y:
+          windowPositions[windowData.name]?.y ||
+          (windowArr.map((item) => item.state).length - 1) * 60 + 100 ||
+          100,
         scale: 1,
         opacity: 1,
         transition: { type: "spring", stiffness: 350, damping: 40, delay: 0.2 },

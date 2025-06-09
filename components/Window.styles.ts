@@ -116,11 +116,15 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
   transition: all 0.3s ease;
   overflow-y: auto;
   max-height: ${({ $maximized }) =>
-    $maximized ? "calc(calc(var(--vh, 1vh) * 100) - 38px)" : "70vh"};
+    $maximized
+      ? "calc(calc(var(--vh, 1vh) * 100) - 38px)"
+      : "calc(var(--vh, 1vh) * 45)"};
 
   ${({ theme }) => theme.media.mobile} {
     max-height: ${({ $maximized }) =>
-      $maximized ? "calc(calc(var(--vh, 1vh) * 100) - 46px)" : "70vh"};
+      $maximized
+        ? "calc(calc(var(--vh, 1vh) * 100) - 46px)"
+        : "calc(var(--vh, 1vh) * 45)"};
   }
 `;
 
