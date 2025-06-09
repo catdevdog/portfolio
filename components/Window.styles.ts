@@ -11,7 +11,7 @@ export const Window = styled(motion.div)`
   box-sizing: border-box;
   backdrop-filter: blur(6px);
   box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
-  max-height: 100vh;
+  max-height: calc(var(--vh, 1vh) * 100);
 
   ${({ theme }) => theme.media.mobile} {
     z-index: 10;
@@ -96,11 +96,11 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
   transition: all 0.3s ease;
   overflow-y: auto;
   max-height: ${({ $maximized }) =>
-    $maximized ? "calc(100vh - 38px)" : "70vh"};
+    $maximized ? "calc(calc(var(--vh, 1vh) * 100) - 38px)" : "70vh"};
 
   ${({ theme }) => theme.media.mobile} {
     max-height: ${({ $maximized }) =>
-      $maximized ? "calc(100vh - 46px)" : "70vh"};
+      $maximized ? "calc(calc(var(--vh, 1vh) * 100) - 46px)" : "70vh"};
   }
 `;
 

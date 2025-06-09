@@ -3,6 +3,7 @@ import "styled-components";
 // styled-components의 DefaultTheme 인터페이스에 theme 타입을 병합
 declare module "styled-components" {
   export interface DefaultTheme {
+    mode: "light" | "dark"; // 테마 모드
     colors: {
       primary: string;
       secondary: string;

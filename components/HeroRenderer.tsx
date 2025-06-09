@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/useStore";
-import { theme } from "@/styles/theme";
+import { lightTheme } from "@/styles/theme";
 import { Html, OrbitControls, RoundedBox } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useEffect, useRef } from "react";
@@ -11,8 +11,8 @@ import { PerspectiveCamera } from "three";
 import * as S from "./HeroRenderer.styles";
 
 const systemCommonStyle = {
-  fontFamily: theme.systemFontFamily,
-  fontSize: theme.fontSizes.cmd,
+  fontFamily: lightTheme.systemFontFamily,
+  fontSize: lightTheme.fontSizes.cmd,
 };
 
 interface TerminalModelProps {
@@ -172,7 +172,7 @@ export default function HeroRenderer() {
             far: 100,
           }}
         >
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={lightTheme}>
             {/* 조명 */}
             <ambientLight intensity={1} />
             <directionalLight castShadow position={[0, 0, 1]} intensity={2} />

@@ -1,18 +1,21 @@
 // app/providers/StyledProviders.tsx
-'use client';
+"use client";
 
-import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import GlobalStyle from '@/styles/GlobalStyle';
-import { theme } from '@/styles/theme';
+import React from "react";
+import { ThemeProvider } from "styled-components";
+import GlobalStyle from "@/styles/GlobalStyle";
+import { lightTheme, darkTheme } from "@/styles/theme";
+import { useStore } from "@/store/useStore";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export default function StyledProviders({ children }: Props) {
+  const { theme } = useStore();
+  const themeMode = theme === "light" ? lightTheme : darkTheme;
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeMode}>
       <GlobalStyle />
       {children}
     </ThemeProvider>

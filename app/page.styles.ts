@@ -16,6 +16,26 @@ export const HomeContainer = styled.div`
   }
 `;
 
+export const themeButton = styled.button`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+
+  width: 46px;
+  height: 46px;
+  padding: 6px;
+  border: none;
+  border-radius: 100px;
+
+  background-color: transparent;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 1px solid ${({ theme }) => theme.colors.text};
+  }
+`;
+
 export const BackgroundText = styled.div`
   overflow: hidden;
   position: absolute;
@@ -43,7 +63,7 @@ export const BackgroundText = styled.div`
 
     span {
       font-size: 20vw;
-      -webkit-text-stroke: 1px ${({ theme }) => theme.colors.text};
+      -webkit-text-stroke: 2px ${({ theme }) => theme.colors.text};
     }
   }
 `;
@@ -94,17 +114,19 @@ export const ControlBox = styled.div`
 export const HeroCommandInput = styled.input`
   z-index: 10;
   height: 22px;
-  padding: 12px 52px 12px 16px;
+  padding: 12px 48px;
   border: none;
   border-radius: 100px;
 
-  background-color: rgb(255 255 255 / 80%);
+  background-color: rgb(255 255 255 / 50%);
   box-shadow: 2px 4px 4px rgb(0 0 0 / 10%);
 
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.fontSizes.md};
   flex: 1 0 auto;
   font-family: ${({ theme }) => theme.systemFontFamily};
+
+  transition: background-color 0.3s ease;
 
   &:focus-visible,
   &:hover {

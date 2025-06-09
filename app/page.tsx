@@ -8,6 +8,8 @@ import { useCommandProcessor } from "@/store/useCommands";
 import { Window } from "@/components/Window";
 import Image from "next/image";
 import ARROW from "@/public/icons/right-arrow.png";
+import Lottie, { LottieRefCurrentProps } from "lottie-react";
+import THEME from "@/public/icons/theme.json";
 
 const LANG = [
   "HELLO!",
@@ -18,6 +20,7 @@ const LANG = [
   "I'M",
   "FRONT-END",
   "DEVELOPER",
+  "ICONS-BY-ICONS8",
   "MY-SKILL-SET@",
   "HTML",
   "CSS",
@@ -45,6 +48,18 @@ const LANG = [
 ];
 
 export default function Home() {
+  const {
+    theme,
+    setTheme,
+    startState,
+    currentCommand,
+    addCommandHistory,
+    setCurrentCommand,
+    displayOpen,
+    windowArr,
+  } = useStore((state) => state);
+
+  const themeButtonRef = useRef<LottieRefCurrentProps>(null);
   const windowConstraintRef = useRef<HTMLDivElement>(null);
   const commandInputRef = useRef<HTMLInputElement>(null);
   const commandListRef = useRef<
@@ -66,15 +81,6 @@ export default function Home() {
       value: "project",
     },
   ]);
-
-  const {
-    startState,
-    currentCommand,
-    addCommandHistory,
-    setCurrentCommand,
-    displayOpen,
-    windowArr,
-  } = useStore((state) => state);
 
   // 명령어 입력시
   const handelKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -115,8 +121,22 @@ export default function Home() {
     );
   };
 
+  // 테마 토글
+  const toggleTheme = () => {
+    if (!themeButtonRef.current) return;
+    const currentTheme = theme;
+    if (currentTheme === "light") {
+      themeButtonRef.current.playSegments([0, 12], true);
+      setTheme("dark");
+    } else {
+      themeButtonRef.current.playSegments([12, 0], true);
+      setTheme("light");
+    }
+  };
+
   useEffect(() => {
     commandInputRef.current?.focus();
+    themeButtonRef.current?.pause();
     window.addEventListener("resize", updateVh);
     // 뷰포트 높이 업데이트
     updateVh();
@@ -148,6 +168,13 @@ export default function Home() {
               ))}
             </S.RecommendedCommand>
           )}
+          <S.themeButton onClick={toggleTheme}>
+            <Lottie
+              animationData={THEME}
+              loop={false}
+              lottieRef={themeButtonRef}
+            />
+          </S.themeButton>
           <S.HeroCommandInput
             value={currentCommand}
             onChange={(e) => setCurrentCommand(e.target.value)}

@@ -11,6 +11,10 @@ interface windowPosition {
 }
 
 interface StoreState {
+  // theme
+  theme: "light" | "dark";
+  setTheme: (theme: "light" | "dark") => void;
+
   // 시작 상태 TODO: startState와 displayOpen는 같은 역할을 하는지, 개념적으로 분리가 필요한지.
   startState: boolean;
   setStartState: (start: boolean) => void;
@@ -52,6 +56,9 @@ interface StoreState {
 }
 
 export const useStore = create<StoreState>((set) => ({
+  theme: "light",
+  setTheme: (theme) => set({ theme }),
+
   startState: false,
   setStartState: (start) => set({ startState: start }),
 
