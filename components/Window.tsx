@@ -1,4 +1,8 @@
 import * as S from "@/components/Window.styles";
+import ICON_CLOSE from "@/public/icons/icon-close.png";
+import ICON_MAXIMIZE from "@/public/icons/icon-maximize.png";
+import ICON_REFRESH from "@/public/icons/icon-refresh.png";
+import { useMobile } from "@/store/useMobile";
 import { useStore } from "@/store/useStore";
 import {
   useAnimation,
@@ -7,14 +11,9 @@ import {
   useTransform,
 } from "framer-motion";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { BackgroundRenderer } from "./BackgroundRenderer";
-import { useMobile } from "@/store/useMobile";
-import Image from "next/image";
-import ICON_CLOSE from "@/public/icons/icon-close.png";
-import ICON_REFRESH from "@/public/icons/icon-refresh.png";
-import ICON_MAXIMIZE from "@/public/icons/icon-maximize.png";
-import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
 
 type TypeWindowData = {
   name: string;
