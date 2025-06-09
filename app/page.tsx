@@ -156,7 +156,7 @@ export default function Home() {
       <S.HeroSection id="HeroSection" $open={displayOpen}>
         <HeroRenderer />
         <S.ControlBox>
-          {startState && (
+          {(true || startState) && (
             <S.RecommendedCommand>
               {commandListRef.current.map((item, index) => (
                 <S.RecommendedCommandItem

@@ -61,6 +61,7 @@ export const useCommandProcessor = ({ watch }: TypeCommandProcessorProps) => {
 
   // 명령어 유효성 검사 및 실행
   const validateCommand = (command: string) => {
+    if (startState === false) handlers.start();
     const fn = handlers[command.toLowerCase()];
 
     if (fn) fn();
@@ -71,8 +72,6 @@ export const useCommandProcessor = ({ watch }: TypeCommandProcessorProps) => {
 
   // 창 상태 확인
   const validateWindowArr = (windowName: string) => {
-    if (startState === false) handlers.start();
-
     if (windowArr.some((item) => item.name === windowName && item.state))
       addSystemCommandHistory(`${windowName} 이미 실행 중입니다.`);
     else addSystemCommandHistory(`${windowName} 실행 중...`);

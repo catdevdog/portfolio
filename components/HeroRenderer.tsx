@@ -162,7 +162,7 @@ export default function HeroRenderer() {
   const cornerPos = new THREE.Vector3(0, 0, 4);
 
   // 정면 뷰
-  const frontPos = new THREE.Vector3(isMobile ? 0 : -1.5, 0, 4);
+  const frontPos = new THREE.Vector3(isMobile ? 0 : -2, 0, 4);
 
   return (
     <>
