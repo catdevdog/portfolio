@@ -1,7 +1,7 @@
 export const breakpoints = {
-  mobile: "980px",
+  mobile: "980",
 };
 
 export const media = {
-  mobile: `@media (max-width: ${breakpoints.mobile})`,
+  mobile: `@media (max-width: ${breakpoints.mobile}px)`,
 };

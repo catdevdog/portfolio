@@ -183,10 +183,10 @@ export const WindowContainer = styled(motion.div)`
 
   ${({ theme }) => theme.media.mobile} {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
     z-index: 10;
-    width: 100%;
-    height: calc(100% - 110px);
+    height: calc(100% - 110px - 0.5rem);
   }
 `;

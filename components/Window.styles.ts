@@ -42,6 +42,7 @@ export const WindowHeader = styled.div`
   display: flex;
   position: relative;
   padding: 10px;
+  z-index: 10;
 
   background-color: ${({ theme }) => theme.windowHeader.background};
   align-items: center;
@@ -99,7 +100,7 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
 
   ${({ theme }) => theme.media.mobile} {
     max-height: ${({ $maximized }) =>
-      $maximized ? "calc(100vh - 46px)" : "45vh"};
+      $maximized ? "calc(100vh - 46px)" : "70vh"};
   }
 `;
 

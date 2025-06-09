@@ -9,34 +9,7 @@ import {
 import dynamic from "next/dynamic";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { BackgroundRenderer } from "./BackgroundRenderer";
-
-// Background3D 개수
-const BACKGROUND_3D_COUNT = 3;
-
-// 랜덤 값 생성
-const getRandomRange = (min: number, max: number): number =>
-  Math.random() * (max - min) + min;
-
-// 랜덤 설정 생성
-const generateRandomTransforms = () => ({
-  yRange: [getRandomRange(10, 800), getRandomRange(200, 1500)] as [
-    number,
-    number
-  ],
-  rotateXRange: [getRandomRange(-100, 100), getRandomRange(-100, 100)] as [
-    number,
-    number
-  ],
-  rotateYRange: [getRandomRange(-100, 100), getRandomRange(-100, 100)] as [
-    number,
-    number
-  ],
-  xRange: [getRandomRange(-100, 800), getRandomRange(-100, 1200)] as [
-    number,
-    number
-  ],
-  scale: getRandomRange(0.5, 5),
-});
+import { useMobile } from "@/store/useMobile";
 
 type TypeWindowData = {
   name: string;
@@ -51,6 +24,7 @@ export const Window = ({
   windowData: TypeWindowData;
   dragConstraintsRef: React.RefObject<HTMLDivElement | null>;
 }) => {
+  const isMobile = useMobile();
   const windowRef = useRef<HTMLDivElement>(null);
   const scrollTargetRef = useRef<HTMLDivElement>(null);
 
@@ -67,6 +41,39 @@ export const Window = ({
     removeWindow,
     addSystemCommandHistory,
   } = useStore((state) => state);
+
+  // Background3D 개수
+  const BACKGROUND_3D_COUNT = 3; // 모바일에서는 2개, 데스크탑에서는 4개
+
+  // 랜덤 값 생성
+  const getRandomRange = (min: number, max: number): number => {
+    if (isMobile) {
+      // 모바일에서는 절반
+      return Math.random() * ((max - min) / 2) + min;
+    }
+    return Math.random() * (max - min) + min;
+  };
+
+  // 랜덤 설정 생성
+  const generateRandomTransforms = () => ({
+    xRange: [getRandomRange(-100, 800), getRandomRange(-100, 1200)] as [
+      number,
+      number
+    ],
+    yRange: [getRandomRange(-200, 800), getRandomRange(-200, 1200)] as [
+      number,
+      number
+    ],
+    rotateXRange: [getRandomRange(-150, 150), getRandomRange(-150, 150)] as [
+      number,
+      number
+    ],
+    rotateYRange: [getRandomRange(-150, 150), getRandomRange(-150, 150)] as [
+      number,
+      number
+    ],
+    scale: getRandomRange(0.5, 5),
+  });
 
   // Background3D 설정 메모이제이션
   const background3DConfigs = useMemo(

@@ -19,10 +19,11 @@ export const BackgroundRenderer = ({
   config,
   scrollYProgress,
 }: BackgroundRendererProps) => {
-  const x = useTransform(scrollYProgress, [0, 1], config.xRange);
+  const x = useTransform(scrollYProgress, [0, 1], config.xRange); // 모바일에서는 x값을 절반으로 줄임
   const y = useTransform(scrollYProgress, [0, 1], config.yRange);
   const rotateX = useTransform(scrollYProgress, [0, 1], config.rotateXRange);
   const rotateY = useTransform(scrollYProgress, [0, 1], config.rotateYRange);
+  const scale = config.scale;
 
   return (
     <S.Background3D
@@ -31,8 +32,7 @@ export const BackgroundRenderer = ({
         y,
         rotateX,
         rotateY,
-        scale: config.scale,
-        zIndex: -Math.floor(Math.random() * 5) - 1, // 랜덤한 z-index로 깊이감 추가
+        scale,
       }}
     >
       <div className="side front" />
