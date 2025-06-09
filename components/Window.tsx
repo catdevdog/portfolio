@@ -10,6 +10,10 @@ import dynamic from "next/dynamic";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { BackgroundRenderer } from "./BackgroundRenderer";
 import { useMobile } from "@/store/useMobile";
+import Image from "next/image";
+import ICON_CLOSE from "@/public/icons/icon-close.png";
+import ICON_REFRESH from "@/public/icons/icon-refresh.png";
+import ICON_MAXIMIZE from "@/public/icons/icon-maximize.png";
 
 type TypeWindowData = {
   name: string;
@@ -27,6 +31,7 @@ export const Window = ({
   const isMobile = useMobile();
   const windowRef = useRef<HTMLDivElement>(null);
   const scrollTargetRef = useRef<HTMLDivElement>(null);
+  const [windowRefreshKey, setWindowRefreshKey] = useState<number>(1);
 
   const [windowAnimating, setWindowAnimating] = useState<boolean>(false);
   const [maximumState, setMaximumState] = useState<boolean>(false);
@@ -82,7 +87,7 @@ export const Window = ({
         id: `bg3d-${index}`,
         ...generateRandomTransforms(),
       })),
-    []
+    [windowRefreshKey]
   );
 
   const displayContent =
@@ -110,7 +115,7 @@ export const Window = ({
       );
     }
     return null;
-  }, [displayContent]);
+  }, [displayContent, windowRefreshKey]);
 
   // window control
   const saveWindowPosition = async () => {
@@ -139,6 +144,11 @@ export const Window = ({
         removeWindow(windowData.name);
       });
     addSystemCommandHistory(`${windowData.name} 종료`);
+  };
+
+  // 창 새로고침
+  const handleRefreshWindow = () => {
+    setWindowRefreshKey(Number((Math.random() * 1000).toFixed(2))); // 랜덤 키로 새로고침
   };
 
   // 최대화
@@ -229,13 +239,28 @@ export const Window = ({
             color="#FF5F57"
             onClick={handleCloseWindow}
             className="close"
-          />
-          <S.WindowTrafficLight color="#FFBD2E" className="minimize" />
+          >
+            <Image src={ICON_CLOSE} alt="창 닫기" width={20} height={20} />
+          </S.WindowTrafficLight>
+          <S.WindowTrafficLight
+            onClick={handleRefreshWindow}
+            color="#FFBD2E"
+            className="minimize"
+          >
+            <Image
+              src={ICON_REFRESH}
+              alt="창 새로고침"
+              width={18}
+              height={18}
+            />
+          </S.WindowTrafficLight>
           <S.WindowTrafficLight
             className="maximize"
             color="#27C93F"
             onClick={handleMaximizeWindow}
-          />
+          >
+            <Image src={ICON_MAXIMIZE} alt="창 최대화" width={12} height={12} />
+          </S.WindowTrafficLight>
         </S.WindowTrafficLightWrap>
         <S.WindowTitle>{windowData.name}</S.WindowTitle>
       </S.WindowHeader>
@@ -257,7 +282,6 @@ export const Window = ({
           scrollYProgress={scrollYProgress}
         />
       ))}
-
       <S.WindowContent ref={scrollTargetRef} $maximized={maximumState}>
         <Suspense fallback={<div>Loading...</div>}>
           {DynamicDisplay && <DynamicDisplay />}

@@ -24,7 +24,7 @@ export const themeButton = styled.button`
 
   width: 46px;
   height: 46px;
-  padding: 6px;
+  padding: 8px;
   border: none;
   border-radius: 100px;
 
@@ -118,10 +118,10 @@ export const HeroCommandInput = styled.input`
   border: none;
   border-radius: 100px;
 
-  background-color: rgb(255 255 255 / 50%);
+  background-color: rgb(255 255 255 / 80%);
   box-shadow: 2px 4px 4px rgb(0 0 0 / 10%);
 
-  color: ${({ theme }) => theme.colors.text};
+  color: #111;
   font-size: ${({ theme }) => theme.fontSizes.md};
   flex: 1 0 auto;
   font-family: ${({ theme }) => theme.systemFontFamily};

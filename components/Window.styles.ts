@@ -5,6 +5,7 @@ export const Window = styled(motion.div)`
   overflow: hidden;
   position: absolute;
   border: 1px solid ${({ theme }) => theme.windowHeader.background};
+  min-width: 320px;
 
   color: ${({ theme }) => theme.colors.text};
   border-radius: 7px;
@@ -23,17 +24,28 @@ export const Window = styled(motion.div)`
 `;
 
 export const WindowTrafficLight = styled.div<{ color: string }>`
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
+  display: flex;
+  width: 20px;
+  flex: 0 0 20px;
+  height: 20px;
 
   background-color: ${({ color }) => color};
+  border-radius: 50%;
   cursor: pointer;
   transform: scale(0.8);
-  transition: transform 0.3s ease;
+  transition: 0.3s ease;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    transition: 0.3s ease;
+    ${({ theme }) => theme.mode === "light" && "filter: invert(1);"}
+    opacity: 0;
+  }
 
   ${({ theme }) => theme.media.mobile} {
     width: 22px;
+    flex: 0 0 22px;
     height: 22px;
   }
 `;
@@ -55,6 +67,10 @@ export const WindowHeader = styled.div`
   &:hover {
     ${WindowTrafficLight} {
       transform: scale(1);
+
+      img {
+        opacity: 1;
+      }
     }
   }
 
@@ -62,6 +78,10 @@ export const WindowHeader = styled.div`
     padding: 12px 16px;
     ${WindowTrafficLight} {
       transform: scale(1);
+
+      img {
+        opacity: 1;
+      }
     }
   }
 `;
