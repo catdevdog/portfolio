@@ -66,7 +66,7 @@ export const Window = ({
       number,
       number
     ],
-    yRange: [getRandomRange(-400, 800), getRandomRange(-400, 1200)] as [
+    yRange: [getRandomRange(-400, 800), getRandomRange(-400, 2000)] as [
       number,
       number
     ],
@@ -244,7 +244,7 @@ export const Window = ({
             onClick={handleCloseWindow}
             className="close"
           >
-            <Image src={ICON_CLOSE} alt="창 닫기" width={20} height={20} />
+            <Image src={ICON_CLOSE} alt="창 닫기" width={10} height={10} />
           </S.WindowTrafficLight>
           <S.WindowTrafficLight
             onClick={handleRefreshWindow}
@@ -254,8 +254,8 @@ export const Window = ({
             <Image
               src={ICON_REFRESH}
               alt="창 새로고침"
-              width={18}
-              height={18}
+              width={12}
+              height={12}
             />
           </S.WindowTrafficLight>
           <S.WindowTrafficLight
