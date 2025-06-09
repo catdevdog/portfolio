@@ -68,33 +68,33 @@ export const HeroSection = styled.div<{ $open: boolean }>`
 `;
 
 export const ControlBox = styled.div`
-  position: relative;
   display: flex;
+  position: relative;
+  width: 320px;
+  margin: 0 auto;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
   gap: 8px;
-  width: 320px;
   min-width: 320px;
   max-width: 340px;
-  margin: 0 auto;
 
   ${({ theme }) => theme.media.mobile} {
     position: absolute;
     right: 16px;
     bottom: 16px;
-    left: 10px;
+    left: 16px;
     width: auto;
     margin: 0;
-    max-width: calc(100% - 32px);
+    max-width: none;
+    min-width: 0;
   }
 `;
 
 export const HeroCommandInput = styled.input`
   z-index: 10;
   height: 22px;
-  padding: 12px 16px;
-  // border: 1px solid ${({ theme }) => theme.colors.text};
+  padding: 12px 52px 12px 16px;
   border: none;
   border-radius: 100px;
 
@@ -114,18 +114,19 @@ export const HeroCommandInput = styled.input`
 
 export const HeroCommandButton = styled.button`
   position: absolute;
+  right: 0;
+  bottom: 0;
   z-index: 10;
-  right: 0px;
-  bottom: 0px;
-  height: 46px;
   width: 46px;
+  height: 46px;
   padding: 0;
   border: none;
-  border-radius: 100px;
+
   background-color: transparent;
 
   color: ${({ theme }) => theme.colors.text};
   text-align: center;
+  border-radius: 100px;
   font-family: ${({ theme }) => theme.systemFontFamily};
   flex: 0 0 48px;
   cursor: pointer;

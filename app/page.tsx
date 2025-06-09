@@ -152,7 +152,7 @@ export default function Home() {
             value={currentCommand}
             onChange={(e) => setCurrentCommand(e.target.value)}
             placeholder={
-              !startState ? `Type "start" or click button` : "Type command here"
+              !startState ? `"start" or click button` : "Type command here"
             }
             onKeyDown={(e) => handelKeyDown(e)}
             ref={commandInputRef}
