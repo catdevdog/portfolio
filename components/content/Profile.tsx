@@ -9,7 +9,7 @@ import { useCommandProcessor } from "@/store/useCommands";
 export const Profile = () => {
   const introRef = useRef<HTMLDivElement>(null);
   const [introPlusState, setIntroPlusState] = useState<boolean>(false);
-  const { handlers } = useCommandProcessor();
+  const { handlers } = useCommandProcessor({ watch: false });
 
   const handleProjectClick = () => {
     handlers.project();

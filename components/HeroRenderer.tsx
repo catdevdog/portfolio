@@ -9,6 +9,7 @@ import { ThemeProvider } from "styled-components";
 import * as THREE from "three";
 import { PerspectiveCamera } from "three";
 import * as S from "./HeroRenderer.styles";
+import { useMobile } from "@/store/useMobile";
 
 const systemCommonStyle = {
   fontFamily: lightTheme.systemFontFamily,
@@ -150,16 +151,18 @@ function SmoothCamera({
 }
 
 export default function HeroRenderer() {
+  const isMobile = useMobile();
   const { focusDisplay } = useStore((state) => state);
   const displayOpen = useStore((state) => state.displayOpen);
 
   // 코너 뷰
   const distance = 5;
   const d = distance / Math.sqrt(3);
-  const cornerPos = new THREE.Vector3(d, 0, d);
+  // const cornerPos = new THREE.Vector3(d, 0, d);
+  const cornerPos = new THREE.Vector3(0, 0, 4);
 
   // 정면 뷰
-  const frontPos = new THREE.Vector3(0, 0, 4);
+  const frontPos = new THREE.Vector3(isMobile ? 0 : -1.5, 0, 4);
 
   return (
     <>

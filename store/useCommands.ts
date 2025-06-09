@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { useStore } from "./useStore";
 
-export const useCommandProcessor = () => {
+type TypeCommandProcessorProps = {
+  watch?: boolean; // 명령어 감시 여부
+};
+
+export const useCommandProcessor = ({ watch }: TypeCommandProcessorProps) => {
   const {
     startState,
     setStartState,
@@ -77,8 +81,9 @@ export const useCommandProcessor = () => {
     addWindow(windowName);
   };
 
+  // 함수들 외부에서 실행할때 validateCommand 중복 검사 방지
   useEffect(() => {
-    if (currentCommand) {
+    if (currentCommand && watch) {
       validateCommand(currentCommand);
     }
   }, [commandHistory]);

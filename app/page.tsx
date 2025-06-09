@@ -10,6 +10,7 @@ import Image from "next/image";
 import ARROW from "@/public/icons/right-arrow.png";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import THEME from "@/public/icons/theme.json";
+import { watch } from "fs";
 
 const LANG = [
   "HELLO!",
@@ -143,7 +144,7 @@ export default function Home() {
   }, []);
 
   // 명령어 감지 프로세서
-  useCommandProcessor();
+  useCommandProcessor({ watch: true });
 
   return (
     <S.HomeContainer>
@@ -186,7 +187,7 @@ export default function Home() {
             id="commandInput"
             maxLength={15}
           />
-          <S.HeroCommandButton onClick={() => handleClick()}>
+          <S.HeroCommandButton onClick={handleClick}>
             <Image width={46} src={ARROW} alt="명령어 입력하기" />
           </S.HeroCommandButton>
         </S.ControlBox>
