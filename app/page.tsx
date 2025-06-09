@@ -1,16 +1,15 @@
 "use client";
 
 import HeroRenderer from "@/components/HeroRenderer";
+import { Window } from "@/components/Window";
+import ARROW from "@/public/icons/right-arrow.png";
+import THEME from "@/public/icons/theme.json";
+import { useCommandProcessor } from "@/store/useCommands";
 import { useStore } from "@/store/useStore";
+import Lottie, { LottieRefCurrentProps } from "lottie-react";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import * as S from "./page.styles";
-import { useCommandProcessor } from "@/store/useCommands";
-import { Window } from "@/components/Window";
-import Image from "next/image";
-import ARROW from "@/public/icons/right-arrow.png";
-import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import THEME from "@/public/icons/theme.json";
-import { watch } from "fs";
 
 const LANG = [
   "HELLO!",

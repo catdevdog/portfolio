@@ -156,8 +156,8 @@ export default function HeroRenderer() {
   const displayOpen = useStore((state) => state.displayOpen);
 
   // 코너 뷰
-  const distance = 5;
-  const d = distance / Math.sqrt(3);
+  // const distance = 5;
+  // const d = distance / Math.sqrt(3);
   // const cornerPos = new THREE.Vector3(d, 0, d);
   const cornerPos = new THREE.Vector3(0, 0, 4);
 
