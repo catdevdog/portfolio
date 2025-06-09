@@ -141,7 +141,7 @@ export default function Home() {
                 <S.RecommendedCommandItem
                   key={index}
                   onClick={() => handleCommandClick(item.value)}
-                  $active={isActive(item.value)}
+                  $active={index > 0 ? isActive(item.value) : true}
                 >
                   {item.label}
                 </S.RecommendedCommandItem>

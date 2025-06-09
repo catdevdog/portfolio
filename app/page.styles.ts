@@ -200,11 +200,14 @@ export const RecommendedCommandItem = styled.button<{ $active?: boolean }>`
     background-color: #ff5f57;
     content: "";
     border-radius: 50%;
+
+    animation: blink 2s infinite;
   }
   ${({ $active }) =>
     $active &&
     `
     &::before {
+      animation: none;
       background-color: #27c93f;
     }
     `}
