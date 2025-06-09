@@ -56,7 +56,7 @@ export const HeroSection = styled.div<{ $open: boolean }>`
   /* 초기 진입시 css트릭 */
 
   transform: translateX(
-    ${({ $open }) => ($open ? "0%" : "calc(50vw - 170px)")}
+    ${({ $open }) => ($open ? "0%" : "calc(50vw - 200px)")}
   );
   transition: transform ${({ $open }) => ($open ? "1.5s" : "0s")} ease-in-out;
 
@@ -68,6 +68,7 @@ export const HeroSection = styled.div<{ $open: boolean }>`
 `;
 
 export const ControlBox = styled.div`
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -80,12 +81,11 @@ export const ControlBox = styled.div`
 
   ${({ theme }) => theme.media.mobile} {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    right: 16px;
+    bottom: 16px;
+    left: 10px;
     width: auto;
     margin: 0;
-    padding: 0 16px 16px;
     max-width: calc(100% - 32px);
   }
 `;
@@ -93,45 +93,52 @@ export const ControlBox = styled.div`
 export const HeroCommandInput = styled.input`
   z-index: 10;
   height: 22px;
-  padding: 12px 0;
+  padding: 12px 16px;
+  // border: 1px solid ${({ theme }) => theme.colors.text};
   border: none;
+  border-radius: 100px;
 
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: rgb(255 255 255 / 80%);
+  box-shadow: 2px 4px 4px rgb(0 0 0 / 10%);
 
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.fontSizes.md};
   flex: 1 0 auto;
   font-family: ${({ theme }) => theme.systemFontFamily};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.text};
 
   &:focus-visible,
   &:hover {
-    background-color: rgb(255 255 255 / 10%);
-  }
-  ${({ theme }) => theme.media.mobile} {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.text};
+    background-color: #fff;
   }
 `;
 
 export const HeroCommandButton = styled.button`
-  height: 48px;
+  position: absolute;
+  z-index: 10;
+  right: 0px;
+  bottom: 0px;
+  height: 46px;
+  width: 46px;
+  padding: 0;
   border: none;
-
-  background-color: ${({ theme }) => theme.colors.background};
+  border-radius: 100px;
+  background-color: transparent;
 
   color: ${({ theme }) => theme.colors.text};
   text-align: center;
   font-family: ${({ theme }) => theme.systemFontFamily};
   flex: 0 0 48px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.text};
   cursor: pointer;
+  transform: rotate(-180deg);
+  transition: transform 0.3s ease;
 
-  &:hover,
-  &:focus-visible {
-    background-color: rgb(255 255 255 / 10%);
+  &:hover {
+    transform: rotate(0deg);
   }
-  ${({ theme }) => theme.media.mobile} {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.text};
+
+  &:focus-visible {
+    transform: rotate(0deg);
+    outline: 1px solid ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -145,7 +152,7 @@ export const RecommendedCommand = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   font-family: ${({ theme }) => theme.systemFontFamily};
-  gap: 4px;
+  gap: 8px;
 
   ${({ theme }) => theme.media.mobile} {
     justify-content: center;
@@ -153,7 +160,8 @@ export const RecommendedCommand = styled.div`
   }
 `;
 
-export const RecommendedCommandItem = styled.button`
+export const RecommendedCommandItem = styled.button<{ $active?: boolean }>`
+  flex: 1 0 auto;
   padding: 4px 8px;
   border: none;
   border: 1px solid ${({ theme }) => theme.colors.text};
@@ -173,6 +181,35 @@ export const RecommendedCommandItem = styled.button`
   ${({ theme }) => theme.media.mobile} {
     border-bottom: 1px solid ${({ theme }) => theme.colors.text};
   }
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
+  }
+
+  ${({ $active, theme }) =>
+    $active &&
+    `
+    position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 1px;
+        left: 1px;
+
+        width: 6px;
+        height: 6px;
+        background-color: #27C93F;
+        z-index: 1;
+
+        // animation: blink 1s infinite;
+      }
+    `}
 `;
 
 // Window
@@ -184,8 +221,8 @@ export const WindowContainer = styled(motion.div)`
   ${({ theme }) => theme.media.mobile} {
     position: fixed;
     top: 0.5rem;
-    left: 0.5rem;
     right: 0.5rem;
+    left: 0.5rem;
     z-index: 10;
     height: calc(100% - 110px - 0.5rem);
   }

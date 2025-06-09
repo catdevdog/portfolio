@@ -41,8 +41,8 @@ export const WindowTrafficLight = styled.div<{ color: string }>`
 export const WindowHeader = styled.div`
   display: flex;
   position: relative;
-  padding: 10px;
   z-index: 10;
+  padding: 10px;
 
   background-color: ${({ theme }) => theme.windowHeader.background};
   align-items: center;

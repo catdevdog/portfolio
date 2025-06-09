@@ -6,6 +6,8 @@ import { useEffect, useRef } from "react";
 import * as S from "./page.styles";
 import { useCommandProcessor } from "@/store/useCommands";
 import { Window } from "@/components/Window";
+import Image from "next/image";
+import ARROW from "@/public/icons/right-arrow.png";
 
 const LANG = [
   "HELLO!",
@@ -52,24 +54,16 @@ export default function Home() {
     }[]
   >([
     {
-      label: "명령어",
+      label: "명령어 안내",
       value: "guide",
     },
     {
-      label: "프로필",
+      label: "프로필 보기",
       value: "profile",
     },
     {
-      label: "프로젝트",
+      label: "프로젝트 보기",
       value: "project",
-    },
-    {
-      label: "초기화",
-      value: "cls",
-    },
-    {
-      label: "기타",
-      value: "etc",
     },
   ]);
 
@@ -113,6 +107,14 @@ export default function Home() {
     );
   };
 
+  // active check
+  const isActive = (command: string) => {
+    console.log("isActive", command, windowArr);
+    return windowArr.some(
+      (window) => window.name.toLowerCase() === command && window.state
+    );
+  };
+
   useEffect(() => {
     commandInputRef.current?.focus();
     window.addEventListener("resize", updateVh);
@@ -139,6 +141,7 @@ export default function Home() {
                 <S.RecommendedCommandItem
                   key={index}
                   onClick={() => handleCommandClick(item.value)}
+                  $active={isActive(item.value)}
                 >
                   {item.label}
                 </S.RecommendedCommandItem>
@@ -149,7 +152,7 @@ export default function Home() {
             value={currentCommand}
             onChange={(e) => setCurrentCommand(e.target.value)}
             placeholder={
-              !startState ? `Type 'start' or click '>'` : "Use a command above"
+              !startState ? `Type "start" or click button` : "Type command here"
             }
             onKeyDown={(e) => handelKeyDown(e)}
             ref={commandInputRef}
@@ -157,7 +160,8 @@ export default function Home() {
             maxLength={15}
           />
           <S.HeroCommandButton onClick={() => handleClick()}>
-            {">"}
+            {/* {startState ? "Enter" : "Start"} */}
+            <Image width={46} src={ARROW} alt="명령어 입력하기" />
           </S.HeroCommandButton>
         </S.ControlBox>
       </S.HeroSection>

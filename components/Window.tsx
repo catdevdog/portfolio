@@ -56,11 +56,11 @@ export const Window = ({
 
   // 랜덤 설정 생성
   const generateRandomTransforms = () => ({
-    xRange: [getRandomRange(-100, 800), getRandomRange(-100, 1200)] as [
+    xRange: [getRandomRange(-200, 800), getRandomRange(-200, 1200)] as [
       number,
       number
     ],
-    yRange: [getRandomRange(-200, 800), getRandomRange(-200, 1200)] as [
+    yRange: [getRandomRange(-400, 800), getRandomRange(-400, 1200)] as [
       number,
       number
     ],

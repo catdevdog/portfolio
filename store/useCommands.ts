@@ -30,12 +30,12 @@ export const useCommandProcessor = () => {
     },
     guide: () => {
       addSystemCommandHistory(`
-  명령어 목록
-  ┣━ guide: 명령어 안내
-  ┣━ profile: 소개 페이지
-  ┣━ project: 참여 프로젝트 목록
-  ┣━ cls: 이력 초기화
-  ┗━ etc: 기타 명령어
+ 명령어 목록
+ ┣━ guide: 명령어 안내
+ ┣━ profile: 소개 페이지
+ ┣━ project: 참여 프로젝트 목록
+ ┣━ cls: 이력 초기화
+ ┗━ etc: 기타 명령어
 `);
     },
     cls: () => {
