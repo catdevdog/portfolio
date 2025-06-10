@@ -1,11 +1,10 @@
+import { animate, stagger } from "motion";
+import { splitText } from "motion-plus";
 import { useRef, useState } from "react";
 import * as S from "./Content.styles";
 import * as P from "./profile.styles";
-import { animate, stagger } from "motion";
-import { splitText } from "motion-plus";
 
 import { useCommandProcessor } from "@/store/useCommands";
-import { desc } from "motion/react-client";
 
 const skills = [
   {
