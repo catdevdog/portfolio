@@ -6,6 +6,63 @@ import { splitText } from "motion-plus";
 
 import { useCommandProcessor } from "@/store/useCommands";
 
+const skills = [
+  {
+    category: "프론트엔드",
+    items: [
+      "React",
+      "Vue",
+      "TypeScript",
+      "JavaScript",
+      "jQuery",
+      "HTML",
+      "CSS",
+      "Zustand",
+      "Pinia",
+      "Vuex",
+      "Next.js",
+      "Nuxt.js",
+      "Vite",
+    ],
+  },
+  {
+    category: "라이브러리",
+    items: [
+      "i18n",
+      "ElementUi",
+      "NaiveUi",
+      "Vuetify ",
+      "Motion",
+      "Storybook",
+      "Swiper",
+    ],
+  },
+  {
+    category: "스타일링",
+    items: ["Styled-Components", "Tailwind", "SCSS", "CSS Modules"],
+  },
+  {
+    category: "백엔드",
+    items: ["Node.js", "Express", "Firebase", "GCP", "MySQL"],
+  },
+  {
+    category: "협업",
+    items: ["Git", "Jira", "Slack", "Confluence", "Figma"],
+  },
+  {
+    category: "3rd-party Services",
+    items: [
+      "Firebase",
+      "GCP",
+      "Vercel",
+      "Docker",
+      "OpenAI-api",
+      "Anthropic-api",
+      "NAS",
+    ],
+  },
+];
+
 export const Profile = () => {
   const introRef = useRef<HTMLDivElement>(null);
   const [introPlusState, setIntroPlusState] = useState<boolean>(false);
@@ -148,13 +205,21 @@ export const Profile = () => {
           </ul>
         </P.Education>
         <P.Skill>
-          <h2>Skill.</h2>
+          <h2>Tech Experience.</h2>
           {/* ⚙️  */}
           <ul>
-            <li>JavaScript, TypeScript</li>
-            <li>React, Next.js</li>
-            <li>CSS, Sass, Styled Components</li>
-            <li>Git, GitHub</li>
+            {skills.map((skill, index) => (
+              <li key={index}>
+                <span className="category">{skill.category}</span>
+                <p className="items">
+                  {skill.items.map((item, idx) => (
+                    <span key={idx} className="item">
+                      {item}
+                    </span>
+                  ))}
+                </p>
+              </li>
+            ))}
           </ul>
         </P.Skill>
         <P.Contact></P.Contact>

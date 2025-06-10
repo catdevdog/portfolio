@@ -130,7 +130,7 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
 
 export const ScrollPercentageBar = styled(motion.div)`
   position: absolute;
-  top: 38px;
+  top: 40px;
   left: 0;
   z-index: 10;
   width: 100%;

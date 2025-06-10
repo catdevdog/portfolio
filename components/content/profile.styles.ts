@@ -26,8 +26,11 @@ export const content = styled.div`
     margin-bottom: 1.5rem;
 
     font-size: 4rem;
+    line-height: 1.2;
+    white-space: wrap;
     font-family: IntelOneMono;
     transition: 0.3s ease;
+    word-break: keep-all;
   }
 
   &:not(:last-child) {
@@ -107,7 +110,39 @@ export const Career = styled(content)``;
 
 export const Education = styled(content)``;
 
-export const Skill = styled(content)``;
+export const Skill = styled(content)`
+  ul {
+    li {
+      margin-bottom: 1rem;
+      flex-flow: column wrap;
+      justify-content: flex-start;
+      gap: 0.5rem;
+
+      .category {
+        margin-right: 0.5rem;
+
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      .items {
+        flex: 1 1 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.3rem;
+
+        .item {
+          display: inline-block;
+          padding: 0.2rem 0.6rem;
+          border: 1px solid ${({ theme }) => theme.colors.text};
+          border-radius: 100px;
+
+          font-size: ${({ theme }) => theme.fontSizes.sm};
+        }
+      }
+    }
+  }
+`;
 
 export const Contact = styled(content)``;
 

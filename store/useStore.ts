@@ -56,7 +56,7 @@ interface StoreState {
 }
 
 export const useStore = create<StoreState>((set) => ({
-  theme: "light",
+  theme: "dark",
   setTheme: (theme) => set({ theme }),
 
   startState: false,

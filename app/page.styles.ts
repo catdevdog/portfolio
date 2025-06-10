@@ -211,7 +211,7 @@ export const RecommendedCommandItem = styled.button<{
     background-color: rgb(255 255 255 / 10%);
   }
 
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 
   @keyframes blink {
     0% {
@@ -235,7 +235,7 @@ export const RecommendedCommandItem = styled.button<{
     background-color: transparent;
     background-color: #ff5f57;
 
-    animation: blink 1s infinite;
+    animation: blink 1.5s infinite;
 
     content: "";
     border-radius: 4px;
@@ -252,6 +252,7 @@ export const RecommendedCommandItem = styled.button<{
   ${({ $focus }) =>
     $focus &&
     `
+      font-weight: bold;
       color: #27c93f
     `}
 `;
