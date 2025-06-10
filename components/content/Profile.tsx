@@ -50,7 +50,7 @@ const skills = [
     items: ["Git", "Jira", "Slack", "Confluence", "Figma"],
   },
   {
-    category: "3rd-party Services",
+    category: "API & DevOps",
     items: [
       "Firebase",
       "GCP",
@@ -58,7 +58,7 @@ const skills = [
       "Docker",
       "OpenAI-api",
       "Anthropic-api",
-      "NAS",
+      "Synology NAS",
     ],
   },
 ];
