@@ -5,10 +5,13 @@ import { animate, stagger } from "motion";
 import { splitText } from "motion-plus";
 
 import { useCommandProcessor } from "@/store/useCommands";
+import { desc } from "motion/react-client";
 
 const skills = [
   {
-    category: "프론트엔드",
+    category: "퍼블리싱 - 프론트엔드",
+    description:
+      "실무와 사이드 프로젝트에서 반복적으로 사용하여 익숙한 기술 스택입니다.",
     items: [
       "React",
       "Vue",
@@ -27,6 +30,7 @@ const skills = [
   },
   {
     category: "라이브러리",
+    description: "일부 프로젝트에서 사용, 커스텀 경험이 있는 라이브러리입니다.",
     items: [
       "i18n",
       "ElementUi",
@@ -39,18 +43,22 @@ const skills = [
   },
   {
     category: "스타일링",
-    items: ["Styled-Components", "Tailwind", "SCSS", "CSS Modules"],
+    description: "대부분 프로젝트에서 아래 기술 중 하나 이상을 사용했습니다.",
+    items: ["SCSS", "CSS Modules", "Styled-Components", "Tailwind"],
   },
   {
     category: "백엔드",
+    description: "사이드 프로젝트에서 사용한 백엔드 기술 스택입니다.",
     items: ["Node.js", "Express", "Firebase", "GCP", "MySQL"],
   },
   {
     category: "협업",
+    description: "원활한 협업을 위해 사용한 도구들입니다.",
     items: ["Git", "Jira", "Slack", "Confluence", "Figma"],
   },
   {
     category: "API & DevOps",
+    description: "사이드 프로젝트에서 사용한 API 및 DevOps 기술 스택입니다.",
     items: [
       "Firebase",
       "GCP",
@@ -211,6 +219,7 @@ export const Profile = () => {
             {skills.map((skill, index) => (
               <li key={index}>
                 <span className="category">{skill.category}</span>
+                <p className="description">{skill.description}</p>
                 <p className="items">
                   {skill.items.map((item, idx) => (
                     <span key={idx} className="item">

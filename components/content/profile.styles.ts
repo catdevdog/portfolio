@@ -116,13 +116,21 @@ export const Skill = styled(content)`
       margin-bottom: 1rem;
       flex-flow: column wrap;
       justify-content: flex-start;
-      gap: 0.5rem;
+      gap: 0;
 
       .category {
         margin-right: 0.5rem;
 
         font-weight: bold;
         font-size: 1.2rem;
+      }
+
+      .description {
+        margin-bottom: 0.5rem;
+
+        color: ${({ theme }) => theme.colors.text};
+        font-size: 0.85rem;
+        opacity: 0.8;
       }
 
       .items {
