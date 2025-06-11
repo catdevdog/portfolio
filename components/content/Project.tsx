@@ -2,7 +2,7 @@ import * as S from "./Content.styles";
 import { useState, useEffect } from "react";
 
 export const Project = () => {
-  const [projectData, setProjectData] = useState<any[]>([]);
+  const [projectData, setProjectData] = useState([]);
 
   useEffect(() => {
     fetch("/api/notion")
@@ -23,10 +23,10 @@ export const Project = () => {
       {projectData.map((project, idx) => {
         return (
           <div key={idx}>
-            <h2>{project.id}</h2>
+            {/* <h2>{project.id}</h2>
             {Object.keys(project.properties).map((key) => {
               return key;
-            })}
+            })} */}
           </div>
         );
       })}
