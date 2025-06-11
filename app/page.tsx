@@ -151,11 +151,6 @@ export default function Home() {
     handlers.start();
     handlers.profile();
     updateVh();
-    fetch("/api/notion")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Fetched data:", data);
-      });
   }, []);
 
   return (
