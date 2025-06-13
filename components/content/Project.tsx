@@ -1,8 +1,10 @@
 import * as S from "./Content.styles";
 import { useState, useEffect } from "react";
+import * as Notion from "notion-types";
+import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export const Project = () => {
-  const [projectData, setProjectData] = useState([]);
+  const [projectData, setProjectData] = useState<DatabaseObjectResponse[]>([]);
 
   useEffect(() => {
     fetch("/api/notion")
@@ -10,7 +12,7 @@ export const Project = () => {
       .then((data) => {
         if (data.results) {
           setProjectData(data.results);
-          console.log("Project data fetched successfully:", data.results);
+          console.log("Project data fetched successfully:", data);
         } else {
           console.error("No results found in the response");
         }
@@ -23,10 +25,10 @@ export const Project = () => {
       {projectData.map((project, idx) => {
         return (
           <div key={idx}>
-            {/* <h2>{project.id}</h2>
+            <h2>{project.id}</h2>
             {Object.keys(project.properties).map((key) => {
               return key;
-            })} */}
+            })}
           </div>
         );
       })}
