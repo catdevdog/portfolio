@@ -124,7 +124,7 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
   ${({ theme }) => theme.media.mobile} {
     max-height: ${({ $maximized }) =>
       $maximized
-        ? "calc(calc(var(--vh, 1vh) * 100) - 46px)"
+        ? "calc(calc(var(--vh, 1vh) * 100) - 153px)"
         : "calc(var(--vh, 1vh) * 45)"};
   }
 `;
