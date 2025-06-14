@@ -1,5 +1,6 @@
 "use client";
 
+import { useMobile } from "@/store/useMobile";
 import { useStore } from "@/store/useStore";
 import { lightTheme } from "@/styles/theme";
 import { Html, OrbitControls, RoundedBox } from "@react-three/drei";
@@ -9,8 +10,6 @@ import { ThemeProvider } from "styled-components";
 import * as THREE from "three";
 import { PerspectiveCamera } from "three";
 import * as S from "./HeroRenderer.styles";
-import { useMobile } from "@/store/useMobile";
-import { color } from "motion";
 
 const systemCommonStyle = {
   fontFamily: lightTheme.systemFontFamily,
