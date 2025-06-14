@@ -25,7 +25,6 @@ export const CommandBox = styled.div`
   height: 240px;
   padding: 10px;
 
-  color: white;
   line-height: 1.2;
   user-select: none;
   border-radius: 0 0 16px;
@@ -56,12 +55,9 @@ export const currentCommand = styled.div`
 export const commandHistory = styled.div`
   margin-bottom: 4px;
 
-  color: #fff;
   white-space: pre-wrap;
 `;
 
 export const commandHistoryItem = styled.div`
   margin-bottom: 4px;
-
-  color: #fff;
 `;

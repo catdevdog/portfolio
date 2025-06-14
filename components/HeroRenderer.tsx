@@ -10,6 +10,7 @@ import * as THREE from "three";
 import { PerspectiveCamera } from "three";
 import * as S from "./HeroRenderer.styles";
 import { useMobile } from "@/store/useMobile";
+import { color } from "motion";
 
 const systemCommonStyle = {
   fontFamily: lightTheme.systemFontFamily,
@@ -19,11 +20,13 @@ const systemCommonStyle = {
 interface TerminalModelProps {
   bodyColor?: string;
   headerColor?: string;
+  textColor?: string;
 }
 
 function TerminalModel({
   bodyColor = "#000",
   headerColor = "#333", // theme.windowHeader.background,
+  textColor = "#fff", // theme.windowHeader.color,
 }: TerminalModelProps) {
   // traffic light 버튼 데이터
   const buttons = [
@@ -101,6 +104,7 @@ function TerminalModel({
           onClick={focusToInput}
           ref={commandBoxRef}
           style={systemCommonStyle}
+          color={textColor}
         >
           {/* history */}
           {commandHistory.length > 0 && (
@@ -152,7 +156,7 @@ function SmoothCamera({
 
 export default function HeroRenderer() {
   const isMobile = useMobile();
-  const { focusDisplay } = useStore((state) => state);
+  const { focusDisplay, theme } = useStore((state) => state);
   const displayOpen = useStore((state) => state.displayOpen);
 
   // 코너 뷰
@@ -163,6 +167,17 @@ export default function HeroRenderer() {
 
   // 정면 뷰
   const frontPos = new THREE.Vector3(isMobile ? 0 : -2, 0, 4);
+
+  const colorSet = {
+    light: {
+      body: "#fff",
+      text: "#000",
+    },
+    dark: {
+      body: "#000",
+      text: "#fff",
+    },
+  };
 
   return (
     <>
@@ -193,7 +208,10 @@ export default function HeroRenderer() {
                 </Html>
               }
             >
-              <TerminalModel />
+              <TerminalModel
+                bodyColor={colorSet[theme].body}
+                textColor={colorSet[theme].text}
+              />
             </Suspense>
 
             {/* 카메라 마우스 컨트롤 */}
