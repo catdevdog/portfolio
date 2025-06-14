@@ -5,9 +5,11 @@ export const Window = styled(motion.div)`
   overflow: hidden;
   position: absolute;
   border: 1px solid ${({ theme }) => theme.windowHeader.background};
-  min-width: 320px;
+
+  background-color: ${({ theme }) => theme.colors.background};
 
   color: ${({ theme }) => theme.colors.text};
+  min-width: 320px;
   border-radius: 7px;
   box-sizing: border-box;
   backdrop-filter: blur(12px);
