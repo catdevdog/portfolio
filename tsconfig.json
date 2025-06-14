@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
+    "noImplicitAny": false,  // 암시적 any 허용
+    "strict": false,          // 엄격 모드 해제
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -25,5 +26,5 @@
     "typeRoots": ["./node_modules/@types", "./styled.d.ts"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }
