@@ -19,6 +19,8 @@ export const Window = styled(motion.div)`
     max-height: 100%;
 
     backdrop-filter: blur(12px);
+
+    background-color: ${({ theme }) => theme.colors.background};
   }
 `;
 
