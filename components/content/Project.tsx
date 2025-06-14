@@ -49,59 +49,61 @@ export const Project = () => {
 
   return (
     <S.ContentContainer>
-      <P.Intro>참여한 주요 프로젝트들입니다.</P.Intro>
+      <P.Wrap>
+        <P.Intro>참여한 주요 프로젝트들입니다.</P.Intro>
 
-      <div style={{ display: "grid", gap: "24px" }}>
-        {projectData.map((project, idx) => {
-          console.log("Project:", project);
-          /**
-           * 프로젝트 데이터 구조
-           * 프로젝트: string
-           * 상태: string
-           * 시작일: string
-           * 종료일: string
-           * 설명: string;
-           * 참여 영역: string;
-           * 투입 유형: string;
-           * 영역 기여도: string;
-           * URL: string;
-           * 비고: string;
-           * AI 요약: string;
-           */
-          return (
-            <P.ProjectCard key={idx}>
-              <h3>{project["프로젝트"] || "프로젝트명 없음"}</h3>
-              <p className="status">
-                <span className="tag">
-                  {project["상태"] || "상태 정보 없음"}
-                </span>
-                <span className="date">
-                  {project["시작일"] || "시작일 정보 없음"} ~{" "}
-                  {project["종료일"] || "종료일 정보 없음"}
-                </span>
-              </p>
-              <div className="info">
-                <div className="info-item">
-                  <strong>참여 영역</strong>
-                  <p>{project["참여 영역"] || "참여 영역 정보 없음"}</p>
+        <P.ProjectGrid>
+          {projectData.map((project, idx) => {
+            console.log("Project:", project);
+            /**
+             * 프로젝트 데이터 구조
+             * 프로젝트: string
+             * 상태: string
+             * 시작일: string
+             * 종료일: string
+             * 설명: string;
+             * 참여 영역: string;
+             * 투입 유형: string;
+             * 영역 기여도: string;
+             * URL: string;
+             * 비고: string;
+             * AI 요약: string;
+             */
+            return (
+              <P.ProjectCard key={idx}>
+                <h3>{project["프로젝트"] || "프로젝트명 없음"}</h3>
+                <p className="status">
+                  <span className="tag">
+                    {project["상태"] || "상태 정보 없음"}
+                  </span>
+                  <span className="date">
+                    {project["시작일"] || "시작일 정보 없음"} ~{" "}
+                    {project["종료일"] || "종료일 정보 없음"}
+                  </span>
+                </p>
+                <div className="info">
+                  <div className="info-item">
+                    <strong>참여 영역</strong>
+                    <p>{project["참여 영역"] || "참여 영역 정보 없음"}</p>
+                  </div>
+                  <div className="info-item">
+                    <strong>투입 유형</strong>
+                    <p>{project["투입 유형"] || "투입 유형 정보 없음"}</p>
+                  </div>
+                  <div className="info-item">
+                    <strong>영역 기여도</strong>
+                    <p>{project["영역 기여"] || "영역 기여도 정보 없음"}%</p>
+                  </div>
                 </div>
-                <div className="info-item">
-                  <strong>투입 유형</strong>
-                  <p>{project["투입 유형"] || "투입 유형 정보 없음"}</p>
+                <div className="ai-summary">
+                  <h4>✨ AI 요약</h4>
+                  <p>{project["AI 요약"] || "AI 요약 정보가 없습니다."}</p>
                 </div>
-                <div className="info-item">
-                  <strong>영역 기여도</strong>
-                  <p>{project["영역 기여"] || "영역 기여도 정보 없음"}%</p>
-                </div>
-              </div>
-              <div className="ai-summary">
-                <h4>✨ AI 요약</h4>
-                <p>{project["AI 요약"] || "AI 요약 정보가 없습니다."}</p>
-              </div>
-            </P.ProjectCard>
-          );
-        })}
-      </div>
+              </P.ProjectCard>
+            );
+          })}
+        </P.ProjectGrid>
+      </P.Wrap>
     </S.ContentContainer>
   );
 };

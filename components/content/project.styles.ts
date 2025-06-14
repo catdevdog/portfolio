@@ -1,9 +1,24 @@
 import styled from "styled-components";
 
+export const Wrap = styled.div`
+  margin: 0 auto;
+  max-width: 800px;
+`;
+
 export const Intro = styled.h2`
   margin: 3rem 0;
 
   font-size: 1.2rem;
+`;
+
+export const ProjectGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+
+  ${({ theme }) => theme.media.mobile} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const ProjectCard = styled.div`
@@ -16,7 +31,7 @@ export const ProjectCard = styled.div`
     margin-bottom: 0.8rem;
     padding-bottom: 0.8rem;
 
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 1.2;
     border-bottom: 1px solid ${({ theme }) => theme.colors.text};
 
@@ -73,7 +88,7 @@ export const ProjectCard = styled.div`
     opacity: 0.8;
 
     h4 {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.2rem;
 
       font-style: normal;
     }
@@ -82,7 +97,6 @@ export const ProjectCard = styled.div`
     padding: 0.5rem 0;
 
     color: ${({ theme }) => theme.colors.text};
-    font-style: italic;
     font-size: 0.9rem;
     line-height: 1.4;
 
@@ -90,8 +104,14 @@ export const ProjectCard = styled.div`
 
     p {
       margin: 0;
-      border-left: 2px solid #27c93f;
-      padding: 0.5rem;
+      padding: 0.6rem;
+      border: 1px solid ${({ theme }) => theme.colors.text};
+
+      background-color: ${({ theme }) => theme.colors.background};
+      border-radius: 4px;
+
+      white-space: break-spaces;
+      word-break: break-all;
     }
   }
 `;

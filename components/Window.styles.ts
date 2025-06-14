@@ -10,7 +10,7 @@ export const Window = styled(motion.div)`
   color: ${({ theme }) => theme.colors.text};
   border-radius: 7px;
   box-sizing: border-box;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(12px);
   box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
   max-height: calc(var(--vh, 1vh) * 100);
 
@@ -19,8 +19,6 @@ export const Window = styled(motion.div)`
     max-height: 100%;
 
     backdrop-filter: blur(12px);
-
-    background-color: ${({ theme }) => theme.colors.background};
   }
 `;
 
@@ -119,13 +117,13 @@ export const WindowContent = styled.div<{ $maximized: boolean }>`
   max-height: ${({ $maximized }) =>
     $maximized
       ? "calc(calc(var(--vh, 1vh) * 100) - 38px)"
-      : "calc(var(--vh, 1vh) * 45)"};
+      : "calc(var(--vh, 1vh) * 60)"};
 
   ${({ theme }) => theme.media.mobile} {
     max-height: ${({ $maximized }) =>
       $maximized
         ? "calc(calc(var(--vh, 1vh) * 100) - 153px)"
-        : "calc(var(--vh, 1vh) * 45)"};
+        : "calc(var(--vh, 1vh) * 60)"};
   }
 `;
 
