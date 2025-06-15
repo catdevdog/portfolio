@@ -2,19 +2,19 @@ import styled from "styled-components";
 
 export const Wrap = styled.div`
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 900px;
 `;
 
 export const Intro = styled.h2`
-  margin: 3rem 0;
+  margin: 2rem 0;
 
   font-size: 1.2rem;
 `;
 
 export const ProjectGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.2rem;
 
   ${({ theme }) => theme.media.mobile} {
     grid-template-columns: 1fr;
@@ -22,16 +22,17 @@ export const ProjectGrid = styled.div`
 `;
 
 export const ProjectCard = styled.div`
-  border-radius: 8px;
-  margin-bottom: 3rem;
+  padding-bottom: 2.5rem;
 
   font-size: 1rem;
+  border-radius: 6px;
 
   h3 {
-    margin-bottom: 0.8rem;
-    padding-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
+    word-break: auto-phrase;
 
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 1.2;
     border-bottom: 1px solid ${({ theme }) => theme.colors.text};
 
@@ -45,15 +46,14 @@ export const ProjectCard = styled.div`
     flex-wrap: wrap;
     align-items: baseline;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
   }
 
   .tag {
     display: inline-block;
-    padding: 0.3rem 0.5rem;
-    border: 1px solid #27c93f;
+    padding: 0.2rem 0.5rem;
 
-    background-color: #27c93f;
+    background-color: #ff5f57;
 
     color: #fff;
     font-size: 0.9rem;
@@ -71,7 +71,8 @@ export const ProjectCard = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 1rem;
+
+    font-size: 0.9rem;
 
     &-item {
       strong {
@@ -79,7 +80,6 @@ export const ProjectCard = styled.div`
         margin-bottom: 0.5rem;
 
         font-weight: bold;
-        font-size: 1rem;
       }
     }
   }

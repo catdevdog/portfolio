@@ -49,7 +49,7 @@ export const Window = ({
   } = useStore((state) => state);
 
   // Background3D 개수
-  const BACKGROUND_3D_COUNT = 3; // 모바일에서는 2개, 데스크탑에서는 4개
+  const BACKGROUND_3D_COUNT = 4; // 모바일에서는 2개, 데스크탑에서는 4개
 
   // 랜덤 값 생성
   const getRandomRange = (min: number, max: number): number => {

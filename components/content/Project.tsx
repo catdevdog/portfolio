@@ -95,10 +95,12 @@ export const Project = () => {
                     <p>{project["영역 기여"] || "영역 기여도 정보 없음"}%</p>
                   </div>
                 </div>
-                <div className="ai-summary">
-                  <h4>✨ AI 요약</h4>
-                  <p>{project["AI 요약"] || "AI 요약 정보가 없습니다."}</p>
-                </div>
+                {false && (
+                  <div className="ai-summary">
+                    <h4>✨ AI 요약</h4>
+                    <p>{project["AI 요약"] || "AI 요약 정보가 없습니다."}</p>
+                  </div>
+                )}
               </P.ProjectCard>
             );
           })}
