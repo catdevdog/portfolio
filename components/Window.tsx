@@ -197,7 +197,7 @@ export const Window = ({
         x: windowPositions[windowData.name]?.x || 0,
         y:
           windowPositions[windowData.name]?.y ||
-          (windowArr.map((item) => item.state).length - 1) * 60 + 100 ||
+          (windowArr.map((item) => item.state).length - 1) * 60 ||
           100,
         scale: 1,
         opacity: 1,

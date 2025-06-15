@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 export const LoadingContainer = styled.div`
   display: flex;
-  padding: 10rem 0;
+  padding: 8rem 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  min-width: 300px;
 
   .container {
     display: flex;
