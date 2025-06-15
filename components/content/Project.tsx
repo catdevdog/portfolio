@@ -2,6 +2,7 @@ import Link from "next/link";
 import * as S from "./Content.styles";
 import * as P from "./project.styles";
 import { useState, useEffect } from "react";
+import Loading from "@/components/Loading";
 
 type ProjectData = {
   [key: string]: string;
@@ -53,6 +54,9 @@ export const Project = () => {
       <P.Wrap>
         <P.Intro>참여한 주요 프로젝트들입니다.</P.Intro>
 
+        {projectData.length === 0 && (
+          <Loading message="데이터를 불러오는 중..." />
+        )}
         <P.ProjectGrid>
           {projectData.map((project, idx) => {
             console.log("Project:", project);
@@ -99,16 +103,18 @@ export const Project = () => {
                   </div>
                 </div>
                 <div className="description">
-                  {project["업무 요약"]
-                    .split("-")
-                    .splice(1)
-                    .map((item) => {
-                      return (
-                        <p key={item} className="item">
-                          <span aria-hidden>◽</span> {item}
-                        </p>
-                      );
-                    }) || "업무 요약 정보 없음"}
+                  <ul>
+                    {project["업무 요약"]
+                      .split("-")
+                      .splice(1)
+                      .map((item) => {
+                        return (
+                          <li key={item} className="item">
+                            {item}
+                          </li>
+                        );
+                      }) || "업무 요약 정보 없음"}
+                  </ul>
                 </div>
                 {project["URL"] && (
                   <div className="links">

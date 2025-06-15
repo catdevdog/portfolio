@@ -35,7 +35,7 @@ export const ProjectCard = styled.div`
 
     font-size: 1.4rem;
     line-height: 1.2;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.text};
+    border-bottom: 1px solid #666;
 
     ${({ theme }) => theme.media.mobile} {
       font-size: 1.5rem;
@@ -86,7 +86,7 @@ export const ProjectCard = styled.div`
   }
 
   .description {
-    padding: 1rem 0 1.5rem;
+    padding: 1rem 0;
 
     color: ${({ theme }) => theme.colors.text};
     font-size: 0.9rem;
@@ -94,6 +94,16 @@ export const ProjectCard = styled.div`
     white-space: pre-wrap;
     border-radius: 4px;
     word-break: auto-phrase;
+
+    ul {
+      padding-left: 1rem;
+
+      li {
+        &::marker {
+          content: "◽";
+        }
+      }
+    }
   }
 
   .ai-summary {
