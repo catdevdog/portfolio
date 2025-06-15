@@ -35,5 +35,10 @@ const GlobalStyle = createGlobalStyle`
   *:active, *:focus, *:focus-within, *:focus-visible {
     outline: none;
   }
+  
+  a, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 export default GlobalStyle;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 export const Wrap = styled.div`
   margin: 0 auto;
@@ -84,6 +85,17 @@ export const ProjectCard = styled.div`
     }
   }
 
+  .description {
+    padding: 1rem 0 1.5rem;
+
+    color: ${({ theme }) => theme.colors.text};
+    font-size: 0.9rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    border-radius: 4px;
+    word-break: auto-phrase;
+  }
+
   .ai-summary {
     opacity: 0.8;
 
@@ -113,5 +125,46 @@ export const ProjectCard = styled.div`
       white-space: break-spaces;
       word-break: break-all;
     }
+  }
+`;
+
+export const Footer = styled.p`
+  margin-top: 12rem;
+
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 0.9rem;
+  text-align: right;
+  opacity: 0.5;
+
+  a {
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+`;
+
+export const Button = styled(Link)`
+  position: relative;
+  z-index: 1;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.text};
+
+  background-color: transparent;
+
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 1rem;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgb(255 255 255 / 10%);
+  }
+
+  ${({ theme }) => theme.media.mobile} {
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+
+    font-size: 0.9rem;
   }
 `;

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import * as S from "./Content.styles";
 import * as P from "./project.styles";
 import { useState, useEffect } from "react";
@@ -68,6 +69,8 @@ export const Project = () => {
              * URL: string;
              * 비고: string;
              * AI 요약: string;
+             * 프로젝트 요약: string;
+             * 환경 : string;
              */
             return (
               <P.ProjectCard key={idx}>
@@ -95,6 +98,30 @@ export const Project = () => {
                     <p>{project["영역 기여"] || "영역 기여도 정보 없음"}%</p>
                   </div>
                 </div>
+                <div className="description">
+                  {project["업무 요약"]
+                    .split("-")
+                    .splice(1)
+                    .map((item) => {
+                      return (
+                        <p key={item} className="item">
+                          <span aria-hidden>◽</span> {item}
+                        </p>
+                      );
+                    }) || "업무 요약 정보 없음"}
+                </div>
+                {project["URL"] && (
+                  <div className="links">
+                    <P.Button
+                      href={project["URL"]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="프로젝트 링크 열기"
+                    >
+                      보러가기
+                    </P.Button>
+                  </div>
+                )}
                 {false && (
                   <div className="ai-summary">
                     <h4>✨ AI 요약</h4>
@@ -105,6 +132,18 @@ export const Project = () => {
             );
           })}
         </P.ProjectGrid>
+        <P.Footer>
+          Data from{" "}
+          <Link
+            href="https://www.notion.so/20e40554512480069de0dadaf0848a60?v=20e4055451248007ba4c000cd1e4d156"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Notion DB 링크 열기"
+          >
+            Notion DB
+          </Link>{" "}
+          via Notion API
+        </P.Footer>
       </P.Wrap>
     </S.ContentContainer>
   );
