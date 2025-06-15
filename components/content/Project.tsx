@@ -124,7 +124,7 @@ export const Project = () => {
                       rel="noopener noreferrer"
                       aria-label="프로젝트 링크 열기"
                     >
-                      보러가기
+                      Link →
                     </P.Button>
                   </div>
                 )}
