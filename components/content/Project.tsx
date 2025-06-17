@@ -43,7 +43,6 @@ export const Project = () => {
           });
 
           setProjectData(projects);
-          console.log("Project data:", projects);
         }
       })
       .catch((error) => console.error("Error:", error));
@@ -59,7 +58,6 @@ export const Project = () => {
         )}
         <P.ProjectGrid>
           {projectData.map((project, idx) => {
-            console.log("Project:", project);
             /**
              * 프로젝트 데이터 구조
              * 프로젝트: string

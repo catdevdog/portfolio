@@ -54,6 +54,10 @@ export const useCommandProcessor = ({ watch }: TypeCommandProcessorProps) => {
       addSystemCommandHistory("프로젝트를 불러오는 중...");
       validateWindowArr("Project");
     },
+    git: () => {
+      addSystemCommandHistory("깃허브 정보를 불러오는 중...");
+      validateWindowArr("Git");
+    },
     etc: () => {
       addSystemCommandHistory("etc");
     },
