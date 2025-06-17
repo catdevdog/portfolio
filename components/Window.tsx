@@ -97,20 +97,6 @@ export const Window = ({
   const dragControls = useDragControls();
   const animateControls = useAnimation();
   const DynamicDisplay = useMemo(() => {
-    // if (displayContent === "Profile") {
-    //   return dynamic(() =>
-    //     import("@/components/content/Profile").then(
-    //       (mod) => mod[displayContent]
-    //     )
-    //   );
-    // }
-    // if (displayContent === "Project") {
-    //   return dynamic(() =>
-    //     import("@/components/content/Project").then(
-    //       (mod) => mod[displayContent]
-    //     )
-    //   );
-    // }
     return dynamic(() =>
       import(`@/components/content/${displayContent}`).then(
         (mod) => mod[displayContent]

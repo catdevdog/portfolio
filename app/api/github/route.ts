@@ -11,6 +11,11 @@ export async function POST(req: Request) {
       query: `
         query {
           user(login: "${body.username}") {
+            login
+            name
+            avatarUrl
+            url
+            bio
             contributionsCollection {
               contributionCalendar {
                 totalContributions
