@@ -145,8 +145,7 @@ export const Profile = () => {
           </p>
           <P.IntroPlus ref={introRef}>
             <p className="more-intro-chunk">
-              3년간 퍼블리셔로 일하며 웹 서비스 리뉴얼 및 구축 프로젝트를 경험,
-              그중 일부 프로젝트에서 프론트 개발도 함께 맡았습니다.
+              3년간 프론트파트에서 일하며 웹 서비스 리뉴얼 및 구축 프로젝트에서 퍼블리싱과 프론트엔드 개발을 맡았습니다.
             </p>
             <p className="more-intro-chunk">
               참여한 프로젝트 대부분이 react, vue 기반으로 TypeScript, Nuxt,
