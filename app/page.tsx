@@ -111,14 +111,14 @@ export default function Home() {
   const updateVh = () => {
     document.documentElement.style.setProperty(
       "--vh",
-      `${window.innerHeight * 0.01}px`
+      `${window.innerHeight * 0.01}px`,
     );
   };
 
   // active check
   const isActive = (command: string) => {
     return windowArr.some(
-      (window) => window.name.toLowerCase() === command && window.state
+      (window) => window.name.toLowerCase() === command && window.state,
     );
   };
 
@@ -126,7 +126,7 @@ export default function Home() {
   const isFocus = (command: string) => {
     return windowArr.some(
       (window) =>
-        window.name.toLowerCase() === command && window.state && window.focus
+        window.name.toLowerCase() === command && window.state && window.focus,
     );
   };
 
@@ -215,7 +215,7 @@ export default function Home() {
                   key={`${window}_${index}`}
                   dragConstraintsRef={windowConstraintRef}
                 />
-              )
+              ),
             // </AnimatePresence>
           )}
         </S.WindowContainer>

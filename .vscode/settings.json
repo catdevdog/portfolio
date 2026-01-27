@@ -28,7 +28,7 @@
   // 파일마다 다른 인덴트 방식을 자동 감지하지 않도록 비활성화
   "editor.detectIndentation": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": true
+    "source.fixAll.stylelint": "explicit"
   },
 
   "stylelint.validate": ["css", "scss", "javascript", "typescript"]

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import * as S from "./Content.styles";
+import * as S from "./_3d.styles";
 import * as G from "./git.styles";
 
 type TypeGitData = {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import * as S from "./Content.styles";
+import * as S from "./_3d.styles";
 import * as P from "./project.styles";
 import { useState, useEffect } from "react";
 import Loading from "@/components/Loading";
@@ -21,7 +21,7 @@ export const Project = () => {
 
             // 모든 properties를 순회하면서 값 추출
             for (const [key, prop] of Object.entries(
-              project.properties as any
+              project.properties as any,
             )) {
               const property = prop as any;
 

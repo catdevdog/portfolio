@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { rgba } from "polished";
 
 export const Wrap = styled.div`
   display: flex;
@@ -36,7 +37,8 @@ export const content = styled.div`
   &:not(:last-child) {
     margin-bottom: 8rem;
     padding-bottom: 8rem;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.text};
+    /* stylelint-disable-next-line color-function-alias-notation */
+    border-bottom: 1px solid ${({ theme }) => rgba(theme.colors.text, 0.5)};
   }
 
   li {
@@ -54,9 +56,6 @@ export const content = styled.div`
   }
 
   .name {
-    border-left: 1px solid ${({ theme }) => theme.colors.text};
-    padding-left: 1rem;
-
     font-size: 1.1rem;
   }
 
@@ -90,8 +89,7 @@ export const Intro = styled(content)`
   h2 {
     margin-bottom: 2rem;
 
-    font-size: 2.5rem;
-    font-family: unset;
+    font-size: 4rem;
   }
 
   p {
@@ -101,14 +99,46 @@ export const Intro = styled(content)`
   }
 `;
 
+// 자세히 보기 영역
 export const IntroPlus = styled.div`
   visibility: hidden;
   height: 0;
 `;
 
-export const Career = styled(content)``;
+export const Career = styled(content)`
+  .year {
+    flex: 0 0 150px;
+  }
 
-export const Education = styled(content)``;
+  .description {
+    padding-left: calc(150px + 1rem);
+  }
+  ${({ theme }) => theme.media.mobile} {
+    .description {
+      padding-left: 0;
+    }
+  }
+`;
+
+export const Education = styled(content)`
+  .year {
+    flex: 0 0 150px;
+  }
+
+  .description {
+    padding-left: calc(150px + 1rem);
+
+    font-size: 0.85rem;
+    flex: 0 0 auto;
+  }
+
+  ${({ theme }) => theme.media.mobile} {
+    .description {
+      padding-left: 0;
+      flex: 1 0 100%;
+    }
+  }
+`;
 
 export const Skill = styled(content)`
   ul {
@@ -180,4 +210,17 @@ export const Button = styled.button`
 
     font-size: 0.9rem;
   }
+`;
+
+export const CmdShortcut = styled.button`
+  padding: 0;
+  border: none;
+
+  background-color: transparent;
+
+  color: ${({ theme }) => theme.colors.text};
+  font-size: inherit;
+  cursor: pointer;
+  /* stylelint-disable-next-line color-function-alias-notation */
+  border-bottom: 2px dotted ${({ theme }) => rgba(theme.colors.text, 0.5)};
 `;

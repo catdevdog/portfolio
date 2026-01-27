@@ -1,7 +1,7 @@
 import { animate, stagger } from "motion";
 import { splitText } from "motion-plus";
 import { useRef, useState } from "react";
-import * as S from "./Content.styles";
+import * as S from "./_3d.styles";
 import * as P from "./profile.styles";
 
 import { useCommandProcessor } from "@/store/useCommands";
@@ -116,7 +116,7 @@ export const Profile = () => {
           duration: 0.5,
           bounce: 0,
           delay: introPlusState ? chunks.length * 0.3 : 0,
-        }
+        },
       );
     });
   };
@@ -125,15 +125,26 @@ export const Profile = () => {
     <S.ContentContainer>
       <P.Wrap>
         <P.Intro>
-          <h2>
+          {/* <h2>
             안녕하세요.
-            <br /> 강민구입니다.
+          </h2> */}
+          <h2>
+            I build
+            <br /> what I imagine.
           </h2>
           <p>
-            어떤 분야에서든지, 의문이 생기면 해결될 때까지 파고드는 것을
-            좋아합니다.
+            각종 기능, 효과의 구현과 결과를 한번에 관리하기 위해 만든
+            <br /> 포트폴리오이자 플레이그라운드 입니다.
           </p>
+          <p>각 명령어는 하나의 컴포넌트를 가상의 윈도우로 열어 보여줍니다.</p>
           <p>
+            <CmdShortcut command="profile" text="프로필" />과{" "}
+            <CmdShortcut command="project" text="프로젝트" />
+            를 제외한 기타 명령어들은
+            <br /> 터미널의 <CmdShortcut command="guide" text="명령어 안내" />를
+            통해 확인할 수 있습니다.
+          </p>
+          {/* <p>
             프로젝트의 기술부채 해결에 도전하거나, 동료들에게 기술적 도움을 주는
             것을 즐거워합니다. 오랜 학습 기간과 빠른 실무 경험 덕분에 다양한
             환경에 익숙하기도 하며, 뛰어난 메타인지능력을 갖추고 있습니다.
@@ -142,10 +153,11 @@ export const Profile = () => {
             지금 이순간에도 끊임 없이 생겨나는 프론트엔드 기술들을 바로바로
             프로젝트에 접목시키려 노력하며, 이를 위해 다양한 사이드 프로젝트들을
             진행하고있습니다.
-          </p>
-          <P.IntroPlus ref={introRef}>
+          </p> */}
+          {/* <P.IntroPlus ref={introRef}>
             <p className="more-intro-chunk">
-              3년간 프론트파트에서 일하며 웹 서비스 리뉴얼 및 구축 프로젝트에서 퍼블리싱과 프론트엔드 개발을 맡았습니다.
+              3년간 프론트파트에서 일하며 웹 서비스 리뉴얼 및 구축 프로젝트에서
+              퍼블리싱과 프론트엔드 개발을 맡았습니다.
             </p>
             <p className="more-intro-chunk">
               참여한 프로젝트 대부분이 react, vue 기반으로 TypeScript, Nuxt,
@@ -167,20 +179,28 @@ export const Profile = () => {
           </P.IntroPlus>
           <P.Button onClick={handleIntroToggle}>
             {introPlusState ? "접기" : "자세히 보기"}
-          </P.Button>
+          </P.Button> */}
         </P.Intro>
         <P.Career>
           <h2>Career.</h2>
           {/* 🖥️  */}
           <ul>
             <li>
+              <span className="year">2025.06 ~ 2025.10</span>
+              <p className="name">아워홈 몰 관리자 페이지 리뉴얼 프로젝트</p>
+              <p className="description">
+                JSP로 구축된 아워홈 몰 관리자 페이지를 React로 리뉴얼하는
+                프로젝트에 프리랜서로 참여했습니다. 상품 파트를 담당했습니다.
+              </p>
+            </li>
+            <li>
               <span className="year">2021.12 ~ 2025.01</span>
               <p className="name">(주)프리아이브</p>
               <p className="description">
                 웹 서비스 구축 및 리뉴얼 SI 프로젝트에 참여했습니다. 공통
                 컴포넌트 개발, 웹 접근성 인증, 반응형 UI, 다국어 적용 등을
-                경험했습니다. 퍼블리셔로 시작하여 일부 프로젝트에서 프론트엔드
-                영역까지 담당했으며, 다양한 프레임워크 환경에서 작업했습니다.
+                경험했습니다. 퍼블리싱과 일부 프로젝트에서 프론트엔드 영역까지
+                담당했으며, 다양한 프레임워크 환경에서 작업했습니다.
               </p>
               <P.Button onClick={handleProjectClick}>참여 프로젝트</P.Button>
             </li>
@@ -194,17 +214,14 @@ export const Profile = () => {
               <span className="year">2016 ~ 2019</span>
               <p className="name">일산고등학교 멀티미디어디자인과</p>
               <p className="description">
-                동아리 활동을 통해, 기존에 없던 아두이노 프로젝트를 주도해 과 내
-                소규모 경진대회를 여는 등, 자기계발은 물론 학급에도 긍정적인
-                영향을 끼쳤습니다.
+                그래픽 디자인, 영상 편집, 웹 디자인 등의 기초를 배웠습니다.
               </p>
             </li>
             <li>
               <span className="year">2025 ~ 재학중</span>
               <p className="name">한국방송통신대학교 컴퓨터과학과</p>
               <p className="description">
-                첫 직장에서 퇴사 후, 기본적인 CS 이론의 기초를 다지고자
-                컴퓨터과학과 입학을 결정했습니다.
+                컴퓨터과학 전반에 대한 이론을 학습하고 있습니다.
               </p>
             </li>
           </ul>
@@ -231,5 +248,14 @@ export const Profile = () => {
         <P.Contact></P.Contact>
       </P.Wrap>
     </S.ContentContainer>
+  );
+};
+
+const CmdShortcut = ({ command, text }: { command: string; text: string }) => {
+  const handlers = useCommandProcessor({ watch: false }).handlers;
+  return (
+    <>
+      <P.CmdShortcut onClick={() => handlers[command]()}>{text}</P.CmdShortcut>
+    </>
   );
 };

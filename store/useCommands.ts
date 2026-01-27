@@ -38,6 +38,7 @@ export const useCommandProcessor = ({ watch }: TypeCommandProcessorProps) => {
  ┣━ guide: 명령어 안내
  ┣━ profile: 소개 페이지
  ┣━ project: 참여 프로젝트 목록
+ ┣━ _3d: 3D 인터렉션 데모
  ┣━ cls: 이력 초기화
  ┗━ etc: 기타 명령어
 `);
@@ -57,6 +58,10 @@ export const useCommandProcessor = ({ watch }: TypeCommandProcessorProps) => {
     git: () => {
       addSystemCommandHistory("깃허브 정보를 불러오는 중...");
       validateWindowArr("Git");
+    },
+    _3d: () => {
+      addSystemCommandHistory("3D 인터렉션 불러오는 중...");
+      validateWindowArr("_3d");
     },
     etc: () => {
       addSystemCommandHistory("etc");

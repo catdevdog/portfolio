@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// 컨텐츠 전체 공통
 export const ContentContainer = styled.div`
   position: relative;
   padding: ${({ theme }) => theme.spacing.lg} 4rem;
