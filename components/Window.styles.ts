@@ -164,6 +164,8 @@ export const Background3D = styled(motion.div)`
     width: 100%;
     height: 100%;
     opacity: 0.1;
+    // border: 1px solid #8f8f8f;
+    // box-sizing: border-box;
   }
 
   .front {

@@ -1,11 +1,14 @@
 import { create } from "zustand";
+import { TypeWindowData } from "@/components/Window";
 
 interface CommandHistoryItem {
+  // 명령어 이력 항목
   type: "user" | "sys";
   command: string;
 }
 
 interface windowPosition {
+  // 창 위치
   x: number;
   y: number;
 }
@@ -24,11 +27,7 @@ interface StoreState {
   setDisplayOpen: (open: boolean) => void;
 
   // 디스플레이 상태 / 현재 디스플레이에 표기 할 것
-  windowArr: {
-    name: string;
-    state: boolean;
-    focus: boolean; // 포커스 상태
-  }[];
+  windowArr: TypeWindowData[];
   addWindow: (Window: string) => void;
   removeWindow: (Window: string) => void;
 
@@ -55,6 +54,13 @@ interface StoreState {
   setFocusDisplay: (open: boolean) => void;
 }
 
+// 창별 커스텀 설정, TODO: 현재 window관련 값은 훅에서만 사용하는데, 어떻게 관리할지?
+const customWindowSettings = {
+  _3d: {
+    bg: false,
+  },
+};
+
 export const useStore = create<StoreState>((set) => ({
   theme: "dark",
   setTheme: (theme) => set({ theme }),
@@ -66,17 +72,22 @@ export const useStore = create<StoreState>((set) => ({
   addWindow: (Window) =>
     set((state) => {
       const existingWindow = state.windowArr.find(
-        (item) => item.name === Window
+        (item) => item.name === Window,
       );
       if (existingWindow) {
         return {
           windowArr: state.windowArr.map((item) =>
             item.name === Window
-              ? { ...item, state: true, focus: true }
+              ? {
+                  ...item,
+                  state: true,
+                  focus: true,
+                  bg: customWindowSettings[Window]?.bg ?? true, // 기존 설정 유지 또는 기본값 사용
+                }
               : {
                   ...item,
                   focus: false, // 다른 창을 열면 포커스 해제
-                }
+                },
           ),
         };
       }
@@ -86,14 +97,26 @@ export const useStore = create<StoreState>((set) => ({
             ...item,
             focus: false, // 다른 창을 열면 포커스 해제
           })),
-          { name: Window, state: true, focus: true },
+          {
+            name: Window,
+            state: true,
+            focus: true,
+            bg: customWindowSettings[Window]?.bg ?? true,
+          },
         ],
       };
     }),
   removeWindow: (Window) =>
     set((state) => ({
       windowArr: state.windowArr.map((item) =>
-        item.name === Window ? { ...item, state: false, focus: false } : item
+        item.name === Window
+          ? {
+              ...item,
+              state: false,
+              focus: false,
+              bg: customWindowSettings[Window]?.bg ?? true,
+            }
+          : item,
       ),
     })),
 

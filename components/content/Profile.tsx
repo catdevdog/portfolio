@@ -133,7 +133,7 @@ export const Profile = () => {
             <br /> what I imagine.
           </h2>
           <p>
-            각종 기능, 효과의 구현과 결과를 한번에 관리하기 위해 만든
+            기능, 효과의 구현과 결과를 한번에 관리하기 위해 만든
             <br /> 포트폴리오이자 플레이그라운드 입니다.
           </p>
           <p>각 명령어는 하나의 컴포넌트를 가상의 윈도우로 열어 보여줍니다.</p>
@@ -190,7 +190,7 @@ export const Profile = () => {
               <p className="name">아워홈 몰 관리자 페이지 리뉴얼 프로젝트</p>
               <p className="description">
                 JSP로 구축된 아워홈 몰 관리자 페이지를 React로 리뉴얼하는
-                프로젝트에 프리랜서로 참여했습니다. 상품 파트를 담당했습니다.
+                프로젝트에 프리랜서로 참여했습니다.
               </p>
             </li>
             <li>
@@ -218,7 +218,7 @@ export const Profile = () => {
               </p>
             </li>
             <li>
-              <span className="year">2025 ~ 재학중</span>
+              <span className="year">2025 ~ </span>
               <p className="name">한국방송통신대학교 컴퓨터과학과</p>
               <p className="description">
                 컴퓨터과학 전반에 대한 이론을 학습하고 있습니다.

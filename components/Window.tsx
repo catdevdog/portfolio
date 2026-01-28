@@ -15,10 +15,11 @@ import Image from "next/image";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { BackgroundRenderer } from "./BackgroundRenderer";
 
-type TypeWindowData = {
+export type TypeWindowData = {
   name: string;
   state: boolean;
   focus: boolean; // 포커스 상태
+  bg?: boolean; // 배경 표시 여부
 };
 
 export const Window = ({
@@ -40,6 +41,7 @@ export const Window = ({
   const { scrollYProgress } = useScroll({ container: scrollTargetRef });
   const scrollPer = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
+  console.log(windowData);
   const {
     windowArr,
     windowPositions,
@@ -64,19 +66,19 @@ export const Window = ({
   const generateRandomTransforms = () => ({
     xRange: [getRandomRange(-200, 800), getRandomRange(-200, 1200)] as [
       number,
-      number
+      number,
     ],
     yRange: [getRandomRange(-400, 800), getRandomRange(-400, 2000)] as [
       number,
-      number
+      number,
     ],
     rotateXRange: [getRandomRange(-150, 150), getRandomRange(-150, 150)] as [
       number,
-      number
+      number,
     ],
     rotateYRange: [getRandomRange(-150, 150), getRandomRange(-150, 150)] as [
       number,
-      number
+      number,
     ],
     scale: getRandomRange(0.5, 5),
   });
@@ -88,7 +90,7 @@ export const Window = ({
         id: `bg3d-${index}`,
         ...generateRandomTransforms(),
       })),
-    [windowRefreshKey]
+    [windowRefreshKey],
   );
 
   const displayContent =
@@ -96,11 +98,13 @@ export const Window = ({
 
   const dragControls = useDragControls();
   const animateControls = useAnimation();
+
+  // 동적 컴포넌트 로드 useMemo로 최적화
   const DynamicDisplay = useMemo(() => {
     return dynamic(() =>
       import(`@/components/content/${displayContent}`).then(
-        (mod) => mod[displayContent]
-      )
+        (mod) => mod[displayContent],
+      ),
     );
     // return null;
   }, [displayContent, windowRefreshKey]);
@@ -262,7 +266,6 @@ export const Window = ({
         </S.WindowTrafficLightWrap>
         <S.WindowTitle>{windowData.name}</S.WindowTitle>
       </S.WindowHeader>
-
       <S.ScrollPercentageBar
         style={{
           scaleX: scrollPer,
@@ -271,15 +274,15 @@ export const Window = ({
         // initial={{ scaleX: 0 }}
         transition={{ ease: "easeOut", duration: 0.2 }}
       />
-
       {/* 다중 Background3D 렌더링 */}
-      {background3DConfigs.map((config) => (
-        <BackgroundRenderer
-          key={config.id}
-          config={config}
-          scrollYProgress={scrollYProgress}
-        />
-      ))}
+      {windowData.bg &&
+        background3DConfigs.map((config) => (
+          <BackgroundRenderer
+            key={config.id}
+            config={config}
+            scrollYProgress={scrollYProgress}
+          />
+        ))}
       <S.WindowContent ref={scrollTargetRef} $maximized={maximumState}>
         <Suspense fallback={<div>Loading...</div>}>
           {DynamicDisplay && <DynamicDisplay />}
