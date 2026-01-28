@@ -33,12 +33,12 @@ export const useCommandProcessor = ({ watch }: TypeCommandProcessorProps) => {
       setStartState(true);
     },
     guide: () => {
+      //┣━ _3d: 3D 인터렉션 데모
       addSystemCommandHistory(`
  명령어 목록
  ┣━ guide: 명령어 안내
  ┣━ profile: 소개 페이지
  ┣━ project: 참여 프로젝트 목록
- ┣━ _3d: 3D 인터렉션 데모
  ┣━ cls: 이력 초기화
  ┗━ etc: 기타 명령어
 `);
