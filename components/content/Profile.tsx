@@ -1,6 +1,6 @@
-import { animate, stagger } from "motion";
-import { splitText } from "motion-plus";
-import { useRef, useState } from "react";
+// import { animate, stagger } from "motion";
+// import { splitText } from "motion-plus";
+// import { useRef, useState } from "react";
 import * as S from "./_3d.styles";
 import * as P from "./profile.styles";
 
@@ -71,55 +71,55 @@ const skills = [
 ];
 
 export const Profile = () => {
-  const introRef = useRef<HTMLDivElement>(null);
-  const [introPlusState, setIntroPlusState] = useState<boolean>(false);
+  // const introRef = useRef<HTMLDivElement>(null);
+  // const [introPlusState, setIntroPlusState] = useState<boolean>(false);
   const { handlers } = useCommandProcessor({ watch: false });
 
   const handleProjectClick = () => {
     handlers.project();
   };
 
-  const handleIntroToggle = () => {
-    setIntroPlusState((prev) => !prev);
+  // const handleIntroToggle = () => {
+  //   setIntroPlusState((prev) => !prev);
 
-    document.fonts.ready.then(() => {
-      if (!introRef.current) return;
-      const wrapper = introRef.current;
-      wrapper.style.visibility = "visible";
+  //   document.fonts.ready.then(() => {
+  //     if (!introRef.current) return;
+  //     const wrapper = introRef.current;
+  //     wrapper.style.visibility = "visible";
 
-      const chunks = Array.from(wrapper.querySelectorAll(".more-intro-chunk"));
+  //     const chunks = Array.from(wrapper.querySelectorAll(".more-intro-chunk"));
 
-      chunks.forEach((chunk) => {
-        const { words } = splitText(chunk as HTMLElement);
+  //     chunks.forEach((chunk) => {
+  //       const { words } = splitText(chunk as HTMLElement);
 
-        // 애니메이션 옵션
-        const option = {
-          opacity: introPlusState ? [1, 0] : [0, 1],
-          y: introPlusState ? [0, 10] : [10, 0],
-        };
+  //       // 애니메이션 옵션
+  //       const option = {
+  //         opacity: introPlusState ? [1, 0] : [0, 1],
+  //         y: introPlusState ? [0, 10] : [10, 0],
+  //       };
 
-        animate(words, option, {
-          type: "spring",
-          duration: 1,
-          bounce: 0,
-          delay: stagger(0.02),
-        });
-      });
-      animate(
-        introRef.current,
-        {
-          height: introPlusState ? ["auto", "0px"] : ["0px", "auto"],
-          opacity: introPlusState ? [1, 0] : [0, 1],
-        },
-        {
-          type: "spring",
-          duration: 0.5,
-          bounce: 0,
-          delay: introPlusState ? chunks.length * 0.3 : 0,
-        },
-      );
-    });
-  };
+  //       animate(words, option, {
+  //         type: "spring",
+  //         duration: 1,
+  //         bounce: 0,
+  //         delay: stagger(0.02),
+  //       });
+  //     });
+  //     animate(
+  //       introRef.current,
+  //       {
+  //         height: introPlusState ? ["auto", "0px"] : ["0px", "auto"],
+  //         opacity: introPlusState ? [1, 0] : [0, 1],
+  //       },
+  //       {
+  //         type: "spring",
+  //         duration: 0.5,
+  //         bounce: 0,
+  //         delay: introPlusState ? chunks.length * 0.3 : 0,
+  //       },
+  //     );
+  //   });
+  // };
 
   return (
     <S.ContentContainer>
