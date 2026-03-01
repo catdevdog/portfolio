@@ -145,7 +145,10 @@ export default function Home() {
 
   useEffect(() => {
     commandInputRef.current?.focus();
-    themeButtonRef.current?.pause();
+    // 초기 테마에 맞게 Lottie 프레임 설정
+    if (themeButtonRef.current) {
+      themeButtonRef.current.goToAndStop(theme === "dark" ? 12 : 0, true);
+    }
     window.addEventListener("resize", updateVh);
     // 뷰포트 높이 업데이트
     handlers.start();
